@@ -1,9 +1,9 @@
 <template>
-  <section>
+  <div>
     <main>
       <router-view></router-view>
     </main>
-  </section>
+  </div>
 </template>
 
 <script setup>
