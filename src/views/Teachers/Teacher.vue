@@ -145,7 +145,7 @@
               </thead>
               <tbody>
                 <tr class="border-b dark:border-gray-700">
-                  <th scope="row" class="text-center py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <th scope="row" class="text-center px-8 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     Hayriddin Normamatov
                   </th>
                   <td class="text-center font-medium text-blue-800 px-8 py-2">
