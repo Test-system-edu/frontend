@@ -287,5 +287,6 @@
     background-image: linear-gradient(to right, rgb(138, 183, 254) -250%, #2f73f0);
   }
   
-  // #056674</style>
+  // #056674
+</style>
   
