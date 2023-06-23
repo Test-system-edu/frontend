@@ -25,6 +25,7 @@
                     class="w-full bg-blue-600 text-white hover:bg-white hover:text-blue-900 hover:border-blue-900 py-2 sm:py-[10px] rounded-md">
                     Kirish
                 </button>
+                
             </form>
         </div>
     </div>
