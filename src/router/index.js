@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Dashboard from '../views/Dashboard.vue'
+import { HomeView, Dashboard, Students, Teachers, Login, Error } from '../views'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,24 +7,34 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: Dashboard,
+      component: HomeView,
       children: [
         {
-          path: '/teacher',
-          name: 'teacher',
-          component: () => import('../views/Teachers/Teacher.vue')
+          path: '/',
+          name: 'dashboard',
+          component: Dashboard,
         },
         {
-          path: '/student',
-          name: 'student',
-          component: () => import('../views/Students/Student.vue')
-        }
+          path: '/teachers',
+          name: 'teachers',
+          component: Teachers,
+        },
+        {
+          path: '/students',
+          name: 'students',
+          component: Students,
+        },
       ]
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/Login/Login.vue')
+      component: Login,
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'error',
+      component: Error,
     }
   ]
 })
