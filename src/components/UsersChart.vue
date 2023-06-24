@@ -14,6 +14,7 @@ export default {
         animationEnabled: true,
         backgroundColor: "#FFF",
         exportEnabled: true,
+        responsive: true,
         title: {
           text: "Number of Students",
           horizontalAlign: "left",
@@ -72,6 +73,7 @@ export default {
         animationEnabled: true,
         backgroundColor: "#203843",
         exportEnabled: true,
+        responsive: true,
         title: {
           text: "Number of Students",
           horizontalAlign: "left",

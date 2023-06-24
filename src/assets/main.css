@@ -12,5 +12,5 @@ body{
 
 ::-webkit-scrollbar{
     width: 2px;
-    background: #000;
+    height: 0;
 }

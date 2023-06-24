@@ -5,9 +5,30 @@
       <h1 class="text-2xl sm:text-[28px] font-bold text-center py-5">
         Tizimga kirish
       </h1>
-      <form>
+      <form @submit.prevent="formInfo">
         <div class="mb-4">
           <label for="email" class="block mb-2 font-semibold">Login</label>
+          <input
+            type="email"
+            id="email"
+            v-model="form.email"
+            class="w-full p-2 sm:p-[10px] border rounded-[9px]"
+            placeholder="login"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block mt-3 sm:mt-9 mb-2 font-semibold"
+            >Parol</label
+          >
+          <input
+            type="password"
+            id="password"
+            v-model="form.password"
+            class="w-full p-2 sm:p-[10px] border rounded-[9px]"
+            placeholder="••••••••"
+            required
+          />
           <input type="email" id="email" v-model="email" class="w-full p-2 sm:p-[10px] border rounded-[9px]"
             placeholder="login" required />
         </div>
@@ -32,7 +53,33 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import {reactive} from "vue";
+import axios from '@/services/axios';
+import {useRouter} from "vue-router"
+const router = useRouter();
+const form = reactive({
+  password: "",
+  email: "",
+})
+
+const formInfo = () => {
+  console.log(form.email, form.password);
+  axios.post('admin/login', {
+    email: form.email,
+    password: form.password,
+  })
+  .then(res => {
+    if (res.status == 201){
+      localStorage.setItem('AdminToken', res.data.access_token);
+      router.push('/');
+    }
+  })
+  .catch(error => {
+    console.log(error, 'dsdshdjdjshsh');
+  })
+}
+</script>
 
 <style lang="scss" scoped>
 .base {
