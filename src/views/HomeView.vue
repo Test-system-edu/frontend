@@ -15,7 +15,6 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
 import { Sidebar, Navbar } from "../components";
 import { useNavStore } from "../stores/toggle";
 import { useSidebarStore } from "../stores/sidebar.js";
