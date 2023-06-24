@@ -159,17 +159,7 @@ export default {
 </script>
 <template>
   <div>
-    <CanvasJSChart
-      v-show="!navbar.userNav"
-      :options="options"
-      :style="styleOptions"
-      @chart-ref="chartInstance"
-    />
-    <CanvasJSChart
-      v-show="navbar.userNav"
-      :options="darkOptions"
-      :style="styleOptions"
-      @chart-ref="chartInstance"
-    />
+    <CanvasJSChart v-show="!navbar.userNav" :options="options" :style="styleOptions" @chart-ref="chartInstance" />
+    <CanvasJSChart v-show="navbar.userNav" :options="darkOptions" :style="styleOptions" @chart-ref="chartInstance" />
   </div>
 </template>

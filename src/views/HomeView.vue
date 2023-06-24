@@ -4,19 +4,15 @@
       <Navbar />
     </header>
     <Sidebar />
-    <main
-      @mousedown="sidebar.sidebar = true"
+    <main @mousedown="sidebar.sidebar = true"
       class="bg-gray-200 pt-14 px-2 sm:ml-64 pb-4 overflow-y-auto max-h-[93vh] overflow-hidden min-h-screen"
-      :class="{ 'bg-white': navbar.userNav }"
-    >
+      :class="{ 'bg-white': navbar.userNav }">
       <router-view></router-view>
     </main>
   </div>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
-import { Sidebar, Navbar } from "../components";
 import { useNavStore } from "../stores/toggle";
 import { useSidebarStore } from "../stores/sidebar.js";
 

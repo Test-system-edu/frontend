@@ -1,20 +1,14 @@
 <template>
   <aside
     class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform duration-700 -translate-x-full bg-gray-200 border-r sm:translate-x-0"
-    :class="sidebar.sidebar ? '-translate-x-full' : 'translate-x-0'"
-    @mousedown="sidebar.sidebar = true"
-  >
-    <div
-      class="h-full px-3 py-4 pb-4 overflow-y-auto"
-      :class="{ 'bg-[#203843]': navbar.userNav, 'bg-white': !navbar.userNav }"
-    >
+    :class="sidebar.sidebar ? '-translate-x-full' : 'translate-x-0'" @mousedown="sidebar.sidebar = true">
+    <div class="h-full px-3 py-4 pb-4 overflow-y-auto"
+      :class="{ 'bg-[#203843]': navbar.userNav, 'bg-white': !navbar.userNav }">
       <ul class="space-y-2 font-medium">
         <li v-for="i in header" :key="i.id">
           <router-link
             class="flex items-center border border-dashed border-gray-300 text-lg p-2 cursor-pointer duration-500 hover:bg-[#8080801f] rounded-lg gap-2"
-            :class="{ 'text-white': navbar.userNav }"
-            :to="i.link"
-          >
+            :class="{ 'text-white': navbar.userNav }" :to="i.link">
             <i :class="i.icon"></i><span>{{ i.title }}</span>
           </router-link>
         </li>
