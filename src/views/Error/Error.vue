@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gradient-to-r from-purple-300 to-blue-200">
+  <div class="bg-gradient-to-r from-purple-300 hello to-blue-200">
     <div class="w-9/12 m-auto py-16 min-h-screen flex items-center justify-center">
       <div class="shadow-lg shadow-black overflow-hidden w-[70%] sm:rounded-3xl pb-8"
         :class="navbar.userNav ? 'bg-[#203843] text-white shadow-white' : 'bg-white'">
