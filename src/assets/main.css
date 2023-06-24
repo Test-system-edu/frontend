@@ -5,3 +5,12 @@
 body{
     overflow: hidden;
 }
+
+*{
+    transition-duration: 0.2s;
+}
+
+::-webkit-scrollbar{
+    width: 2px;
+    background: #000;
+}

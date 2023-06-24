@@ -6,11 +6,11 @@
     <div
       :class="
         modal
-          ? 'overflow-y-auto flex bg-[rgba(0,0,0,0.5)] overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full'
+          ? 'absolute overflow-y-auto flex bg-[rgba(0,0,0,0.5)] overflow-x-hidden z-50 justify-center items-center w-full inset-0 h-full'
           : 'hidden'
       "
     >
-      <div class="relative p-4 w-full max-w-5xl h-full md:h-auto">
+      <div class="relative p-4 w-full max-w-5xl h-auto">
         <!-- Modal content -->
         <div
           class="relative p-4 rounded-lg shadow sm:p-5"
@@ -18,7 +18,7 @@
         >
           <!-- Modal header -->
           <div
-            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
+            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5"
           >
             <h3
               class="text-lg"
@@ -29,7 +29,7 @@
             <button
               @click="toggleModal"
               type="button"
-              class="bg-transparent hover:bg-gray-200 hover rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              class="bg-transparent hover:bg-gray-200 hover rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
               <svg
@@ -48,7 +48,7 @@
             </button>
           </div>
           <!-- Modal body -->
-          <form :class="{'darkForm':navbar.userNav}">
+          <form :class="{ darkForm: navbar.userNav }">
             <div class="grid font-medium gap-4 mb-4 sm:grid-cols-2">
               <div>
                 <label for="name" class="block mb-2 text-sm"
@@ -58,7 +58,7 @@
                   type="text"
                   name="name"
                   id="name"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-green-500 dark:focus:border-green-500"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                   placeholder="To'liq ismini kiriting"
                 />
               </div>
@@ -70,42 +70,35 @@
                   type="text"
                   name="phone"
                   id="phone"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-green-500 dark:focus:border-green-500"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                   placeholder="Telefon raqamini kiriting"
                 />
               </div>
               <div>
-                <label for="login" class="block mb-2 text-sm"
-                  >Login</label
-                >
+                <label for="login" class="block mb-2 text-sm">Login</label>
                 <input
                   type="text"
                   name="login"
                   id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-green-500 dark:focus:border-green-500"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                   placeholder="login"
                 />
               </div>
               <div>
-                <label for="password" class="block mb-2 text-sm"
-                  >Parol</label
-                >
+                <label for="password" class="block mb-2 text-sm">Parol</label>
                 <input
                   type="password"
                   name="password"
                   id="password"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-green-500 dark:focus:border-green-500"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                   placeholder="*********"
                 />
               </div>
               <div>
-                <label
-                  for="category"
-                  class="block mb-2 text-sm"
-                ></label>
+                <label for="category" class="block mb-2 text-sm"></label>
                 <select
                   id="category"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-green-500 dark:focus:border-green-500"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                 >
                   <option selected disabled>Nimadur</option>
                   <option value="nimadur">Nimadur</option>
@@ -120,7 +113,7 @@
                 ></label>
                 <select
                   id="category"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-green-500 dark:focus:border-green-500"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                 >
                   <option selected disabled>Nimadur</option>
                   <option value="nimadur">Nimadur</option>
@@ -134,13 +127,13 @@
             >
               <button
                 type="submit"
-                class="border inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                class="border cursor-pointer inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Bekor qilish
               </button>
               <button
                 type="submit"
-                class="btnAdd text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                class="btnAdd cursor-pointer text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Qo'shish
               </button>
@@ -154,41 +147,46 @@
 
     <!-- ----------------------------------------- EMPLYE TABLE ------------------------------------------------- -->
 
-    <section
-      class="p-0 sm:p-5 md:p-0 md:pt-4"
-      :class="{ 'text-white': navbar.userNav }"
-    >
+    <section class="pt-4" :class="{ 'text-white': navbar.userNav }">
+      <!------------------------------------------- Placeholder ------------------------------------------->
       <div v-show="!store.data">
         <Placeholder2 />
       </div>
-      <div v-show="store.data" class="w-full max-w-screen px-0 lg:p-0">
+      <!------------------------------------------- Placeholder ------------------------------------------->
+
+      <!------------------------------------------- Search ------------------------------------------->
+
+      <div v-show="store.data" class="w-full max-w-screen">
         <!-- Start coding here -->
         <div
-          class="shadow rounded-xl flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4 mb-4"
+          class="shadow rounded-xl flex flex-col lg:flex-row items-center justify-between lg:space-x-4 p-4 mb-4"
           :class="navbar.userNav ? 'bg-[#203843]' : 'bg-white'"
         >
-          <div class="w-full flex items-center gap-5">
+          <div
+            class="w-full flex items-center lg:justify-start lg:pb-0 pb-4 justify-between gap-5"
+          >
             <h1 class="text-blue-700 font-bold text-lg">O'qituvchilar</h1>
             <div
-              class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3"
+              class="lg:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3"
             >
               <button
                 @click="toggleModal"
                 id=""
                 type="button"
-                class="btnAdd flex items-center justify-center border border-gray-200 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2"
+                class="btnAdd flex items-center max-w-fit justify-center whitespace-nowrap border border-gray-200 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 sm:py-2"
               >
-                O'qituvchi qo'shish
+                <span class="sm:block hidden">O'qituvchi qo'shish</span>
+                <i class="sm:hidden block bx bxs-user-plus text-lg"></i>
               </button>
             </div>
           </div>
 
-          <div class="w-full md:w-60">
-            <form class="flex items-center">
+          <div class="w-full lg:w-80">
+            <form class="flex items-center text-gray-900 font-medium">
               <label for="simple-search" class="sr-only">Qidiruv</label>
               <div class="relative w-full">
                 <div
-                  class="absolute text-gray-900 inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+                  class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
                 >
                   <svg
                     aria-hidden="true"
@@ -207,21 +205,23 @@
                 <input
                   type="text"
                   id="simple-search"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
                   placeholder="Izlash uchun yozing .."
                 />
               </div>
             </form>
           </div>
         </div>
+        <!------------------------------------------- Search ------------------------------------------->
+
         <div
-          class="relative shadow-md sm:rounded-lg overflow-hidden"
+          class="relative shadow-md rounded-lg overflow-hidden"
           :class="navbar.userNav ? 'bg-[#203843]' : 'bg-white'"
         >
           <div class="overflow-x-auto">
             <table class="w-full text-sm text-left">
               <thead
-                class="text-xs rounded-lg uppercase dark:bg-gray-700"
+                class="text-xs rounded-lg uppercase"
                 :class="navbar.userNav ? 'bg-gray-700' : 'bg-gray-50'"
               >
                 <tr>
@@ -234,7 +234,7 @@
               </thead>
               <tbody>
                 <tr
-                  class="border-b hover:bg-gray-50 dark:border-gray-700"
+                  class="border-b hover:bg-gray-50"
                   :class="
                     navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
                   "
@@ -248,15 +248,17 @@
                     Hayriddin Normamatov
                   </th>
                   <td class="text-center font-medium text-blue-800 px-8 py-2">
-                    <p class="bg-blue-100 rounded-[5px] py-1">
+                    <p
+                      class="bg-blue-100 min-w-fit rounded-[5px] p-1 whitespace-nowrap"
+                    >
                       Dasturiy ta'minot
                     </p>
                   </td>
                   <td class="text-center font-medium text-red-800 px-8 py-2">
-                    <p class="bg-red-100 rounded-[5px] py-1">+998901234567</p>
+                    <p class="bg-red-100 rounded-[5px] p-1">+998901234567</p>
                   </td>
                   <td class="text-center font-medium text-green-800 px-8 py-2">
-                    <p class="bg-green-100 rounded-[5px] py-1">active</p>
+                    <p class="bg-green-100 rounded-[5px] p-1">active</p>
                   </td>
                   <td class="text-center font-medium px-8 py-3">
                     <button
@@ -271,7 +273,7 @@
             </table>
           </div>
           <nav
-            class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+            class="flex flex-row justify-between items-center md:items-center space-y-3 md:space-y-0 p-4"
             aria-label="Table navigation"
           >
             <span class="text-sm font-normal">
@@ -284,7 +286,7 @@
               <li>
                 <a
                   href="#"
-                  class="flex font-bold text-black items-center justify-center text-sm py-2 px-6 rounded-lg leading-tight bg-white border border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white"
+                  class="flex font-bold text-black bg-white items-center justify-center text-sm py-2 sm:mt-0 -mt-2 px-6 rounded-lg leading-tight"
                   >Next</a
                 >
               </li>
