@@ -9,15 +9,10 @@ export const useNavStore = defineStore('toggle', () => {
     userNav.value = false;
   }
 
-  const setDarkMode = () => {
-    localStorage.setItem('darkMode', true);
-    userNav.value = true;
+  const setMode = () => {
+    localStorage.setItem('darkMode', !userNav.value);
+    userNav.value = !userNav.value;
   }
 
-  const setLightMode = () => {
-    localStorage.setItem('darkMode', false);
-    userNav.value = false;
-  }
-
-  return { userNav, setDarkMode, setLightMode };
+  return { userNav, setMode };
 })
