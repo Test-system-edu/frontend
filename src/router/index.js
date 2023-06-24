@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { HomeView, Dashboard, Students, Teachers, Login, Error, Tests } from '../views'
+import { HomeView, Dashboard, Students, Teachers, Login, Error, Tests , SlugStudent, SlugTeachers } from '../views'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,10 +25,15 @@ const router = createRouter({
           component: Students,
         },
         {
-          path: '/tests',
-          name: 'tests',
-          component: Tests,
-        }
+          path: '/students/:id/:name',
+          name: 'slug_students',
+          component: SlugStudent,
+        },
+        {
+          path: '/teachers/:id/:name',
+          name: 'slug_teachers',
+          component: SlugTeachers,
+        },
       ]
     },
     {
@@ -40,7 +45,7 @@ const router = createRouter({
       path: '/:pathMatch(.*)*',
       name: 'error',
       component: Error,
-    }
+    },
   ]
 })
 

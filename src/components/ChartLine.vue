@@ -1,8 +1,6 @@
 <script>
 import CanvasJSChart from "../assets/CanvasJSVueComponent.vue";
 import { useNavStore } from "../stores/toggle";
-
-import * as CanvasJS from "@canvasjs/charts";
 export default {
   components: {
     CanvasJSChart,
@@ -151,8 +149,8 @@ export default {
       },
       styleOptions: {
         lineHeight: "50px",
-        width: "95%",
-        height: "360px",
+        width: "100%",
+        height: "100%",
       },
     };
   },
@@ -160,15 +158,7 @@ export default {
 </script>
 <template>
   <div>
-    <CanvasJSChart
-      v-show="!navbar.userNav"
-      :options="options"
-      :styles="styleOptions"
-    />
-    <CanvasJSChart
-      v-show="navbar.userNav"
-      :options="darkOptions"
-      :styles="styleOptions"
-    />
+    <CanvasJSChart v-show="!navbar.userNav" :options="options" :styles="styleOptions" />
+    <CanvasJSChart v-show="navbar.userNav" :options="darkOptions" :styles="styleOptions" />
   </div>
 </template>
