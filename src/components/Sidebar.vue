@@ -3,7 +3,7 @@
     class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-gray-200 border-r sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
   >
     <div
-      class="h-full px-3 py-4 pb-4 overflow-y-auto dark:bg-gray-800"
+      class="h-full px-3 py-4 pb-4 overflow-y-auto"
       :class="{ 'bg-[#203843]': navbar.userNav, 'bg-white': !navbar.userNav }"
     >
       <ul class="space-y-2 font-medium">
