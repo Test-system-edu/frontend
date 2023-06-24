@@ -13,7 +13,7 @@
           <div class="flex items-center justify-start">
             <router-link to="/" class="flex ml-2 md:mr-24">
               <img
-                src="../../public/TATU.jpg"
+                src="../assets/img/TATU.jpg"
                 class="h-8 mr-3 rounded-full"
                 alt="FlowBite Logo"
               />
