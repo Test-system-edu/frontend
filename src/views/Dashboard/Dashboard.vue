@@ -1,14 +1,14 @@
 <template>
   <section :class="{ 'text-white': navbar.userNav }">
-    <div v-show="store.data" class="rounded-lg py-4">
+    <div v-show="store.data" class="rounded-lg pt-4">
+      <!------------------------------------------------------------- Cards ------------------------------------------------------------->
+
       <div class="flex flex-wrap">
-        <!-- card1 -->
         <div
           class="w-full max-w-full px-2 mb-4 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4"
           v-for="(i, index) in 4"
           :key="i"
         >
-          <!-- card -->
           <div
             class="relative flex flex-col min-w-0 break-words shadow-soft-xl rounded-lg bg-clip-border"
             :class="{
@@ -64,7 +64,9 @@
         </div>
       </div>
 
-      <!-- Charts -->
+      <!------------------------------------------------------------- Cards end ------------------------------------------------------------->
+
+      <!------------------------------------------------------------- Charts ---------------------------------------------------------------->
 
       <div class="flex gap-4 px-2 py-4 items-center">
         <div
@@ -86,6 +88,10 @@
           <UserChart class="w-[90%] mx-auto" />
         </div>
       </div>
+
+      <!------------------------------------------------------------- Charts ---------------------------------------------------------------->
+
+      <!------------------------------------------------------------- Table 1 ---------------------------------------------------------------->
 
       <div class="flex gap-4 px-2">
         <!-- Table start -->
@@ -170,7 +176,10 @@
           </table>
         </div>
 
-        <!-- Student activity -->
+        <!------------------------------------------------------------- Table 1 end ---------------------------------------------------------------->
+
+        <!------------------------------------------------------------- Student activity  ---------------------------------------------------------------->
+
         <div
           class="relative overflow-x-auto sm:rounded-lg w-1/2"
           :class="{
@@ -225,6 +234,11 @@
           </table>
         </div>
       </div>
+
+      <!------------------------------------------------------------- Student activity end ---------------------------------------------------------------->
+
+      <!------------------------------------------------------------- Cards ---------------------------------------------------------------->
+
       <div class="flex flex-wrap mt-4">
         <!-- card1 -->
         <div
@@ -291,47 +305,21 @@
       </div>
     </div>
 
-    <!-- Placeholder -->
+    <!------------------------------------------------------------- Cards end ---------------------------------------------------------------->
+
+    <!------------------------------------------------------------- Placeholder ---------------------------------------------------------------->
 
     <div v-show="!store.data">
-      <div
-        class="px-2 border-2 pt-4 border-dashed rounded-lg dark:border-gray-700"
-      >
-        <div class="grid grid-cols-4 gap-4 mb-4">
-          <div
-            v-for="i in 4"
-            :key="i"
-            class="animate-pulse flex items-center justify-center h-20 rounded-lg bg-gray-700 dark:bg-gray-800"
-          >
-            <p class="text-2xl text-gray-400 dark:text-gray-500"></p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4 mb-4">
-          <div
-            v-for="i in 4"
-            :key="i"
-            class="animate-pulse flex items-center justify-center rounded-lg h-[23.9rem] bg-gray-700 dark:bg-gray-800"
-          ></div>
-        </div>
-
-        <div class="grid grid-cols-4 gap-4 mb-4">
-          <div
-            v-for="i in 4"
-            :key="i"
-            class="animate-pulse flex items-center justify-center h-20 rounded-lg bg-gray-700 dark:bg-gray-800"
-          >
-            <p class="text-2xl text-gray-400 dark:text-gray-500"></p>
-          </div>
-        </div>
-      </div>
+      <Placeholder1 />
     </div>
+
+    <!------------------------------------------------------------- Placeholder end ---------------------------------------------------------------->
   </section>
 </template>
 
 <script setup>
 import { reactive } from "vue";
-import { ChartLine, UserChart } from "../../components";
+import { ChartLine, UserChart, Placeholder1 } from "../../components";
 import { useNavStore } from "../../stores/toggle";
 const navbar = useNavStore();
 
