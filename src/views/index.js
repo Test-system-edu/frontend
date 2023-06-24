@@ -4,6 +4,7 @@ import Students from './Students/Student.vue';
 import Teachers from './Teachers/Teacher.vue';
 import Login from './Login/Login.vue';
 import Error from './Error/Error.vue';
+import Tests from './Tests/Test.vue';
 
 export {
     HomeView,
@@ -12,4 +13,5 @@ export {
     Teachers,
     Login,
     Error,
+    Tests,
 }
