@@ -22,6 +22,7 @@ export default {
         toolTip: {
           shared: true,
         },
+        responsive: true,
         legend: {
           cursor: "pointer",
           itemclick: function (e) {
@@ -77,6 +78,7 @@ export default {
         theme: "light2",
         backgroundColor: "#203843",
         exportEnabled: true,
+        responsive: true,
         title: {
           text: "Overview",
           horizontalAlign: "left",

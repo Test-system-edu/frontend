@@ -26,7 +26,7 @@
         </div>
         <div class="flex items-center">
           <div class="flex items-center ml-3">
-            <ul class="flex sm:gap-5 text-2xl">
+            <ul class="relative flex sm:gap-5 text-2xl">
               <li>
                 <div>
                   <b class="mr-5 cursor-pointer border-2 rounded-full"
@@ -40,7 +40,7 @@
                       ></i></span
                   ></b>
                   <p
-                    class="w-8 h-8 rounded-full absolute top-3 -z-10 duration-1000"
+                    class="w-8 h-8 rounded-full absolute top-0 -z-10 duration-1000"
                     :class="{
                       'translate-x-full bg-black': !navbar.userNav,
                       'bg-white': navbar.userNav,
