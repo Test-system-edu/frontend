@@ -3,14 +3,14 @@
     <div v-show="store.data" class="rounded-lg pt-4">
       <!------------------------------------------------------------- Cards ------------------------------------------------------------->
 
-      <div class="flex flex-wrap">
+      <div class="cards flex flex-wrap">
         <div
-          class="w-full max-w-full px-2 mb-4 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4"
+          class="card max-w-full px-2 mb-4 sm:w-full w-1/2 md:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4"
           v-for="(i, index) in 4"
           :key="i"
         >
           <div
-            class="relative flex flex-col min-w-0 break-words shadow-soft-xl rounded-lg bg-clip-border"
+            class="relative xl:mb-4 flex flex-col min-w-0 break-words shadow-soft-xl rounded-lg bg-clip-border"
             :class="{
               'bg-[#203843]': navbar.userNav,
               'bg-white': !navbar.userNav,
@@ -28,9 +28,9 @@
                     <h5 class="mb-0 font-bold">2,300</h5>
                   </div>
                 </div>
-                <div class="px-10 text-right basis-1/3">
+                <div class="basis-1/3">
                   <div
-                    class="w-12 h-12 flex justify-center items-center rounded-lg bg-gray-1000"
+                    class="w-14 h-12 float-right pr-2 flex justify-center items-center rounded-lg bg-gray-1000"
                   >
                     <img
                       class="bg-gray-200 h-14 object-cover rounded-lg px-2 py-1"
@@ -68,24 +68,24 @@
 
       <!------------------------------------------------------------- Charts ---------------------------------------------------------------->
 
-      <div class="flex gap-4 px-2 py-4 items-center">
+      <div class="flex lg:flex-row flex-col gap-4 px-2 pb-4 items-center">
         <div
-          class="w-1/2 py-4 rounded-lg overflow-hidden"
+          class="lg:w-1/2 w-full py-4 rounded-lg overflow-hidden"
           :class="{
             'bg-[#203843]': navbar.userNav,
             'bg-white': !navbar.userNav,
           }"
         >
-          <ChartLine class="w-[90%] mx-auto" />
+          <ChartLine class="w-[90%] sm:h-[24rem] h-[16rem] mx-auto" />
         </div>
         <div
-          class="w-1/2 py-4 rounded-lg overflow-hidden"
+          class="lg:w-1/2 w-full py-4 rounded-lg overflow-hidden"
           :class="{
             'bg-[#203843]': navbar.userNav,
             'bg-white': !navbar.userNav,
           }"
         >
-          <UserChart class="w-[90%] mx-auto" />
+          <UserChart class="w-[90%] sm:h-[24rem] h-[16rem] mx-auto" />
         </div>
       </div>
 
@@ -93,10 +93,10 @@
 
       <!------------------------------------------------------------- Table 1 ---------------------------------------------------------------->
 
-      <div class="flex gap-4 px-2">
+      <div class="flex lg:flex-row flex-col gap-4 px-2">
         <!-- Table start -->
         <div
-          class="relative overflow-x-auto sm:rounded-lg w-1/2"
+          class="relative overflow-x-auto rounded-lg lg:w-1/2 w-full"
           :class="{
             'bg-[#203843]': navbar.userNav,
             'bg-white': !navbar.userNav,
@@ -108,14 +108,12 @@
               class="bx bx-dots-vertical-rounded py-1 cursor-pointer rounded"
             ></i>
           </div>
-          <table
-            class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
-          >
+          <table class="w-full text-sm text-left">
             <thead
-              class="text-xs text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400"
+              class="text-xs text-black uppercase"
               :class="{
                 'bg-gray-700 text-white': navbar.userNav,
-                'bg-gray-50': !navbar.userNav,
+                'bg-gray-50 text-gray-900': !navbar.userNav,
               }"
             >
               <tr>
@@ -132,7 +130,7 @@
               <tr
                 v-for="i in 5"
                 :key="i"
-                class="dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
+                class="hover:bg-gray-50"
                 :class="{
                   'bg-[#203843] text-white hover:bg-gray-700': navbar.userNav,
                   'bg-white': !navbar.userNav,
@@ -143,7 +141,7 @@
                 </td>
                 <th
                   scope="row"
-                  class="flex leading-6 items-center py-3 px-6 whitespace-nowrap dark:text-white"
+                  class="flex leading-6 items-center py-3 px-6 whitespace-nowrap"
                 >
                   <img
                     class="w-10 h-10 rounded-full object-center object-cover"
@@ -165,11 +163,7 @@
                   <p class="flex items-center">98%</p>
                 </td>
                 <td class="px-6 py-3">
-                  <p
-                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                  >
-                    1998
-                  </p>
+                  <p class="font-medium text-blue-600 hover:underline">1998</p>
                 </td>
               </tr>
             </tbody>
@@ -181,7 +175,7 @@
         <!------------------------------------------------------------- Student activity  ---------------------------------------------------------------->
 
         <div
-          class="relative overflow-x-auto sm:rounded-lg w-1/2"
+          class="relative overflow-x-auto rounded-lg lg:w-1/2 w-full"
           :class="{
             'bg-[#203843]': navbar.userNav,
             'bg-white': !navbar.userNav,
@@ -193,14 +187,12 @@
               class="bx bx-dots-vertical-rounded py-1 cursor-pointer rounded"
             ></i>
           </div>
-          <table
-            class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
-          >
+          <table class="w-full text-sm text-left text-gray-500">
             <tbody>
               <tr
                 v-for="i in 6"
                 :key="i"
-                class="flex justify-between pb-2 pl-5 pr-1 dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
+                class="flex justify-between pb-2 pl-5 pr-1 hover:bg-gray-50"
                 :class="{
                   'bg-[#203843] hover:bg-gray-700 text-white': navbar.userNav,
                   'bg-white': !navbar.userNav,
@@ -208,7 +200,7 @@
               >
                 <th
                   scope="row"
-                  class="flex leading-7 items-center whitespace-nowrap dark:text-white"
+                  class="flex leading-7 items-center whitespace-nowrap"
                 >
                   <img
                     class="w-10 h-9 bg-gray-100 rounded-md p-2 object-center object-cover"
@@ -222,9 +214,9 @@
                     </p>
                   </div>
                 </th>
-                <td class="p-4">
+                <td class="p-4 mn-w-fit">
                   <div
-                    class="flex items-center text-gray-900 bg-red-200 rounded px-2 py-1 text-xs"
+                    class="flex items-center whitespace-nowrap truncate min-w-fit text-gray-900 bg-red-200 rounded px-2 py-1 text-xs"
                   >
                     1 day ago
                   </div>
@@ -239,10 +231,10 @@
 
       <!------------------------------------------------------------- Cards ---------------------------------------------------------------->
 
-      <div class="flex flex-wrap mt-4">
+      <div class="cards flex flex-wrap mt-4">
         <!-- card1 -->
         <div
-          class="w-full max-w-full px-2 mb-4 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4"
+          class="card max-w-full px-2 mb-4 sm:w-full w-1/2 md:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4"
           v-for="(i, index) in 4"
           :key="i"
         >
@@ -257,7 +249,7 @@
             }"
           >
             <div class="flex-auto p-4">
-              <div class="flex flex-row -mx-3">
+              <div class="flex flex-row items-center -mx-3">
                 <div class="flex-none w-2/3 max-w-full px-3">
                   <div>
                     <p
@@ -268,9 +260,9 @@
                     <h5 class="mb-0 font-bold">50,095</h5>
                   </div>
                 </div>
-                <div class="px-10 text-right basis-1/3">
+                <div class="basis-1/3 float-right">
                   <div
-                    class="w-14 h-12 flex justify-center text-lg items-center rounded-lg bg-gray-1000"
+                    class="w-14 h-12 float-right pr-3 flex justify-center text-lg items-center rounded-lg bg-gray-1000"
                   >
                     <div class="bg-white rounded">
                       <i
@@ -332,4 +324,14 @@ setTimeout(() => {
 }, 1000);
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@media (max-width: 500px) {
+  .cards {
+    display: block;
+    width: 200%;
+  }
+  .card .card {
+    width: 200%;
+  }
+}
+</style>

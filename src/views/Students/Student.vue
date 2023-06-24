@@ -5,20 +5,21 @@
     <!-- Main modal -->
     <div
       v-show="modal"
-      :class="{
-        'overflow-y-auto flex bg-[rgba(0,0,0,0.5)] overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full':
-          modal,
-      }"
+      :class="
+        modal
+          ? 'absolute overflow-y-auto flex bg-[rgba(0,0,0,0.5)] overflow-x-hidden z-50 justify-center items-center w-full inset-0 h-full'
+          : 'hidden'
+      "
     >
-      <div class="relative p-4 w-full max-w-5xl h-full md:h-auto">
+      <div class="relative p-4 w-full max-w-5xl h-auto">
         <!-- Modal content -->
         <div
-          class="relative p-4 rounded-lg shadow dark:bg-gray-800 sm:p-5"
+          class="relative p-4 rounded-lg shadow sm:p-5"
           :class="navbar.userNav ? 'bg-[#203843]' : 'bg-white'"
         >
           <!-- Modal header -->
           <div
-            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600"
+            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5"
           >
             <h3
               class="text-lg"
@@ -29,8 +30,8 @@
             <button
               @click="toggleModal"
               type="button"
-              class="bg-transparent hover:bg-gray-200 hover rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-              :class="{'text-white': navbar.userNav}"
+              class="bg-transparent hover:bg-gray-200 hover rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+              :class="{ 'text-white': navbar.userNav }"
             >
               <svg
                 aria-hidden="true"
@@ -49,7 +50,7 @@
             </button>
           </div>
           <!-- Modal body -->
-          <form :class="{ 'darkForm': navbar.userNav }">
+          <form :class="{ darkForm: navbar.userNav }">
             <div class="grid font-medium gap-4 mb-4 sm:grid-cols-2">
               <div>
                 <label for="name" class="block mb-2 text-sm"
@@ -59,7 +60,7 @@
                   type="text"
                   name="name"
                   id="name"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-green-500 dark:focus:border-green-500"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                   placeholder="To'liq ismini kiriting"
                 />
               </div>
@@ -71,7 +72,7 @@
                   type="text"
                   name="phone"
                   id="phone"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-green-500 dark:focus:border-green-500"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                   placeholder="Telefon raqamini kiriting"
                 />
               </div>
@@ -81,7 +82,7 @@
                   type="text"
                   name="login"
                   id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-green-500 dark:focus:border-green-500"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                   placeholder="login"
                 />
               </div>
@@ -91,7 +92,7 @@
                   type="password"
                   name="password"
                   id="password"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-green-500 dark:focus:border-green-500"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                   placeholder="*********"
                 />
               </div>
@@ -99,7 +100,7 @@
                 <label for="category" class="block mb-2 text-sm"></label>
                 <select
                   id="category"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-green-500 dark:focus:border-green-500"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                 >
                   <option>Guruh tanlang</option>
                   <option value="nimadur">Nimadur</option>
@@ -133,34 +134,42 @@
 
     <!-- ----------------------------------------- EMPLYE TABLE  ------------------------------------------------- -->
 
-    <section class="dark:bg-gray-900 pt-4">
+    <section class="pt-4">
+      <!------------------------------------------- Search ------------------------------------------->
       <div v-show="!store.data">
         <Placeholder2 />
       </div>
+      <!------------------------------------------- Search ------------------------------------------->
+
       <div v-show="store.data" class="w-full max-w-screen">
         <!-- Start coding here -->
+
+        <!------------------------------------------- Search ------------------------------------------->
         <div
-          class="flex flex-col md:flex-row items-center rounded-xl shadow-md justify-between space-y-3 md:space-y-0 md:space-x-4 p-4 mb-4"
+          class="shadow rounded-xl flex flex-col lg:flex-row items-center justify-between lg:space-x-4 p-4 mb-4"
           :class="navbar.userNav ? 'bg-[#203843]' : 'bg-white'"
         >
-          <div class="w-full flex items-center gap-5">
+          <div
+            class="w-full flex items-center lg:justify-start lg:pb-0 pb-4 justify-between gap-5"
+          >
             <h1 class="text-blue-700 font-bold text-lg">Talabalar</h1>
             <div
-              class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3"
+              class="lg:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3"
             >
               <button
                 @click="toggleModal"
                 id=""
                 type="button"
-                class="btnAdd flex items-center justify-center border border-gray-200 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2"
+                class="btnAdd flex items-center max-w-fit justify-center whitespace-nowrap border border-gray-200 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 sm:py-2"
               >
-                Talaba qo'shish
+                <span class="sm:block hidden">Talaba qo'shish</span>
+                <i class="sm:hidden block bx bxs-user-plus text-lg"></i>
               </button>
             </div>
           </div>
 
-          <div class="w-full md:w-60">
-            <form class="flex items-center">
+          <div class="w-full lg:w-80">
+            <form class="flex items-center text-gray-900 font-medium">
               <label for="simple-search" class="sr-only">Qidiruv</label>
               <div class="relative w-full">
                 <div
@@ -183,15 +192,17 @@
                 <input
                   type="text"
                   id="simple-search"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
                   placeholder="Izlash uchun yozing .."
                 />
               </div>
             </form>
           </div>
+          <!------------------------------------------- Search ------------------------------------------->
         </div>
+
         <div
-          class="relative shadow-md sm:rounded-lg overflow-hidden"
+          class="relative shadow-md rounded-lg overflow-hidden"
           :class="navbar.userNav ? 'bg-[#203843] text-white' : 'bg-white'"
         >
           <div class="overflow-x-auto">
@@ -202,7 +213,9 @@
               >
                 <tr>
                   <th scope="col" class="text-center py-3">I . F . O</th>
-                  <th scope="col" class="text-center py-3">Guruh talabasi</th>
+                  <th scope="col" class="text-center py-3 whitespace-nowrap">
+                    Guruh talabasi
+                  </th>
                   <th scope="col" class="text-center py-3">Tel: Raqami</th>
                   <th scope="col" class="text-center py-3">Holati</th>
                   <th scope="col" class="text-center py-3">To'liq</th>
@@ -210,7 +223,7 @@
               </thead>
               <tbody>
                 <tr
-                  class="border-b dark:border-gray-700"
+                  class="border-b"
                   :class="
                     navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
                   "
@@ -224,13 +237,15 @@
                     Qobilov Shoxsuvor
                   </th>
                   <td class="text-center font-medium text-blue-800 px-8 py-2">
-                    <p class="bg-blue-100 rounded-[5px] py-1">DI-11-19</p>
+                    <p class="bg-blue-100 rounded-[5px] p-1 whitespace-nowrap">
+                      DI-11-19
+                    </p>
                   </td>
                   <td class="text-center font-medium text-red-800 px-8 py-2">
-                    <p class="bg-red-100 rounded-[5px] py-1">+998901234567</p>
+                    <p class="bg-red-100 rounded-[5px] p-1">+998901234567</p>
                   </td>
                   <td class="text-center font-medium text-green-800 px-8 py-2">
-                    <p class="bg-green-100 rounded-[5px] py-1">active</p>
+                    <p class="bg-green-100 rounded-[5px] p-1">active</p>
                   </td>
                   <td class="text-center font-medium px-8 py-3">
                     <button
@@ -245,7 +260,7 @@
             </table>
           </div>
           <nav
-            class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+            class="flex flex-row justify-between items-center md:items-center space-y-3 md:space-y-0 p-4"
             aria-label="Table navigation"
           >
             <span class="text-sm font-normal">
@@ -258,7 +273,7 @@
               <li>
                 <a
                   href="#"
-                  class="flex font-bold text-black items-center justify-center text-sm py-2 px-6 rounded-lg leading-tight bg-white border border-gray-300 hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white"
+                  class="flex font-bold text-black bg-white items-center justify-center text-sm py-2 sm:mt-0 -mt-2 px-6 rounded-lg leading-tight"
                   >Next</a
                 >
               </li>
@@ -321,8 +336,8 @@ setTimeout(() => {
   );
 }
 
-.darkForm{
-  label{
+.darkForm {
+  label {
     color: white;
   }
 }

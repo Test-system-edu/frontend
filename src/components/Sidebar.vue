@@ -1,6 +1,8 @@
 <template>
   <aside
-    class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-gray-200 border-r sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+    class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform duration-700 -translate-x-full bg-gray-200 border-r sm:translate-x-0"
+    :class="sidebar.sidebar ? '-translate-x-full' : 'translate-x-0'"
+    @mousedown="sidebar.sidebar = true"
   >
     <div
       class="h-full px-3 py-4 pb-4 overflow-y-auto"
@@ -24,6 +26,9 @@
 <script setup>
 import { header } from "../constants/sidebar";
 import { useNavStore } from "../stores/toggle";
+import { useSidebarStore } from "../stores/sidebar.js";
+
+const sidebar = useSidebarStore();
 const navbar = useNavStore();
 </script>
 

@@ -20,11 +20,7 @@ export default {
           fontSize: 16,
           padding: 5,
         },
-        axisY: {
-          maximum: 1000,
-        },
         axisY2: {
-          maximum: 500000,
           valueFormatString: "#,##0.##",
         },
         toolTip: {
@@ -84,14 +80,12 @@ export default {
           padding: 5,
         },
         axisY: {
-          maximum: 1000,
           titleFontColor: "#FFFFFF",
           labelFontColor: "#FFFFFF",
           lineColor: "#FFFFFF",
           tickColor: "#FFFFFF",
         },
         axisY2: {
-          maximum: 500000,
           valueFormatString: "#,##0.##",
           titleFontColor: "#FFFFFF",
           labelFontColor: "#FFFFFF",
@@ -150,8 +144,8 @@ export default {
         ],
       },
       styleOptions: {
-        width: "95%",
-        height: "360px",
+        width: "100%",
+        height: "100%",
         lineHeight: "50px",
       },
     };

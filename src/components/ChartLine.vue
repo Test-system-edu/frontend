@@ -151,8 +151,8 @@ export default {
       },
       styleOptions: {
         lineHeight: "50px",
-        width: "95%",
-        height: "360px",
+        width: "100%",
+        height: "100%",
       },
     };
   },
