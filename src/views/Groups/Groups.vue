@@ -4,14 +4,13 @@
 
     <!-- Main modal -->
     <div
-      v-show="modal"
       :class="
         modal
           ? 'absolute overflow-y-auto flex bg-[rgba(0,0,0,0.5)] overflow-x-hidden z-50 justify-center items-center w-full inset-0 h-full'
           : 'hidden'
       "
     >
-      <div class="relative p-4 w-full max-w-5xl h-auto">
+      <div class="relative p-4 max-w-5xl min-w-[30%] h-auto">
         <!-- Modal content -->
         <div
           class="relative p-4 rounded-lg shadow sm:p-5"
@@ -25,13 +24,13 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              Yangi talaba qo'shish
+              Yangi guruh qo'shish
             </h3>
             <button
               @click="toggleModal"
               type="button"
               class="bg-transparent hover:bg-gray-200 hover rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-              :class="{ 'text-white': navbar.userNav }"
+              :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
               <svg
                 aria-hidden="true"
@@ -46,7 +45,6 @@
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              <span class="sr-only">Close modal</span>
             </button>
           </div>
           <!-- Modal body -->
@@ -54,114 +52,58 @@
             @submit.prevent="createProduct"
             :class="{ darkForm: navbar.userNav }"
           >
-            <div class="grid font-medium gap-4 mb-4 sm:grid-cols-2">
+            <div class="grid font-medium gap-4 mb-4 grid-cols-1">
               <div>
-                <label for="name" class="block mb-2 text-sm">Ism</label>
+                <label for="name" class="block mb-2 text-sm">Guruh nomi</label>
                 <input
-                  v-model="form.first_name"
+                  v-model="form.name"
                   type="text"
                   name="name"
                   id="name"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Ismini kiriting"
+                  placeholder="Guruh nomi"
+                  required
                 />
               </div>
               <div>
-                <label for="surname" class="block mb-2 text-sm">Familiya</label>
-                <input
-                  v-model="form.last_name"
-                  type="text"
-                  name="surname"
-                  id="surname"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Familiyani kiriting"
-                />
-              </div>
-              <div>
-                <label for="phone" class="block mb-2 text-sm"
-                  >Telefon raqami</label
+                <label for="date" class="block mb-2 text-sm"
+                  >Guruh boshlanish sanasi</label
                 >
                 <input
-                  v-model="form.phone_number"
-                  type="text"
+                  v-model="form.start_date"
+                  type="date"
                   name="phone"
                   id="phone"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Telefon raqamini kiriting"
+                  required
                 />
               </div>
-              <div>
-                <label for="category" class="block mb-2 text-sm"
-                  >Guruhni tanlang</label
-                >
-                <select
-                  v-model="form.group_id"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-                >
-                  <option v-for="i in store.groups" :key="i.id" :value="i.id">
-                    {{ i.name }}
-                  </option>
-                </select>
-              </div>
-              <div class="w-[203%]">
-                <label for="login" class="block mb-2 text-sm">Email</label>
-                <input
-                  v-model="form.email"
-                  type="text"
-                  name="login"
-                  id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Emailini kiriting"
-                />
-              </div>
-              <div></div>
-              <div>
-                <label for="login" class="block mb-2 text-sm">Username</label>
-                <input
-                  v-model="form.username"
-                  type="text"
-                  name="login"
-                  id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Usernameni kiriting"
-                />
-              </div>
-              <div>
-                <label for="password" class="block mb-2 text-sm">Parol</label>
-                <input
-                  v-model="form.password"
-                  type="password"
-                  name="password"
-                  id="password"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="*********"
-                />
-              </div>
-            </div>
-            <div
-              class="w-full flex items-center justify-between border-t pt-5 mt-5"
-            >
-              <button
-                @click="toggleModal"
-                type="button"
-                class="border inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              <div
+                class="w-full flex items-center justify-between border-t pt-5 mt-5"
               >
-                Bekor qilish
-              </button>
-              <button
-                type="submit"
-                class="btnAdd text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
-                Qo'shish
-              </button>
+                <button
+                  @click="cancelFunc"
+                  type="button"
+                  class="border cursor-pointer inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  Bekor qilish
+                </button>
+                <button
+                  type="submit"
+                  class="btnAdd cursor-pointer text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  Qo'shish
+                </button>
+              </div>
             </div>
           </form>
         </div>
       </div>
     </div>
+
     <!-- ----------------------------------------- MODAL END ---------------------------------------------------- -->
 
-    <!-- ----------------------------------------- Edit MODAL ---------------------------------------------------- -->
+    <!-- ----------------------------------------- Edit modal ---------------------------------------------------- -->
     <div
       :class="
         edit.toggle
@@ -169,7 +111,7 @@
           : 'hidden'
       "
     >
-      <div class="relative p-4 w-full max-w-5xl h-auto">
+      <div class="relative p-4 max-w-5xl min-w-[30%] h-auto">
         <!-- Modal content -->
         <div
           class="relative p-4 rounded-lg shadow sm:p-5"
@@ -183,13 +125,17 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              Yangi talaba qo'shish
+              Guruhni tahrirlash
             </h3>
             <button
-              @click="toggleModal"
+              @click="
+                edit.toggle = !edit.toggle;
+                edit.name = '';
+                edit.description = '';
+              "
               type="button"
               class="bg-transparent hover:bg-gray-200 hover rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-              :class="{ 'text-white': navbar.userNav }"
+              :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
               <svg
                 aria-hidden="true"
@@ -204,120 +150,63 @@
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              <span class="sr-only">Close modal</span>
             </button>
           </div>
           <!-- Modal body -->
           <form
-            @submit.prevent="createProduct"
+            @submit.prevent="editProduct"
             :class="{ darkForm: navbar.userNav }"
           >
-            <div class="grid font-medium gap-4 mb-4 sm:grid-cols-2">
+            <div class="grid font-medium gap-4 mb-4 grid-cols-1">
               <div>
-                <label for="name" class="block mb-2 text-sm">Ism</label>
+                <label for="name" class="block mb-2 text-sm">Guruh nomi</label>
                 <input
-                  v-model="form.first_name"
+                  v-model="edit.name"
                   type="text"
                   name="name"
                   id="name"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Ismini kiriting"
+                  placeholder="Guruh nomi"
+                  required
                 />
               </div>
               <div>
-                <label for="surname" class="block mb-2 text-sm">Familiya</label>
-                <input
-                  v-model="form.last_name"
-                  type="text"
-                  name="surname"
-                  id="surname"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Familiyani kiriting"
-                />
-              </div>
-              <div>
-                <label for="phone" class="block mb-2 text-sm"
-                  >Telefon raqami</label
+                <label for="description" class="block mb-2 text-sm"
+                  >Guruh boshlanish sanasi</label
                 >
                 <input
-                  v-model="form.phone_number"
+                  v-model="edit.start_date"
                   type="text"
-                  name="phone"
-                  id="phone"
+                  name="description"
+                  id="description"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Telefon raqamini kiriting"
+                  required
                 />
               </div>
-              <div>
-                <label for="category" class="block mb-2 text-sm"
-                  >Guruhni tanlang</label
-                >
-                <select
-                  v-model="form.group_id"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-                >
-                  <option v-for="i in store.groups" :key="i.id" :value="i.id">
-                    {{ i.name }}
-                  </option>
-                </select>
-              </div>
-              <div class="w-[203%]">
-                <label for="login" class="block mb-2 text-sm">Email</label>
-                <input
-                  v-model="form.email"
-                  type="text"
-                  name="login"
-                  id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Emailini kiriting"
-                />
-              </div>
-              <div></div>
-              <div>
-                <label for="login" class="block mb-2 text-sm">Username</label>
-                <input
-                  v-model="form.username"
-                  type="text"
-                  name="login"
-                  id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Usernameni kiriting"
-                />
-              </div>
-              <div>
-                <label for="password" class="block mb-2 text-sm">Parol</label>
-                <input
-                  v-model="form.password"
-                  type="password"
-                  name="password"
-                  id="password"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="*********"
-                />
-              </div>
-            </div>
-            <div
-              class="w-full flex items-center justify-between border-t pt-5 mt-5"
-            >
-              <button
-                @click="toggleModal"
-                type="button"
-                class="border inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              <div
+                class="w-full flex items-center justify-between border-t pt-5 mt-5"
               >
-                Bekor qilish
-              </button>
-              <button
-                type="submit"
-                class="btnAdd text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
-                Qo'shish
-              </button>
+                <button
+                  @click="cancelFunc1"
+                  type="button"
+                  class="border cursor-pointer inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  Bekor qilish
+                </button>
+                <button
+                  type="submit"
+                  class="btnAdd cursor-pointer text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  Tahrirlash
+                </button>
+              </div>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <!-- ----------------------------------------- Edit MODAL END ---------------------------------------------------- -->
+
+    <!-- ----------------------------------------- Edit END ---------------------------------------------------- -->
 
     <!-- ----------------------------------------- Delete modal ---------------------------------------------------- -->
     <div
@@ -341,7 +230,7 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              Lavozimni o'chirib tashlash
+              Guruhni o'chirib tashlash
             </h3>
             <button
               @click="remove.toggle = false"
@@ -369,7 +258,7 @@
             <div class="grid font-medium gap-4 mb-4 grid-cols-1">
               <div>
                 <div></div>
-                <h1 class="text-2xl">Siz lavozimni o'chirishni xohlaysizmi?</h1>
+                <h1 class="text-2xl">Siz guruhni o'chirishni xohlaysizmi?</h1>
               </div>
               <div
                 class="w-full flex items-center justify-between border-t pt-5 mt-5"
@@ -395,19 +284,19 @@
     </div>
     <!-- ----------------------------------------- delete modal end ---------------------------------------------------- -->
 
-    <!-- ----------------------------------------- EMPLYE TABLE  ------------------------------------------------- -->
+    <!-- ----------------------------------------- EMPLYE TABLE ------------------------------------------------- -->
 
-    <section class="pt-4">
-      <!------------------------------------------- Search ------------------------------------------->
+    <section class="pt-4" :class="{ 'text-white': navbar.userNav }">
+      <!------------------------------------------- Placeholder ------------------------------------------->
       <div v-show="!store.allProducts">
         <Placeholder2 />
       </div>
+      <!------------------------------------------- Placeholder ------------------------------------------->
+
       <!------------------------------------------- Search ------------------------------------------->
 
       <div v-show="store.allProducts" class="w-full max-w-screen">
         <!-- Start coding here -->
-
-        <!------------------------------------------- Search ------------------------------------------->
         <div
           class="shadow rounded-xl flex flex-col lg:flex-row items-center justify-between lg:space-x-4 p-4 mb-4"
           :class="navbar.userNav ? 'bg-[#203843]' : 'bg-white'"
@@ -415,7 +304,7 @@
           <div
             class="w-full flex items-center lg:justify-start lg:pb-0 pb-4 justify-between gap-5"
           >
-            <h1 class="text-blue-700 font-bold text-lg">Talabalar</h1>
+            <h1 class="text-blue-700 font-bold text-lg">Guruhlar</h1>
             <div
               class="lg:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3"
             >
@@ -425,7 +314,7 @@
                 type="button"
                 class="btnAdd flex items-center max-w-fit justify-center whitespace-nowrap border border-gray-200 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 sm:py-2"
               >
-                <span class="sm:block hidden">Talaba qo'shish</span>
+                <span class="sm:block hidden">Guruh qo'shish</span>
                 <i class="sm:hidden block bx bxs-user-plus text-lg"></i>
               </button>
             </div>
@@ -466,7 +355,7 @@
 
         <div
           class="relative shadow-md rounded-lg overflow-hidden"
-          :class="navbar.userNav ? 'bg-[#203843] text-white' : 'bg-white'"
+          :class="navbar.userNav ? 'bg-[#203843]' : 'bg-white'"
         >
           <div class="overflow-x-auto">
             <table class="w-full text-sm text-left">
@@ -475,12 +364,11 @@
                 :class="navbar.userNav ? 'bg-gray-700' : 'bg-gray-50'"
               >
                 <tr>
-                  <th scope="col" class="text-center py-3">I . F . O</th>
-                  <th scope="col" class="text-center py-3 whitespace-nowrap">
-                    Guruh talabasi
+                  <th scope="col" class="text-center py-3">№</th>
+                  <th scope="col" class="text-center py-3">
+                    Boshlanish sanasi
                   </th>
-                  <th scope="col" class="text-center py-3">Telefon Raqami</th>
-                  <th scope="col" class="text-center py-3">Holati</th>
+                  <th scope="col" class="text-center py-3">Guruhlar</th>
                   <th scope="col" class="text-center py-3">To'liq</th>
                   <th></th>
                 </tr>
@@ -492,33 +380,26 @@
                     navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
                   "
                   v-for="i in store.allProducts"
-                  :key="i"
+                  :key="i.id"
                 >
                   <th
                     scope="row"
                     class="text-center px-8 py-3 font-medium whitespace-nowrap"
                   >
-                    <span>{{ i.first_name }}</span>
-                    <span>{{ i.last_name }}</span>
+                    {{ i.name }}
                   </th>
-                  <td class="text-center font-medium text-blue-800 px-8 py-2">
-                    <p class="bg-blue-100 rounded-[5px] p-1 whitespace-nowrap">
-                      {{ i.group.name }}
-                    </p>
-                  </td>
-                  <td class="text-center font-medium text-red-800 px-8 py-2">
-                    <p class="bg-red-100 rounded-[5px] p-1">
-                      {{ i.phone_number }}
+                  <td class="text-center font-medium text-green-800 px-8 py-2">
+                    <p class="bg-green-100 rounded-[5px] p-1">
+                      {{ i.start_date.slice(0, 10) }}
                     </p>
                   </td>
                   <td class="text-center font-medium text-green-800 px-8 py-2">
-                    <p class="bg-green-100 rounded-[5px] p-1">
-                      {{ i.is_student }}
-                    </p>
+                    <p v-show="i.staffs.length" class="bg-green-100 rounded-[5px] p-1">{{ i.staffs }}</p>
+                    <p v-show="!i.staffs.length" class="bg-green-100 rounded-[5px] p-1">Mavjud emas</p>
                   </td>
                   <td class="text-center font-medium px-8 py-3">
                     <button
-                      @click="enterSlug(i.id, i.first_name + '_' + i.last_name)"
+                      @click="enterSlug(i.id, i.name)"
                       class="btnKirish bg-blue-600 rounded-lg px-5 py-2.5 text-white focus:ring-2"
                     >
                       Kirish
@@ -526,7 +407,7 @@
                   </td>
                   <td class="text-center font-medium">
                     <i
-                      @click="getOneProduct(i.email)"
+                      @click="getOneProduct(i.id)"
                       class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
                     >
                     </i>
@@ -584,32 +465,21 @@ const modal = ref(false);
 
 const toggleModal = () => {
   modal.value = !modal.value;
-  form.first_name = "";
-  form.last_name = "";
-  form.phone_number = "";
-  form.email = "";
-  form.username = "";
-  form.password = "";
-  form.group_id = "";
+  form.name = "";
+  form.start_date = "";
 };
 
 const store = reactive({
   allProducts: false,
-  groups: false,
 });
 
 function enterSlug(id, name) {
-  router.push(`./students/${id}/${name}`);
+  router.push(`./groups/${id}/${name}`);
 }
 
 function cancelFunc() {
-  form.first_name = "";
-  form.last_name = "";
-  form.phone_number = "";
-  form.email = "";
-  form.username = "";
-  form.password = "";
-  form.group_id = "";
+  form.name = "";
+  form.start_date = "";
   modal.value = false;
 }
 
@@ -626,23 +496,13 @@ function deleteFunc(id) {
 
 // ----------------------------------- forms -----------------------------------
 const form = reactive({
-  first_name: "",
-  last_name: "",
-  phone_number: "",
-  email: "",
-  username: "",
-  password: "",
-  group_id: "",
+  name: "",
+  start_date: "",
 });
 
 const edit = reactive({
-  first_name: "",
-  last_name: "",
-  phone_number: "",
-  email: "",
-  username: "",
-  password: "",
-  group_id: "",
+  name: "",
+  start_date: "",
   id: "",
   toggle: false,
 });
@@ -655,45 +515,28 @@ const remove = reactive({
 // ----------------------------------- axios --------------------------------
 const getProduct = () => {
   axios
-    .get("/student")
+    .get("/group")
     .then((res) => {
       console.log(res.data);
       store.allProducts = res.data;
     })
     .catch((error) => {
-      if (error.response.data.statusCode == 400) {
-        store.allProducts = [];
-      }
       console.log("error", error);
     });
 };
 
-const getGroups = () => {
+const getOneProduct = (id) => {
   axios
-    .get("/group")
-    .then((res) => {
-      console.log(res.data);
-      store.groups = res.data;
+    .get(`/group/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
     })
-    .catch((error) => {
-      console.log(error);
-      if (error.response.data.statusCode == 400) {
-        store.groups = [];
-      }
-      console.log("error", error);
-    });
-};
-
-const getOneProduct = (email) => {
-  alert(email)
-  axios
-    .get('/student/email', { email })
     .then((res) => {
-      console.log(res);
-      // edit.name = res.data.name;
-      // edit.start_date = res.data.start_date.slice(0, 10);
-      // edit.id = id;
-      // edit.toggle = true;
+      edit.name = res.data.name;
+      edit.start_date = res.data.start_date.slice(0,10);
+      edit.id = id;
+      edit.toggle = true;
     })
     .catch((error) => {
       console.log("error", error);
@@ -702,16 +545,11 @@ const getOneProduct = (email) => {
 
 const createProduct = () => {
   const data = {
-    first_name: form.first_name,
-    last_name: form.last_name,
-    phone_number: form.phone_number,
-    email: form.email,
-    username: form.username,
-    password: form.password,
-    group_id: form.group_id || store.groups[0],
+    name: form.name,
+    start_date: form.start_date,
   };
   axios
-    .post("/student/register", data, {
+    .post("/group", data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
       },
@@ -767,7 +605,7 @@ const editProduct = () => {
 
 const deleteProduct = () => {
   axios
-    .delete(`/student/${remove.id}`, {
+    .delete(`/group/${remove.id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
       },
@@ -792,7 +630,6 @@ const deleteProduct = () => {
 
 onMounted(() => {
   getProduct();
-  getGroups();
 });
 </script>
 
@@ -820,12 +657,4 @@ onMounted(() => {
     #2f73f0
   );
 }
-
-.darkForm {
-  label {
-    color: white;
-  }
-}
-
-// #056674
 </style>
