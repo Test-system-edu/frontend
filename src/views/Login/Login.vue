@@ -13,11 +13,11 @@
       </h1>
       <form @submit.prevent="formInfo">
         <div class="mb-4">
-          <label for="email" class="block mb-2 font-semibold">Login</label>
+          <label for="login" class="block mb-2 font-semibold">Login</label>
           <input
-            type="email"
-            id="email"
-            v-model="form.email"
+            type="text"
+            id="login"
+            v-model="form.login"
             class="w-full p-2 sm:p-[10px] border rounded-[9px]"
             placeholder="login"
             required
@@ -61,38 +61,37 @@
 import { onMounted, reactive } from "vue";
 import axios from "@/services/axios";
 import { useRouter } from "vue-router";
-import { useNotificationStore } from "../../stores/notification"
+import { useNotificationStore } from "../../stores/notification";
 const notification = useNotificationStore();
 const router = useRouter();
 
 const form = reactive({
   password: "",
-  email: "",
+  login: "",
 });
 
 const formInfo = () => {
-  console.log(form.email, form.password);
+  console.log(form.login, form.password);
   axios
-    .post("admin/login", {
-      email: form.email,
-      password: form.password,
-    })
+    .post(
+      "staff/login",
+      {
+        login: form.login,
+        password: form.password,
+      },
+    )
     .then((res) => {
       if (res.status == 201) {
-        notification.success('Welcome!');
         localStorage.setItem("AdminToken", res.data.access_token);
+        notification.success("Xush kelibsiz!");
         router.push("/");
       } else {
-        error('Error');
+        error("Error");
       }
     })
     .catch((error) => {
-      if (error.response.status == 400) {
-        notification.warning(error.response.data.message);
-      } else {
-        notification.error(error.response.data.message);
-      }
       console.log(error);
+      notification.error(error);
     });
 };
 </script>
