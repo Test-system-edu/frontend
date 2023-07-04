@@ -1,7 +1,5 @@
 <template>
   <section>
-    <!-- Slug start  -->
-
     <div class="wrapper sm:px-5">
       <div
         :class="navbar.userNav ? 'bg-[#203843] text-white px-5 py-10 sm:px-10 flex flex-col gap-5' : 'bg-white px-5 py-10 sm:px-10 flex flex-col gap-5'"
@@ -138,8 +136,6 @@
         <p class="text-[14px] text-right mt-6"><span class="font-bold">Start date:</span> 2023-07-04</p>
       </div>
     </div>
-
-    <!-- Slug END -->
   </section>
 </template>
 
