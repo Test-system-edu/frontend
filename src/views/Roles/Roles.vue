@@ -403,7 +403,7 @@
                       Kirish
                     </button>
                   </td>
-                  <td class="text-center font-medium">
+                  <td class="text-center whitespace-nowrap font-medium">
                     <i
                       @click="getOneProduct(i.id)"
                       class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"

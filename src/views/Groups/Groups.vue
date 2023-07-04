@@ -295,7 +295,7 @@
 
       <!------------------------------------------- Search ------------------------------------------->
 
-      <div v-show="store.allProducts" class="w-full max-w-screen">
+      <div v-show="store.allProducts && !store.error" class="w-full max-w-screen">
         <!-- Start coding here -->
         <div
           class="shadow rounded-xl flex flex-col lg:flex-row items-center justify-between lg:space-x-4 p-4 mb-4"
@@ -345,7 +345,7 @@
                   type="text"
                   id="simple-search"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
-                  placeholder="Izlash uchun yozing .."
+                  placeholder="Izlash uchun yozing..."
                 />
               </div>
             </form>
@@ -388,14 +388,28 @@
                   >
                     {{ i.name }}
                   </th>
-                  <td class="text-center font-medium text-green-800 px-8 py-2">
+                  <td
+                    class="text-center font-medium whitespace-nowrap text-green-800 px-8 py-2"
+                  >
                     <p class="bg-green-100 rounded-[5px] p-1">
                       {{ i.start_date.slice(0, 10) }}
                     </p>
                   </td>
-                  <td class="text-center font-medium text-green-800 px-8 py-2">
-                    <p v-show="i.staffs.length" class="bg-green-100 rounded-[5px] p-1">{{ i.staffs }}</p>
-                    <p v-show="!i.staffs.length" class="bg-green-100 rounded-[5px] p-1">Mavjud emas</p>
+                  <td
+                    class="text-center whitespace-nowrap font-medium text-green-800 px-8 py-2"
+                  >
+                    <p
+                      v-show="i.staffs.length"
+                      class="bg-green-100 rounded-[5px] p-1"
+                    >
+                      {{ i.staffs }}
+                    </p>
+                    <p
+                      v-show="!i.staffs.length"
+                      class="bg-green-100 rounded-[5px] p-1"
+                    >
+                      Mavjud emas
+                    </p>
                   </td>
                   <td class="text-center font-medium px-8 py-3">
                     <button
@@ -405,7 +419,7 @@
                       Kirish
                     </button>
                   </td>
-                  <td class="text-center font-medium">
+                  <td class="text-center whitespace-nowrap font-medium">
                     <i
                       @click="getOneProduct(i.id)"
                       class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
@@ -443,6 +457,9 @@
           </nav>
         </div>
       </div>
+      <div  v-show="store.allProducts && store.error" class="w-full max-w-screen">
+        <h1>{{ store.allProducts }}</h1>
+      </div>
     </section>
 
     <!-- ----------------------------------------- EMPLYE TABLE END --------------------------------------------- -->
@@ -471,6 +488,7 @@ const toggleModal = () => {
 
 const store = reactive({
   allProducts: false,
+  error: false,
 });
 
 function enterSlug(id, name) {
@@ -515,13 +533,21 @@ const remove = reactive({
 // ----------------------------------- axios --------------------------------
 const getProduct = () => {
   axios
-    .get("/group")
+    .get("/group", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
     .then((res) => {
-      console.log(res.data);
       store.allProducts = res.data;
     })
     .catch((error) => {
-      console.log("error", error);
+      if (error.response.data.statusCode == 400){
+        store.allProducts = error.response.data.message;
+        store.error = true;
+      }else{
+        console.log(error);
+      }
     });
 };
 
@@ -534,7 +560,7 @@ const getOneProduct = (id) => {
     })
     .then((res) => {
       edit.name = res.data.name;
-      edit.start_date = res.data.start_date.slice(0,10);
+      edit.start_date = res.data.start_date.slice(0, 10);
       edit.id = id;
       edit.toggle = true;
     })
@@ -593,7 +619,6 @@ const editProduct = () => {
     })
     .catch((error) => {
       if (error.response.data.statusCode == 400) {
-        console.log(error.response.data.message);
         notification.warning(error.response.data.message);
       } else if (error.response.data.statusCode == 401) {
         console.log(error.response.data.message);

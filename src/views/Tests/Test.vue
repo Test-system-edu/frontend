@@ -493,7 +493,7 @@ const form = reactive({
   name: "",
   description: "",
   true_answers: "",
-  step: "step",
+  step: 0,
 });
 
 const edit = reactive({
