@@ -125,7 +125,7 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              Guruhni tahrirlash
+              Guruhni o'zgartirish
             </h3>
             <button
               @click="
@@ -176,7 +176,7 @@
                 >
                 <input
                   v-model="edit.start_date"
-                  type="text"
+                  type="date"
                   name="description"
                   id="description"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
@@ -197,7 +197,7 @@
                   type="submit"
                   class="btnAdd cursor-pointer text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 >
-                  Tahrirlash
+                  O'zgartirish
                 </button>
               </div>
             </div>
@@ -258,7 +258,12 @@
             <div class="grid font-medium gap-4 mb-4 grid-cols-1">
               <div>
                 <div></div>
-                <h1 class="text-2xl">Siz guruhni o'chirishni xohlaysizmi?</h1>
+                <h1
+                  class="text-2xl"
+                  :class="navbar.userNav ? 'text-white' : 'text-black'"
+                >
+                  Siz guruhni o'chirishni xohlaysizmi?
+                </h1>
               </div>
               <div
                 class="w-full flex items-center justify-between border-t pt-5 mt-5"
@@ -295,7 +300,7 @@
 
       <!------------------------------------------- Search ------------------------------------------->
 
-      <div v-show="store.allProducts && !store.error" class="w-full max-w-screen">
+      <div v-show="store.allProducts" class="w-full max-w-screen">
         <!-- Start coding here -->
         <div
           class="shadow rounded-xl flex flex-col lg:flex-row items-center justify-between lg:space-x-4 p-4 mb-4"
@@ -368,12 +373,11 @@
                   <th scope="col" class="text-center py-3">
                     Boshlanish sanasi
                   </th>
-                  <th scope="col" class="text-center py-3">Guruhlar</th>
                   <th scope="col" class="text-center py-3">To'liq</th>
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-show="!store.error">
                 <tr
                   class="border-b"
                   :class="
@@ -392,23 +396,7 @@
                     class="text-center font-medium whitespace-nowrap text-green-800 px-8 py-2"
                   >
                     <p class="bg-green-100 rounded-[5px] p-1">
-                      {{ i.start_date.slice(0, 10) }}
-                    </p>
-                  </td>
-                  <td
-                    class="text-center whitespace-nowrap font-medium text-green-800 px-8 py-2"
-                  >
-                    <p
-                      v-show="i.staffs.length"
-                      class="bg-green-100 rounded-[5px] p-1"
-                    >
-                      {{ i.staffs }}
-                    </p>
-                    <p
-                      v-show="!i.staffs.length"
-                      class="bg-green-100 rounded-[5px] p-1"
-                    >
-                      Mavjud emas
+                      {{ i.start_date?.slice(0, 10) }}
                     </p>
                   </td>
                   <td class="text-center font-medium px-8 py-3">
@@ -434,6 +422,9 @@
                 </tr>
               </tbody>
             </table>
+            <div v-show="store.error" class="flex w-full justify-center">
+              <h1 class="p-20 text-2xl font-medium">{{ store.allProducts }}</h1>
+            </div>
           </div>
           <nav
             class="flex flex-row justify-between items-center md:items-center space-y-3 md:space-y-0 p-4"
@@ -457,7 +448,10 @@
           </nav>
         </div>
       </div>
-      <div  v-show="store.allProducts && store.error" class="w-full max-w-screen">
+      <div
+        v-show="store.allProducts && store.error"
+        class="w-full max-w-screen"
+      >
         <h1>{{ store.allProducts }}</h1>
       </div>
     </section>
@@ -540,14 +534,12 @@ const getProduct = () => {
     })
     .then((res) => {
       store.allProducts = res.data;
+      store.error = false;
     })
     .catch((error) => {
-      if (error.response.data.statusCode == 400){
-        store.allProducts = error.response.data.message;
-        store.error = true;
-      }else{
-        console.log(error);
-      }
+      notification.warning(error.response.data.message);
+      store.allProducts = error.response.data.message;
+      store.error = true;
     });
 };
 
@@ -581,20 +573,13 @@ const createProduct = () => {
       },
     })
     .then((res) => {
-      console.log(res.data.statusCode);
-      notification.success("Guruh qo'shildi");
+      notification.success(res.data.message);
       getProduct();
       cancelFunc();
     })
     .catch((error) => {
-      if (error.response.data.statusCode == 400) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      } else if (error.response.data.statusCode == 401) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      }
-      console.log("error", error);
+      notification.warning(error.response.data.message);
+      console.log(error);
     });
 };
 
@@ -610,8 +595,7 @@ const editProduct = () => {
       },
     })
     .then((res) => {
-      console.log(res.data.statusCode);
-      notification.success("Guruh tahrirlandi");
+      notification.success(res.data.message);
       getProduct();
       edit.name = "";
       edit.start_date = "";
@@ -621,7 +605,6 @@ const editProduct = () => {
       if (error.response.data.statusCode == 400) {
         notification.warning(error.response.data.message);
       } else if (error.response.data.statusCode == 401) {
-        console.log(error.response.data.message);
         notification.warning(error.response.data.message);
       }
       console.log("error", error);
@@ -636,20 +619,17 @@ const deleteProduct = () => {
       },
     })
     .then((res) => {
-      console.log(res.data.statusCode);
       notification.success("Guruh o'chirildi");
       getProduct();
       remove.toggle = false;
     })
     .catch((error) => {
       if (error.response.data.statusCode == 400) {
-        console.log(error.response.data.message);
         notification.warning(error.response.data.message);
       } else if (error.response.data.statusCode == 401) {
-        console.log(error.response.data.message);
         notification.warning(error.response.data.message);
       }
-      console.log("error", error);
+      console.log(error);
     });
 };
 

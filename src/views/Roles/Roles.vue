@@ -258,7 +258,12 @@
             <div class="grid font-medium gap-4 mb-4 grid-cols-1">
               <div>
                 <div></div>
-                <h1 class="text-2xl">Siz lavozimni o'chirishni xohlaysizmi?</h1>
+                <h1
+                  class="text-2xl"
+                  :class="navbar.userNav ? 'text-white' : 'text-black'"
+                >
+                  Siz lavozimni o'chirishni xohlaysizmi?
+                </h1>
               </div>
               <div
                 class="w-full flex items-center justify-between border-t pt-5 mt-5"
@@ -365,13 +370,12 @@
               >
                 <tr>
                   <th scope="col" class="text-center py-3">Nomi</th>
-                  <th scope="col" class="text-center py-3">Haqida</th>
-                  <th scope="col" class="text-center py-3">Xodimlar</th>
+                  <th scope="col" class="text-center py-3">Tavsifi</th>
                   <th scope="col" class="text-center py-3">To'liq</th>
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-show="!store.error">
                 <tr
                   class="border-b"
                   :class="
@@ -387,13 +391,9 @@
                     {{ i.name }}
                   </th>
                   <td class="text-center font-medium text-green-800 px-8 py-2">
-                    <p class="bg-green-100 rounded-[5px] p-1">
+                    <p class="bg-green-100 rounded-[5px] py-1 px-4">
                       {{ i.description }}
                     </p>
-                  </td>
-                  <td class="text-center font-medium text-green-800 px-8 py-2">
-                    <p v-show="i.staffs.length" class="bg-green-100 rounded-[5px] p-1">{{ i.staffs }}</p>
-                    <p v-show="!i.staffs.length" class="bg-green-100 rounded-[5px] p-1">Mavjud emas</p>
                   </td>
                   <td class="text-center font-medium px-8 py-3">
                     <button
@@ -418,6 +418,9 @@
                 </tr>
               </tbody>
             </table>
+            <div v-show="store.error" class="flex w-full justify-center">
+              <h1 class="p-20 text-2xl font-medium">{{ store.allProducts }}</h1>
+            </div>
           </div>
           <nav
             class="flex flex-row justify-between items-center md:items-center space-y-3 md:space-y-0 p-4"
@@ -469,6 +472,7 @@ const toggleModal = () => {
 
 const store = reactive({
   allProducts: false,
+  error: false,
 });
 
 function enterSlug(id, name) {
@@ -513,19 +517,30 @@ const remove = reactive({
 // ----------------------------------- axios --------------------------------
 const getProduct = () => {
   axios
-    .get("/role")
+    .get("/role", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
     .then((res) => {
       console.log(res.data);
       store.allProducts = res.data;
+      store.error = false;
     })
     .catch((error) => {
+      notification.warning(error.response.data.message);
+      store.error = true;
       console.log("error", error);
     });
 };
 
 const getOneProduct = (id) => {
   axios
-    .get(`/role/${id}`)
+    .get(`/role/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
     .then((res) => {
       edit.name = res.data.name;
       edit.description = res.data.description;
