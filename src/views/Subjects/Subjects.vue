@@ -11,7 +11,7 @@
           : 'hidden'
       "
     >
-      <div class="relative p-4 w-full max-w-5xl h-auto">
+      <div class="relative p-4 w-full max-w-lg h-auto">
         <!-- Modal content -->
         <div
           class="relative p-4 rounded-lg shadow sm:p-5"
@@ -25,7 +25,7 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              Yangi talaba qo'shish
+              Yangi fan qo'shish
             </h3>
             <button
               @click="toggleModal"
@@ -46,7 +46,6 @@
                   clip-rule="evenodd"
                 ></path>
               </svg>
-              <span class="sr-only">Close modal</span>
             </button>
           </div>
           <!-- Modal body -->
@@ -54,87 +53,16 @@
             @submit.prevent="createProduct"
             :class="{ darkForm: navbar.userNav }"
           >
-            <div class="grid font-medium gap-4 mb-4 sm:grid-cols-2">
+            <div class="grid font-medium gap-4 mb-4 grid-cols-1">
               <div>
-                <label for="name" class="block mb-2 text-sm">Ism</label>
+                <label for="name" class="block mb-2 text-sm">Fan nomi</label>
                 <input
-                  v-model="form.first_name"
+                  v-model="form.title"
                   type="text"
                   name="name"
                   id="name"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Ismini kiriting"
-                />
-              </div>
-              <div>
-                <label for="surname" class="block mb-2 text-sm">Familiya</label>
-                <input
-                  v-model="form.last_name"
-                  type="text"
-                  name="surname"
-                  id="surname"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Familiyani kiriting"
-                />
-              </div>
-              <div>
-                <label for="phone" class="block mb-2 text-sm"
-                  >Telefon raqami</label
-                >
-                <input
-                  v-model="form.phone_number"
-                  type="text"
-                  name="phone"
-                  id="phone"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Telefon raqamini kiriting"
-                />
-              </div>
-              <div>
-                <label for="category" class="block mb-2 text-sm"
-                  >Guruhni tanlang</label
-                >
-                <select
-                  v-model="form.group_id"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-                >
-                  <option v-for="i in store.groups" :key="i.id" :value="i.id">
-                    {{ i.name }}
-                  </option>
-                </select>
-              </div>
-              <div class="w-[203%]">
-                <label for="login" class="block mb-2 text-sm">Email</label>
-                <input
-                  v-model="form.email"
-                  type="text"
-                  name="login"
-                  id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Emailini kiriting"
-                />
-              </div>
-              <div></div>
-              <div>
-                <label for="login" class="block mb-2 text-sm">Username</label>
-                <input
-                  v-model="form.username"
-                  type="text"
-                  name="login"
-                  id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Usernameni kiriting"
-                />
-              </div>
-              <div>
-                <label for="password" class="block mb-2 text-sm">Parol</label>
-                <input
-                  v-model="form.password"
-                  type="password"
-                  name="password"
-                  id="password"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="*********"
+                  placeholder="Fan nomini kiriting"
                 />
               </div>
             </div>
@@ -169,7 +97,7 @@
           : 'hidden'
       "
     >
-      <div class="relative p-4 w-full max-w-5xl h-auto">
+      <div class="relative p-4 w-full max-w-lg h-auto">
         <!-- Modal content -->
         <div
           class="relative p-4 rounded-lg shadow sm:p-5"
@@ -183,10 +111,10 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              Yangi talaba qo'shish
+              Fan nomini o'zgartirish
             </h3>
             <button
-              @click="toggleModal"
+              @click="cancelFunc1"
               type="button"
               class="bg-transparent hover:bg-gray-200 hover rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
               :class="{ 'text-white': navbar.userNav }"
@@ -209,90 +137,17 @@
           </div>
           <!-- Modal body -->
           <form
-            @submit.prevent="createProduct"
+            @submit.prevent="editProduct"
             :class="{ darkForm: navbar.userNav }"
           >
-            <div class="grid font-medium gap-4 mb-4 sm:grid-cols-2">
+            <div class="grid font-medium gap-4 mb-4 grid-cols-1">
               <div>
-                <label for="name" class="block mb-2 text-sm">Ism</label>
+                <label for="name" class="block mb-2 text-sm">Fan nomi</label>
                 <input
-                  v-model="form.first_name"
+                  v-model="edit.title"
                   type="text"
-                  name="name"
-                  id="name"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Ismini kiriting"
-                />
-              </div>
-              <div>
-                <label for="surname" class="block mb-2 text-sm">Familiya</label>
-                <input
-                  v-model="form.last_name"
-                  type="text"
-                  name="surname"
-                  id="surname"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Familiyani kiriting"
-                />
-              </div>
-              <div>
-                <label for="phone" class="block mb-2 text-sm"
-                  >Telefon raqami</label
-                >
-                <input
-                  v-model="form.phone_number"
-                  type="text"
-                  name="phone"
-                  id="phone"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Telefon raqamini kiriting"
-                />
-              </div>
-              <div>
-                <label for="category" class="block mb-2 text-sm"
-                  >Guruhni tanlang</label
-                >
-                <select
-                  v-model="form.group_id"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-                >
-                  <option v-for="i in store.groups" :key="i.id" :value="i.id">
-                    {{ i.name }}
-                  </option>
-                </select>
-              </div>
-              <div class="w-[203%]">
-                <label for="login" class="block mb-2 text-sm">Email</label>
-                <input
-                  v-model="form.email"
-                  type="text"
-                  name="login"
-                  id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Emailini kiriting"
-                />
-              </div>
-              <div></div>
-              <div>
-                <label for="login" class="block mb-2 text-sm">Username</label>
-                <input
-                  v-model="form.username"
-                  type="text"
-                  name="login"
-                  id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Usernameni kiriting"
-                />
-              </div>
-              <div>
-                <label for="password" class="block mb-2 text-sm">Parol</label>
-                <input
-                  v-model="form.password"
-                  type="password"
-                  name="password"
-                  id="password"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="*********"
+                  placeholder="Fan nomini kiriting"
                 />
               </div>
             </div>
@@ -300,7 +155,7 @@
               class="w-full flex items-center justify-between border-t pt-5 mt-5"
             >
               <button
-                @click="toggleModal"
+                @click="cancelFunc1"
                 type="button"
                 class="border inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
@@ -310,7 +165,7 @@
                 type="submit"
                 class="btnAdd text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
-                Qo'shish
+                O'zgartirish
               </button>
             </div>
           </form>
@@ -369,7 +224,12 @@
             <div class="grid font-medium gap-4 mb-4 grid-cols-1">
               <div>
                 <div></div>
-                <h1 class="text-2xl">Siz lavozimni o'chirishni xohlaysizmi?</h1>
+                <h1
+                  class="text-2xl"
+                  :class="navbar.userNav ? 'text-white' : 'text-black'"
+                >
+                  Siz fanni o'chirishni xohlaysizmi?
+                </h1>
               </div>
               <div
                 class="w-full flex items-center justify-between border-t pt-5 mt-5"
@@ -475,17 +335,14 @@
                 :class="navbar.userNav ? 'bg-gray-700' : 'bg-gray-50'"
               >
                 <tr>
-                  <th scope="col" class="text-center py-3">I . F . O</th>
                   <th scope="col" class="text-center py-3 whitespace-nowrap">
-                    Guruh talabasi
+                    Fan nomi
                   </th>
-                  <th scope="col" class="text-center py-3">Telefon Raqami</th>
-                  <th scope="col" class="text-center py-3">Holati</th>
                   <th scope="col" class="text-center py-3">To'liq</th>
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-show="!store.error">
                 <tr
                   class="border-b"
                   :class="
@@ -498,24 +355,8 @@
                     scope="row"
                     class="text-center px-8 py-3 font-medium whitespace-nowrap"
                   >
-                    <span>{{ i.first_name }}</span>
-                    <span>{{ i.last_name }}</span>
+                    <span>{{ i.title }}</span>
                   </th>
-                  <td class="text-center font-medium text-blue-800 px-8 py-2">
-                    <p class="bg-blue-100 rounded-[5px] p-1 whitespace-nowrap">
-                      {{ i.group.name }}
-                    </p>
-                  </td>
-                  <td class="text-center font-medium text-red-800 px-8 py-2">
-                    <p class="bg-red-100 rounded-[5px] p-1">
-                      {{ i.phone_number }}
-                    </p>
-                  </td>
-                  <td class="text-center font-medium text-green-800 px-8 py-2">
-                    <p class="bg-green-100 rounded-[5px] p-1">
-                      {{ i.is_student }}
-                    </p>
-                  </td>
                   <td class="text-center font-medium px-8 py-3">
                     <button
                       @click="enterSlug(i.id, i.first_name + '_' + i.last_name)"
@@ -526,7 +367,7 @@
                   </td>
                   <td class="text-center whitespace-nowrap font-medium">
                     <i
-                      @click="getOneProduct(i.email)"
+                      @click="getOneProduct(i.id)"
                       class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
                     >
                     </i>
@@ -539,6 +380,11 @@
                 </tr>
               </tbody>
             </table>
+            <div v-show="store.error" class="flex w-full justify-center">
+              <h1 class="p-20 text-2xl font-medium">
+                {{ store.allProducts }}
+              </h1>
+            </div>
           </div>
           <nav
             class="flex flex-row justify-between items-center md:items-center space-y-3 md:space-y-0 p-4"
@@ -584,37 +430,26 @@ const modal = ref(false);
 
 const toggleModal = () => {
   modal.value = !modal.value;
-  form.first_name = "";
-  form.last_name = "";
-  form.phone_number = "";
-  form.email = "";
-  form.username = "";
-  form.password = "";
-  form.group_id = "";
+  form.title = "";
 };
 
 const store = reactive({
   allProducts: false,
   groups: false,
+  error: false,
 });
 
 function enterSlug(id, name) {
-  router.push(`./students/${id}/${name}`);
+  router.push(`./subject/${id}/${name}`);
 }
 
 function cancelFunc() {
-  form.first_name = "";
-  form.last_name = "";
-  form.phone_number = "";
-  form.email = "";
-  form.username = "";
-  form.password = "";
-  form.group_id = "";
+  form.title = "";
   modal.value = false;
 }
 
 function cancelFunc1() {
-  edit.name = "";
+  edit.title = "";
   edit.start_date = "";
   edit.toggle = false;
 }
@@ -626,23 +461,11 @@ function deleteFunc(id) {
 
 // ----------------------------------- forms -----------------------------------
 const form = reactive({
-  first_name: "",
-  last_name: "",
-  phone_number: "",
-  email: "",
-  username: "",
-  password: "",
-  group_id: "",
+  title: "",
 });
 
 const edit = reactive({
-  first_name: "",
-  last_name: "",
-  phone_number: "",
-  email: "",
-  username: "",
-  password: "",
-  group_id: "",
+  title: "",
   id: "",
   toggle: false,
 });
@@ -655,45 +478,36 @@ const remove = reactive({
 // ----------------------------------- axios --------------------------------
 const getProduct = () => {
   axios
-    .get("/student")
+    .get("/subject", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
     .then((res) => {
       console.log(res.data);
       store.allProducts = res.data;
+      store.error = false;
     })
     .catch((error) => {
-      if (error.response.data.statusCode == 400) {
-        store.allProducts = [];
-      }
-      console.log("error", error);
-    });
-};
-
-const getGroups = () => {
-  axios
-    .get("/group")
-    .then((res) => {
-      console.log(res.data);
-      store.groups = res.data;
-    })
-    .catch((error) => {
+      store.allProducts = error.response.data.message;
+      store.error = true;
       console.log(error);
-      if (error.response.data.statusCode == 400) {
-        store.groups = [];
-      }
-      console.log("error", error);
     });
 };
 
-const getOneProduct = (email) => {
-  alert(email)
+const getOneProduct = (id) => {
   axios
-    .get('/student/email', { email })
+    .get(`/subject/${id}`, {
+      id,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
     .then((res) => {
       console.log(res);
-      // edit.name = res.data.name;
-      // edit.start_date = res.data.start_date.slice(0, 10);
-      // edit.id = id;
-      // edit.toggle = true;
+      edit.title = res.data.title;
+      edit.id = id;
+      edit.toggle = true;
     })
     .catch((error) => {
       console.log("error", error);
@@ -702,97 +516,67 @@ const getOneProduct = (email) => {
 
 const createProduct = () => {
   const data = {
-    first_name: form.first_name,
-    last_name: form.last_name,
-    phone_number: form.phone_number,
-    email: form.email,
-    username: form.username,
-    password: form.password,
-    group_id: form.group_id || store.groups[0],
+    title: form.title,
   };
   axios
-    .post("/student/register", data, {
+    .post("/subject", data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
       },
     })
     .then((res) => {
-      console.log(res.data.statusCode);
       notification.success("Guruh qo'shildi");
       getProduct();
       cancelFunc();
     })
     .catch((error) => {
-      if (error.response.data.statusCode == 400) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      } else if (error.response.data.statusCode == 401) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      }
+      notification.warning(error.response.data.message);
       console.log("error", error);
     });
 };
 
 const editProduct = () => {
   const data = {
-    name: edit.name,
-    start_date: edit.start_date,
+    title: edit.title,
   };
   axios
-    .patch(`/group/${edit.id}`, data, {
+    .patch(`/subject/${edit.id}`, data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
       },
     })
     .then((res) => {
-      console.log(res.data.statusCode);
-      notification.success("Guruh tahrirlandi");
+      notification.success(res.data.message);
       getProduct();
-      edit.name = "";
-      edit.start_date = "";
+      edit.title = "";
       edit.toggle = false;
     })
     .catch((error) => {
-      if (error.response.data.statusCode == 400) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      } else if (error.response.data.statusCode == 401) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      }
+      notification.warning(error.response.data.message);
       console.log("error", error);
     });
 };
 
 const deleteProduct = () => {
   axios
-    .delete(`/student/${remove.id}`, {
+    .delete(`/subject/${remove.id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
       },
     })
     .then((res) => {
-      console.log(res.data.statusCode);
-      notification.success("Guruh o'chirildi");
+      notification.success(res.data.message);
       getProduct();
       remove.toggle = false;
     })
     .catch((error) => {
-      if (error.response.data.statusCode == 400) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      } else if (error.response.data.statusCode == 401) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      }
+      notification.warning(error.response.data.message);
       console.log("error", error);
     });
 };
 
 onMounted(() => {
   getProduct();
-  getGroups();
 });
 </script>
 
