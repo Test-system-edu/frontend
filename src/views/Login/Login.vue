@@ -36,16 +36,6 @@
             required
           />
         </div>
-        <div class="flex items-center mb-4 justify-between">
-          <div>
-            <input
-              class="mr-2 mb-1 h-3 w-3 sm:h-[15px] sm:w-[15px] rounded-md"
-              type="checkbox"
-            />
-            <label for="remember" class="text-gray-500">Eslab qolish</label>
-          </div>
-          <a href="#" class="font-semibold my-5">Parolni unutdingizmi?</a>
-        </div>
         <button
           type="submit"
           class="w-full bg-blue-600 text-white hover:bg-white hover:text-blue-900 hover:border-blue-900 py-2 sm:py-[10px] rounded-md"
