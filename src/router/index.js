@@ -103,6 +103,11 @@ const router = createRouter({
           name: 'slug_groups',
           component: SlugGroups,
         },
+        {
+          path: '/test/:id/:name',
+          name: 'slug_tests',
+          component: SlugTests,
+        },
       ]
     },
     {
