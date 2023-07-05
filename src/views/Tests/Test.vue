@@ -52,12 +52,12 @@
                   ><span>{{ form.step }}. </span>Savol</label
                 >
                 <textarea
-                  name=""
-                  id=""
+                  v-model="form.question"
                   cols="30"
                   rows="10"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                   placeholder="Savolni yozing.."
+                  required
                 ></textarea>
               </div>
 
@@ -70,11 +70,13 @@
                       >Variant: A</label
                     >
                     <input
+                      v-model="form.a"
                       type="text"
                       name="a"
                       id="a"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                       placeholder="A variantni kiriting"
+                      required
                     />
                   </div>
 
@@ -85,11 +87,13 @@
                       >Variant: B</label
                     >
                     <input
+                      v-model="form.b"
                       type="text"
                       name="b"
                       id="b"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                       placeholder="B variantni kiriting"
+                      required
                     />
                   </div>
                 </div>
@@ -102,11 +106,13 @@
                       >Variant: C</label
                     >
                     <input
+                      v-model="form.c"
                       type="text"
                       name="c"
                       id="c"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                       placeholder="C variantni kiriting"
+                      required
                     />
                   </div>
 
@@ -117,11 +123,13 @@
                       >Variant: D</label
                     >
                     <input
+                      v-model="form.d"
                       type="text"
                       name="d"
                       id="d"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                       placeholder="D variantni kiriting"
+                      required
                     />
                   </div>
                 </div>
@@ -132,11 +140,49 @@
                     class="block mb-2 max-w-fit mx-auto px-5 text-sm font-medium text-center text-amber-900 bg-amber-200 py-1 rounded-[5px]"
                     >Tog'ri javobni belgilang</label
                   >
-                  <div class="flex justify-center items-center gap-5 font-bold pt-2">
-                    <p @click="form.true_answers = 'a'" :class="{'ring-4 ring-green-500 bg-amber-300': form.true_answers == 'a'}" class="bg-gray-100 text-black w-7 h-7 text-center cursor-pointer hover:bg-amber-300 rounded-full">A</p>
-                    <p @click="form.true_answers = 'b'" :class="{'ring-4 ring-green-500 bg-amber-300': form.true_answers == 'b'}" class="bg-gray-100 text-black w-7 h-7 text-center cursor-pointer hover:bg-amber-300 rounded-full">B</p>
-                    <p @click="form.true_answers = 'c'" :class="{'ring-4 ring-green-500 bg-amber-300': form.true_answers == 'c'}" class="bg-gray-100 text-black w-7 h-7 text-center cursor-pointer hover:bg-amber-300 rounded-full">C</p>
-                    <p @click="form.true_answers = 'd'" :class="{'ring-4 ring-green-500 bg-amber-300': form.true_answers == 'd'}" class="bg-gray-100 text-black w-7 h-7 text-center cursor-pointer hover:bg-amber-300 rounded-full">D</p>
+                  <div
+                    class="flex justify-center items-center gap-5 font-bold pt-2"
+                  >
+                    <p
+                      @click="form.true_answer = 'a'"
+                      :class="{
+                        'ring-4 ring-green-500 bg-amber-300':
+                          form.true_answer == 'a',
+                      }"
+                      class="bg-gray-100 text-black w-7 h-7 text-center cursor-pointer hover:bg-amber-300 rounded-full"
+                    >
+                      A
+                    </p>
+                    <p
+                      @click="form.true_answer = 'b'"
+                      :class="{
+                        'ring-4 ring-green-500 bg-amber-300':
+                          form.true_answer == 'b',
+                      }"
+                      class="bg-gray-100 text-black w-7 h-7 text-center cursor-pointer hover:bg-amber-300 rounded-full"
+                    >
+                      B
+                    </p>
+                    <p
+                      @click="form.true_answer = 'c'"
+                      :class="{
+                        'ring-4 ring-green-500 bg-amber-300':
+                          form.true_answer == 'c',
+                      }"
+                      class="bg-gray-100 text-black w-7 h-7 text-center cursor-pointer hover:bg-amber-300 rounded-full"
+                    >
+                      C
+                    </p>
+                    <p
+                      @click="form.true_answer = 'd'"
+                      :class="{
+                        'ring-4 ring-green-500 bg-amber-300':
+                          form.true_answer == 'd',
+                      }"
+                      class="bg-gray-100 text-black w-7 h-7 text-center cursor-pointer hover:bg-amber-300 rounded-full"
+                    >
+                      D
+                    </p>
                   </div>
                 </div>
               </div>
@@ -145,7 +191,8 @@
               class="w-full flex items-center justify-between border-t pt-5 mt-5"
             >
               <button
-                type="submit"
+                @click="form.step = 'step'"
+                type="button"
                 class="text-gray-500 border inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Bekor qilish
@@ -184,7 +231,7 @@
           >
             <h3 class="text-lg">Test qo'shish</h3>
             <button
-              @click="toggleModal"
+              @click="form.step = 'step'"
               type="button"
               class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
             >
@@ -215,13 +262,18 @@
                       >Fanni tanlang</label
                     >
                     <select
+                      v-model="form.subject_id"
                       id="name"
                       class="bg-gray-50 text-black cursor-pointer border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                       required
                     >
-                      <option value="smm">SMM</option>
-                      <option value="dizayn">DIZAYN</option>
-                      <option value="dasturlash">DASTURLASH</option>
+                      <option
+                        v-for="i in store.subjects"
+                        :key="i.id"
+                        :value="i.id"
+                      >
+                        {{ i.title }}
+                      </option>
                     </select>
                   </div>
                   <div class="flex gap-5">
@@ -236,6 +288,7 @@
                         name="time"
                         max="600"
                         min="1"
+                        v-model="form.test_time"
                         class="bg-gray-50 border float-left w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block p-2.5"
                         placeholder="60"
                         required
@@ -248,6 +301,7 @@
                         >Savollarning umumiy vaqti</label
                       >
                       <input
+                        v-model="form.test_count"
                         type="number"
                         name="time"
                         max="600"
@@ -267,6 +321,7 @@
             >
               <button
                 type="button"
+                @click="form.step = 'step'"
                 class="text-gray-500 border inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Bekor qilish
@@ -310,12 +365,12 @@
               class="lg:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3"
             >
               <button
-                @click="toggleModal"
+                @click="form.step = 0"
                 id=""
                 type="button"
                 class="btnAdd flex items-center max-w-fit justify-center whitespace-nowrap border border-gray-200 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 sm:py-2"
               >
-                <span class="sm:block hidden">Tes qo'shish</span>
+                <span class="sm:block hidden">Test qo'shish</span>
                 <i class="sm:hidden block bx bxs-user-plus text-lg"></i>
               </button>
             </div>
@@ -366,36 +421,32 @@
               >
                 <tr>
                   <th scope="col" class="py-3 pl-8">Fan nomi</th>
-                  <th scope="col" class="text-center py-3">Savol va Javob</th>
-                  <th scope="col" class="text-center py-3">Holati</th>
-                  <th scope="col" class="text-center py-3">To'liq</th>
+                  <th scope="col" class="text-center py-3">Test soni</th>
+                  <th scope="col" class="text-center py-3">Test vaqti</th>
+                  <th scope="col" class="text-center py-3">Savol qo'shish</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-show="!store.error">
                 <tr
                   class="border-b"
                   :class="
                     navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
                   "
-                  v-for="i in 10"
+                  v-for="i in store.allProducts"
                   :key="i"
                 >
                   <th
                     scope="row"
                     class="px-8 py-3 font-medium whitespace-nowrap"
                   >
-                    SMM
+                    {{ i.subject?.title }}
                   </th>
                   <td class="text-center font-medium text-blue-800 px-8 py-2">
-                    <button
-                      @click="toggleSee"
-                      class="bg-blue-100 rounded-[5px] py-2 px-5 text-center border border-blue-100 whitespace-nowrap hover:border-blue-800 focus:ring-4 focus:ring-blue-300"
-                    >
-                      Ko'rish ..
-                    </button>
+                    {{ i.test_count }}
                   </td>
                   <td class="text-center font-medium text-green-800 px-6 py-2">
-                    <p class="bg-green-100 rounded-[5px] px-2 py-1">active</p>
+                    {{ i.test_time }}
                   </td>
                   <td class="text-center font-medium px-8 py-3">
                     <button
@@ -405,9 +456,27 @@
                       Kirish
                     </button>
                   </td>
+                  <td class="text-center whitespace-nowrap font-medium pr-5">
+                    <i
+                      @click="getOneProduct(i.id, 'edit')"
+                      class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
+                    >
+                    </i>
+                    <i
+                      @click="deleteFunc(i.id)"
+                      class="bx bxs-trash bg-red-300 cursor-pointer text-red-600 rounded-lg p-2 focus:ring-2"
+                    >
+                    </i>
+                  </td>
                 </tr>
               </tbody>
             </table>
+            <div
+              v-show="store.allProducts && store.error"
+              class="w-full max-w-screen text-center p-20 text-2xl font-medium"
+            >
+              <h1>{{ store.allProducts }}</h1>
+            </div>
           </div>
           <nav
             class="flex flex-row justify-between items-center md:items-center space-y-3 md:space-y-0 p-4"
@@ -451,18 +520,14 @@ const router = useRouter();
 
 const modal = ref(false);
 
-const toggleModal = () => {
-  modal.value = !modal.value;
-  form.name = "";
-  form.description = "";
-};
-
 const store = reactive({
   allProducts: false,
+  error: false,
+  subjects: [{ title: "Fan yaratilmagan" }],
 });
 
 function enterSlug(id, name) {
-  router.push(`./roles/${id}/${name.toLowerCase()}`);
+  router.push(`./test/${id}/${name.toLowerCase()}`);
 }
 
 function cancelFunc() {
@@ -483,17 +548,50 @@ function deleteFunc(id) {
 }
 
 function addStep(step) {
-  if (form.step == 0) {
-    form.step += 1;
-  }
+  const data = {
+    test_count: form.test_count,
+    test_time: form.test_time,
+    subject_id: form.subject_id,
+  };
+
+  axios
+    .post("/test-group", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      notification.success(res.data.message);
+      alert(res.data.id);
+      form.test_group_id = res.data.id;
+      getProduct();
+      cancelFunc();
+
+      if (form.step == 0) {
+        form.step += 1;
+      }
+    })
+    .catch((error) => {
+      notification.warning(error.response.data.message);
+      console.log(error.response.data.message);
+      console.log("error", error);
+    });
 }
 
 // ----------------------------------- forms -----------------------------------
 const form = reactive({
-  name: "",
-  description: "",
-  true_answers: "",
-  step: 0,
+  test_count: "",
+  test_time: "",
+  subject_id: "",
+  question: "",
+  a: "",
+  b: "",
+  c: "",
+  d: "",
+  true_answer: "",
+  test_group_id: "",
+  question_id: "",
+  step: "step",
 });
 
 const edit = reactive({
@@ -511,19 +609,30 @@ const remove = reactive({
 // ----------------------------------- axios --------------------------------
 const getProduct = () => {
   axios
-    .get("/role")
+    .get("/test-group", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
     .then((res) => {
       console.log(res.data);
       store.allProducts = res.data;
     })
     .catch((error) => {
+      notification.warning(error.response.data.message);
+      store.allProducts = error.response.data.message;
+      store.error = true;
       console.log("error", error);
     });
 };
 
 const getOneProduct = (id) => {
   axios
-    .get(`/role/${id}`)
+    .get(`/role/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
     .then((res) => {
       edit.name = res.data.name;
       edit.description = res.data.description;
@@ -535,31 +644,18 @@ const getOneProduct = (id) => {
     });
 };
 
-const createProduct = () => {
-  const data = {
-    name: form.name,
-    description: form.description,
-  };
+const getSubject = () => {
   axios
-    .post("/role", data, {
+    .get("/subject", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
       },
     })
     .then((res) => {
-      console.log(res.data.statusCode);
-      notification.success("Lavozim qo'shildi");
-      getProduct();
-      cancelFunc();
+      console.log(res.data);
+      store.subjects = res.data || [{ title: "Fan yaratilmagan" }];
     })
     .catch((error) => {
-      if (error.response.data.statusCode == 400) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      } else if (error.response.data.statusCode == 401) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      }
       console.log("error", error);
     });
 };
@@ -622,6 +718,7 @@ const deleteProduct = () => {
 
 onMounted(() => {
   getProduct();
+  getSubject();
 });
 </script>
 
