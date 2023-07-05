@@ -25,7 +25,7 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              Yangi talaba qo'shish
+              Yangi o'quvchi qo'shish
             </h3>
             <button
               @click="toggleModal"
@@ -166,7 +166,7 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              O'quvchi ma'lumotlarini o'zgartirish
+              O'quvchi ma'lumotlarini tahrirlash
             </h3>
             <button
               @click="toggleModal"
@@ -386,7 +386,7 @@
           <div
             class="w-full flex items-center lg:justify-start lg:pb-0 pb-4 justify-between gap-5"
           >
-            <h1 class="text-blue-700 font-bold text-lg">Talabalar</h1>
+            <h1 class="text-blue-700 font-bold text-lg">O'quvchilar</h1>
             <div
               class="lg:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3"
             >
@@ -396,7 +396,7 @@
                 type="button"
                 class="btnAdd flex items-center max-w-fit justify-center whitespace-nowrap border border-gray-200 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 sm:py-2"
               >
-                <span class="sm:block hidden">Talaba qo'shish</span>
+                <span class="sm:block hidden">O'quvchi qo'shish</span>
                 <i class="sm:hidden block bx bxs-user-plus text-lg"></i>
               </button>
             </div>
