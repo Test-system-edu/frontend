@@ -1,11 +1,14 @@
 <template>
   <section>
-    <div class="wrapper sm:px-5">
+    <div class="wrapper mt-8">
       <div
-        :class="navbar.userNav ? 'bg-[#203843] text-white px-5 py-10 sm:px-10 flex flex-col gap-5' : 'bg-white px-5 py-10 sm:px-10 flex flex-col gap-5'"
+        :class="navbar.userNav ? 'bg-[#203843] text-white px-5 py-10 sm:px-10 flex flex-col gap-5 rounded-lg' : 'bg-white px-5 py-10 sm:px-10 flex flex-col gap-5 rounded-lg'"
         id="accordion-collapse" data-accordion="collapse">
         <div class="flex items-center justify-between mb-6">
-          <h1 class="text-[24px] font-bold text-center">Group name</h1>
+          <div class="flex flex-col gap-2">
+            <h1 class="text-[24px] font-bold border-b border-[#046f80]">Gruh nomi</h1>
+            <p class="text-[14px] flex items-center gap-3"><span class="font-bold">Boshlangan sana:</span> 2023-07-04</p>
+          </div>
           <button class="btn shadow-lg rounded-lg px-5 py-2.5 text-white focus:ring-2">
             Orqaga qaytish
           </button>
@@ -17,7 +20,7 @@
             aria-controls="accordion-collapse-body-1">
             <div class="flex items-center gap-5">
               <i class='btn bx bx-user text-[24px] p-3 text-white rounded-full'></i>
-              <h2 class="text-[18px]">Staffs</h2>
+              <h2 class="text-[18px]">Xodimlar</h2>
             </div>
             <i :class="modal
               ? 'bx bx-minus bg-white p-2 text-[#046f80] text-[30px] rounded-full'
@@ -77,7 +80,7 @@
             aria-controls="accordion-collapse-body-2">
             <div class="flex items-center gap-5">
               <i class='btn bx bxs-graduation text-[24px] p-3 text-white rounded-full'></i>
-              <h2 class="text-[18px]">Students</h2>
+              <h2 class="text-[18px]">O'quvchilar</h2>
             </div>
             <i :class="modal2
               ? 'bx bx-minus bg-white text-[#046f80] p-2 text-[30px] rounded-full'
@@ -133,7 +136,6 @@
             </nav>
           </div>
         </div>
-        <p class="text-[14px] text-right mt-6"><span class="font-bold">Start date:</span> 2023-07-04</p>
       </div>
     </div>
   </section>
