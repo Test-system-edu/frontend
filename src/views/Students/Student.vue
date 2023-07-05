@@ -507,7 +507,7 @@
                   </td>
                   <td class="text-center font-medium text-green-800 px-8 py-2">
                     <p class="bg-green-100 rounded-[5px] p-1">
-                      {{ i.is_student }}
+                      {{ i.is_active }}
                     </p>
                   </td>
                   <td class="text-center font-medium px-8 py-3">
