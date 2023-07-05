@@ -18,6 +18,7 @@ import {
   SlugRoles,
   SlugSubjects,
   Subjects,
+  SlugQuestion,
 } from '../views'
 
 const router = createRouter({
@@ -104,7 +105,12 @@ const router = createRouter({
           component: SlugGroups,
         },
         {
-          path: '/test/:id/:name',
+          path: '/tests/question/:name',
+          name: 'slug_questions',
+          component: SlugQuestion,
+        },
+        {
+          path: '/tests/:id/:name',
           name: 'slug_tests',
           component: SlugTests,
         },

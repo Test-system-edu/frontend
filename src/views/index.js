@@ -16,6 +16,7 @@ import SlugGroups from './Groups/_slug.vue';
 import SlugResults from './Results/_slug.vue';
 import SlugRoles from './Results/_slug.vue';
 import SlugSubjects from './Subjects/_slug.vue';
+import SlugQuestion from './Tests/_question.vue';
 
 export {
     HomeView,
@@ -36,4 +37,5 @@ export {
     SlugResults,
     SlugRoles,
     SlugSubjects,
+    SlugQuestion,
 }
