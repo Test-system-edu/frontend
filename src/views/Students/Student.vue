@@ -485,7 +485,7 @@
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-show="!store.error">
                 <tr
                   class="border-b"
                   :class="
@@ -503,7 +503,7 @@
                   </th>
                   <td class="text-center font-medium text-blue-800 px-8 py-2">
                     <p class="bg-blue-100 rounded-[5px] p-1 whitespace-nowrap">
-                      {{ i.group.name }}
+                      {{ i.group?.name }}
                     </p>
                   </td>
                   <td class="text-center font-medium text-red-800 px-8 py-2">
@@ -539,6 +539,12 @@
                 </tr>
               </tbody>
             </table>
+            <div
+              v-show="store.allProducts && store.error"
+              class="w-full max-w-screen text-center p-20 text-2xl font-medium"
+            >
+              <h1>{{ store.allProducts }}</h1>
+            </div>
           </div>
           <nav
             class="flex flex-row justify-between items-center md:items-center space-y-3 md:space-y-0 p-4"
@@ -596,6 +602,7 @@ const toggleModal = () => {
 const store = reactive({
   allProducts: false,
   groups: false,
+  error: false,
 });
 
 function enterSlug(id, name) {
@@ -655,15 +662,20 @@ const remove = reactive({
 // ----------------------------------- axios --------------------------------
 const getProduct = () => {
   axios
-    .get("/student")
+    .get("/student", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
     .then((res) => {
       console.log(res.data);
       store.allProducts = res.data;
+      store.error = false;
     })
     .catch((error) => {
-      if (error.response.data.statusCode == 400) {
-        store.allProducts = [];
-      }
+      notification.warning(error.response.data.message);
+      store.allProducts = error.response.data.message;
+      store.error = true;
       console.log("error", error);
     });
 };
@@ -685,9 +697,9 @@ const getGroups = () => {
 };
 
 const getOneProduct = (email) => {
-  alert(email)
+  alert(email);
   axios
-    .get('/student/email', { email })
+    .get("/student/email", { email })
     .then((res) => {
       console.log(res);
       // edit.name = res.data.name;

@@ -24,7 +24,7 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              Yangi o'qituvchi qo'shish
+              Yangi xodim qo'shish
             </h3>
             <button
               @click="toggleModal"
@@ -54,47 +54,6 @@
           >
             <div class="grid font-medium gap-4 mb-4 sm:grid-cols-2">
               <div>
-                <label for="name" class="block mb-2 text-sm"
-                  >To'liq ismi (I . F . O)</label
-                >
-                <input
-                  v-model="form.full_name"
-                  type="text"
-                  name="name"
-                  id="name"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="To'liq ismini kiriting"
-                  required
-                />
-              </div>
-              <div>
-                <label for="phone" class="block mb-2 text-sm"
-                  >Telefon raqami</label
-                >
-                <input
-                  v-model="form.phone_number"
-                  type="text"
-                  name="phone"
-                  id="phone"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Telefon raqamini kiriting"
-                  required
-                />
-              </div>
-              <div class="w-[205%]">
-                <label for="email" class="block mb-2 text-sm">Email</label>
-                <input
-                  v-model="form.email"
-                  type="text"
-                  name="email"
-                  id="email"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="email"
-                  required
-                />
-              </div>
-              <div></div>
-              <div>
                 <label for="login" class="block mb-2 text-sm">Login</label>
                 <input
                   v-model="form.login"
@@ -118,6 +77,35 @@
                   required
                 />
               </div>
+              <div class="w-[205%]">
+                <label for="name" class="block mb-2 text-sm"
+                  >To'liq ismi (I . F . O)</label
+                >
+                <input
+                  v-model="form.full_name"
+                  type="text"
+                  name="name"
+                  id="name"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
+                  placeholder="To'liq ismini kiriting"
+                  required
+                />
+              </div>
+              <div></div>
+              <div>
+                <label for="phone" class="block mb-2 text-sm"
+                  >Telefon raqami</label
+                >
+                <input
+                  v-model="form.phone_number"
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
+                  placeholder="Telefon raqamini kiriting"
+                  required
+                />
+              </div>
               <div>
                 <label for="category" class="block mb-2 text-sm font-medium"
                   >Lavozimi</label
@@ -126,90 +114,12 @@
                   v-model="form.role"
                   id="category"
                   class="bg-gray-50 border border-gray-300 text-md z-10 rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-                >
-                  <option value="Rektor">Rektor</option>
-                  <option value="Prorektor">Prorektor</option>
-                  <option value="Professor">Professor</option>
-                </select>
-              </div>
-              <div>
-                <label for="telegra," class="block mb-2 text-sm"
-                  >Telegram username</label
-                >
-                <input
-                  v-model="form.telegram_username"
-                  type="text"
-                  name="telegram"
-                  id="telegram"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="@example2023"
                   required
-                />
-              </div>
-              <div class="relative" @mouseleave="toggle.subject = false">
-                <div for="category" class="block mb-2 text-sm">
-                  Fanlari (ixtiyoriy)
-                </div>
-                <h1
-                  @click="toggle.subject = !toggle.subject"
-                  class="flex justify-between relative bg-gray-50 border border-gray-300 cursor-pointer text-sm rounded-lg focus:ring-green-500 focus:border-green-500 w-full p-2.5"
                 >
-                  <span>Fanlarni tanlang</span>
-                  <i
-                    class="bx bx-chevron-down text-2xl absolute top-1 text-gray-500 right-2"
-                  ></i>
-                </h1>
-                <div
-                  v-show="toggle.subject"
-                  class="absolute z-10 bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-1"
-                >
-                  <p
-                    class="flex items-center py-0.5 mb-1 px-1.5 rounded cursor-pointer"
-                    :class="{
-                      'bg-gray-300': toggle.subjects.join(',').includes(i),
-                    }"
-                    v-for="i in subjects"
-                    :key="i"
-                    @click="addSubject"
-                  >
-                    {{ i }}
-                  </p>
-                </div>
-              </div>
-              <div class="bg-white rounded-lg px-2">
-                {{ toggle.subjects.join(", ") }}
-              </div>
-
-              <div class="relative" @mouseleave="toggle.group = false">
-                <div for="category" class="block mb-2 text-sm">
-                  Guruhlari (ixtiyoriy)
-                </div>
-                <h1
-                  @click="toggle.group = !toggle.group"
-                  class="flex justify-between relative bg-gray-50 border border-gray-300 cursor-pointer text-sm rounded-lg focus:ring-green-500 focus:border-green-500 w-full p-2.5"
-                >
-                  <span>Guruhlarni tanlang</span>
-                  <i
-                    class="bx bx-chevron-down text-2xl absolute top-1 text-gray-500 right-2"
-                  ></i>
-                </h1>
-                <div
-                  v-show="toggle.group"
-                  class="absolute z-10 bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-1"
-                >
-                  <p
-                    class="flex items-center py-0.5 mb-1 px-1.5 rounded cursor-pointer"
-                    v-for="i in groups"
-                    :key="i"
-                    :id="`back${i}`"
-                    @click="addGroup"
-                  >
-                    {{ i }}
-                  </p>
-                </div>
-              </div>
-              <div class="bg-white rounded-lg px-2">
-                {{ toggle.groups.join(", ") }}
+                  <option v-for="i in store.roles" :key="i.id" :value="i.name">
+                    {{ i.name }}
+                  </option>
+                </select>
               </div>
             </div>
             <div
@@ -236,18 +146,463 @@
 
     <!-- ----------------------------------------- MODAL END ---------------------------------------------------- -->
 
+    <!-- ----------------------------------------- SUBJECT MODAL -------------------------------------------------------- -->
+
+    <!-- Main modal -->
+    <div
+      v-show="store.subjectModal"
+      :class="
+        store.subjectModal
+          ? 'absolute overflow-y-auto flex bg-[rgba(0,0,0,0.5)] overflow-x-hidden z-50 justify-center items-center w-full inset-0 h-full'
+          : 'hidden'
+      "
+    >
+      <div class="relative p-4 w-full max-w-lg h-auto">
+        <!-- Modal content -->
+        <div
+          class="relative p-4 rounded-lg shadow sm:p-5"
+          :class="navbar.userNav ? 'bg-[#203843]' : 'bg-white'"
+        >
+          <!-- Modal header -->
+          <div
+            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5"
+          >
+            <h3
+              class="text-lg"
+              :class="navbar.userNav ? 'text-white' : 'text-black'"
+            >
+              Yangi fan qo'shish
+            </h3>
+            <button
+              @click="store.subjectModal = false"
+              type="button"
+              class="bg-transparent hover:bg-gray-200 hover rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+              :class="{ 'text-white': navbar.userNav }"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div class="py-5 flex gap-5">
+            <span
+              v-for="i in form.subject"
+              :key="i.id"
+              @click="
+                remove.title = i.title;
+                removeSubjects();
+              "
+              class="bg-gray-300 rounded px-3 py-1"
+              >{{ i.title }}
+              <i
+                class="bx bx-x cursor-pointer hover:bg-gray-500 rounded font-bold p-1"
+              ></i
+            ></span>
+          </div>
+          <form
+            @submit.prevent="addSubjects"
+            :class="{ darkForm: navbar.userNav }"
+          >
+            <div class="grid font-medium gap-4 mb-4 grid-cols-1">
+              <div>
+                <label for="name" class="block mb-2 text-sm"
+                  >Fanni tanlang</label
+                >
+                <select
+                  v-model="edit.title"
+                  id="name"
+                  class="bg-gray-50 border border-gray-300 rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
+                  required
+                >
+                  <option
+                    v-for="i in store.subjects"
+                    :key="i.id"
+                    :value="i.title"
+                  >
+                    {{ i.title }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              class="w-full flex items-center justify-between border-t pt-5 mt-5"
+            >
+              <button
+                @click="store.subjectModal = false"
+                type="button"
+                class="border inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              >
+                Bekor qilish
+              </button>
+              <button
+                type="submit"
+                class="btnAdd text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              >
+                Qo'shish
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- ----------------------------------------- SUBJECT MODAL END ---------------------------------------------------- -->
+
+    <!-- ----------------------------------------- GROUP MODAL -------------------------------------------------------- -->
+
+    <!-- Main modal -->
+    <!-- Main modal -->
+    <div
+      :class="
+        store.groupModal
+          ? 'absolute overflow-y-auto flex bg-[rgba(0,0,0,0.5)] overflow-x-hidden z-50 justify-center items-center w-full inset-0 h-full'
+          : 'hidden'
+      "
+    >
+      <div class="relative p-4 w-full max-w-lg h-auto">
+        <!-- Modal content -->
+        <div
+          class="relative p-4 rounded-lg shadow sm:p-5"
+          :class="navbar.userNav ? 'bg-[#203843]' : 'bg-white'"
+        >
+          <!-- Modal header -->
+          <div
+            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5"
+          >
+            <h3
+              class="text-lg"
+              :class="navbar.userNav ? 'text-white' : 'text-black'"
+            >
+              Yangi guruh qo'shish
+            </h3>
+            <button
+              @click="store.groupModal = false"
+              type="button"
+              class="bg-transparent hover:bg-gray-200 hover rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+              :class="{ 'text-white': navbar.userNav }"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div class="py-5">
+            <span
+              v-for="i in form.group"
+              :key="i.id"
+              @click="
+                remove.name = 'Ona tili';
+                removeGroups();
+              "
+              class="bg-gray-300 rounded px-3 py-1"
+              >{{ i.name }}
+              <i
+                class="bx bx-x cursor-pointer hover:bg-gray-500 rounded font-bold p-1"
+              ></i
+            ></span>
+          </div>
+          <form
+            @submit.prevent="addGroups"
+            :class="{ darkForm: navbar.userNav }"
+          >
+            <div class="grid font-medium gap-4 mb-4 grid-cols-1">
+              <div>
+                <label for="name" class="block mb-2 text-sm"
+                  >Guruhni tanlang</label
+                >
+                <select
+                  v-model="edit.name"
+                  id="name"
+                  class="bg-gray-50 border border-gray-300 rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
+                  required
+                >
+                  <option v-for="i in store.groups" :key="i.id" :value="i.name">
+                    {{ i.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              class="w-full flex items-center justify-between border-t pt-5 mt-5"
+            >
+              <button
+                @click="store.groupModal = false"
+                type="button"
+                class="border inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              >
+                Bekor qilish
+              </button>
+              <button
+                type="submit"
+                class="btnAdd text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              >
+                Qo'shish
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ----------------------------------------- GROUP MODAL END ---------------------------------------------------- -->
+
+    <!-- ----------------------------------------- Edit modal ---------------------------------------------------- -->
+    <div
+      :class="
+        edit.toggle
+          ? 'absolute overflow-y-auto flex bg-[rgba(0,0,0,0.5)] overflow-x-hidden z-50 justify-center items-center w-full inset-0 h-full'
+          : 'hidden'
+      "
+    >
+      <div class="relative p-4 max-w-5xl min-w-[30%] h-auto">
+        <!-- Modal content -->
+        <div
+          class="relative p-4 rounded-lg shadow sm:p-5"
+          :class="navbar.userNav ? 'bg-[#203843]' : 'bg-white'"
+        >
+          <!-- Modal header -->
+          <div
+            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5"
+          >
+            <h3
+              class="text-lg"
+              :class="navbar.userNav ? 'text-white' : 'text-black'"
+            >
+              Xodimni o'zgartirish
+            </h3>
+            <button
+              @click="cancelFunc1"
+              type="button"
+              class="bg-transparent hover:bg-gray-200 hover rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+              :class="navbar.userNav ? 'text-white' : 'text-black'"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <form
+            @submit.prevent="editProduct"
+            :class="{ darkForm: navbar.userNav }"
+          >
+            <div class="grid font-medium gap-4 mb-4 sm:grid-cols-2">
+              <div>
+                <label for="login" class="block mb-2 text-sm">Login</label>
+                <input
+                  v-model="edit.login"
+                  type="text"
+                  name="login"
+                  id="login"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
+                  placeholder="login"
+                  required
+                />
+              </div>
+              <div>
+                <label for="password" class="block mb-2 text-sm">Parol</label>
+                <input
+                  v-model="edit.password"
+                  type="password"
+                  name="password"
+                  id="password"
+                  class="bg-gray-50 placeholder-black border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
+                  placeholder="*********"
+                />
+              </div>
+              <div class="w-[205%]">
+                <label for="name" class="block mb-2 text-sm"
+                  >To'liq ismi (I . F . O)</label
+                >
+                <input
+                  v-model="edit.full_name"
+                  type="text"
+                  name="name"
+                  id="name"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
+                  placeholder="To'liq ismini kiriting"
+                  required
+                />
+              </div>
+              <div></div>
+              <div>
+                <label for="phone" class="block mb-2 text-sm"
+                  >Telefon raqami</label
+                >
+                <input
+                  v-model="edit.phone_number"
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
+                  placeholder="Telefon raqamini kiriting"
+                  required
+                />
+              </div>
+              <div>
+                <label for="category" class="block mb-2 text-sm font-medium"
+                  >Lavozimi</label
+                >
+                <select
+                  v-model="edit.role"
+                  id="category"
+                  class="bg-gray-50 border border-gray-300 text-md z-10 rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                  required
+                >
+                  <option v-for="i in store.roles" :key="i.id" :value="i.name">
+                    {{ i.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              class="w-full flex items-center justify-between border-t pt-5 mt-5"
+            >
+              <button
+                @click="cancelFunc1"
+                type="button"
+                class="border cursor-pointer inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              >
+                Bekor qilish
+              </button>
+              <button
+                type="submit"
+                class="btnAdd cursor-pointer text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              >
+                O'zgartirish
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ----------------------------------------- Edit END ---------------------------------------------------- -->
+
+    <!-- ----------------------------------------- Delete modal ---------------------------------------------------- -->
+    <div
+      :class="
+        remove.toggle
+          ? 'absolute overflow-y-auto flex bg-[rgba(0,0,0,0.5)] overflow-x-hidden z-50 justify-center items-center w-full inset-0 h-full'
+          : 'hidden'
+      "
+    >
+      <div class="relative p-4 max-w-5xl min-w-[30%] h-auto">
+        <!-- Modal content -->
+        <div
+          class="relative p-4 rounded-lg shadow sm:p-5"
+          :class="navbar.userNav ? 'bg-[#203843]' : 'bg-white'"
+        >
+          <!-- Modal header -->
+          <div
+            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5"
+          >
+            <h3
+              class="text-lg"
+              :class="navbar.userNav ? 'text-white' : 'text-black'"
+            >
+              Xodimni o'chirib tashlash
+            </h3>
+            <button
+              @click="remove.toggle = false"
+              type="button"
+              class="bg-transparent hover:bg-gray-200 hover rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+              :class="navbar.userNav ? 'text-white' : 'text-black'"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div :class="{ darkForm: navbar.userNav }">
+            <div class="grid font-medium gap-4 mb-4 grid-cols-1">
+              <div>
+                <div></div>
+                <h1
+                  class="text-2xl"
+                  :class="navbar.userNav ? 'text-white' : 'text-black'"
+                >
+                  Siz xodimni o'chirishni xohlaysizmi?
+                </h1>
+              </div>
+              <div
+                class="w-full flex items-center justify-between border-t pt-5 mt-5"
+              >
+                <button
+                  @click="remove.toggle = false"
+                  type="button"
+                  class="border cursor-pointer inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  Bekor qilish
+                </button>
+                <button
+                  @click="deleteProduct"
+                  class="btnAdd cursor-pointer text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  O'chirish
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ----------------------------------------- delete modal end ---------------------------------------------------- -->
+
     <!-- ----------------------------------------- EMPLYE TABLE ------------------------------------------------- -->
 
     <section class="pt-4" :class="{ 'text-white': navbar.userNav }">
       <!------------------------------------------- Placeholder ------------------------------------------->
-      <div v-show="!store.data">
+      <div v-show="!store.allProducts">
         <Placeholder2 />
       </div>
       <!------------------------------------------- Placeholder ------------------------------------------->
 
       <!------------------------------------------- Search ------------------------------------------->
 
-      <div v-show="store.data" class="w-full max-w-screen">
+      <div v-show="store.allProducts" class="w-full max-w-screen">
         <!-- Start coding here -->
         <div
           class="shadow rounded-xl flex flex-col lg:flex-row items-center justify-between lg:space-x-4 p-4 mb-4"
@@ -297,7 +652,7 @@
                   type="text"
                   id="simple-search"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
-                  placeholder="Izlash uchun yozing .."
+                  placeholder="Izlash uchun yozing ..."
                 />
               </div>
             </form>
@@ -317,13 +672,15 @@
               >
                 <tr>
                   <th scope="col" class="text-center py-3">I . F . O</th>
-                  <th scope="col" class="text-center py-3">Fan O'qituvchisi</th>
+                  <th scope="col" class="text-center py-3">Lavozimi</th>
                   <th scope="col" class="text-center py-3">Telefon raqami</th>
-                  <th scope="col" class="text-center py-3">Lavozim</th>
+                  <th scope="col" class="text-center py-3">Fanlari</th>
+                  <th scope="col" class="text-center py-3">Guruhlari</th>
                   <th scope="col" class="text-center py-3">To'liq</th>
+                  <th></th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody v-show="!store.error">
                 <tr
                   class="border-b"
                   :class="
@@ -340,16 +697,45 @@
                   </th>
                   <td class="text-center font-medium text-blue-800 px-8 py-2">
                     <p
-                      class="bg-blue-100 min-w-fit rounded-[5px] p-1 whitespace-nowrap"
+                      class="bg-blue-100 min-w-fit rounded-[5px] px-2 py-1 whitespace-nowrap"
                     >
-                      {{ i.subjects }}
+                      {{ i.roles[0]?.name }}
                     </p>
                   </td>
                   <td class="text-center font-medium text-red-800 px-8 py-2">
-                    <p class="bg-red-100 rounded-[5px] p-1">{{ i.phone_number }}</p>
+                    <p class="bg-red-100 rounded-[5px] p-1 whitespace-nowrap">
+                      {{ i.phone_number }}
+                    </p>
                   </td>
-                  <td class="text-center font-medium text-green-800 px-8 py-2">
-                    <p class="bg-green-100 rounded-[5px] p-1">{{ i.roles }}</p>
+                  <td class="text-center font-medium text-blue-800 px-8 py-2">
+                    <div
+                      class="flex gap-1 justify-between text-center bg-blue-100 min-w-fit rounded-[5px] px-2 py-1 whitespace-nowrap"
+                    >
+                      <p>
+                        <span v-for="fan in i.subjects" :key="fan.id"
+                          >{{ fan.title }},
+                        </span>
+                      </p>
+                      <i
+                        @click="getOneProduct(i.id, 'subject')"
+                        class="bx bx-plus cursor-pointer bg-blue-800 ml-2 font-extrabold text-white p-1 rounded-md"
+                      ></i>
+                    </div>
+                  </td>
+                  <td class="text-center font-medium text-blue-800 px-8 py-2">
+                    <div
+                      class="flex gap-2 justify-between bg-blue-100 min-w-fit rounded-[5px] px-2 py-1 whitespace-nowrap"
+                    >
+                      <p>
+                        <span v-for="id in i.groups" :key="id.id"
+                          >{{ id.name }},
+                        </span>
+                      </p>
+                      <i
+                        @click="getOneProduct(i.id, 'group')"
+                        class="bx bx-plus cursor-pointer bg-blue-800 ml-2 font-extrabold text-white p-1 rounded-md"
+                      ></i>
+                    </div>
                   </td>
                   <td class="text-center font-medium px-8 py-3">
                     <button
@@ -359,9 +745,27 @@
                       Kirish
                     </button>
                   </td>
+                  <td class="text-center whitespace-nowrap font-medium">
+                    <i
+                      @click="getOneProduct(i.id, 'edit')"
+                      class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
+                    >
+                    </i>
+                    <i
+                      @click="deleteFunc(i.id)"
+                      class="bx bxs-trash bg-red-300 cursor-pointer text-red-600 rounded-lg p-2 focus:ring-2"
+                    >
+                    </i>
+                  </td>
                 </tr>
               </tbody>
             </table>
+            <div
+              v-show="store.allProducts && store.error"
+              class="w-full max-w-screen text-center p-20 text-2xl font-medium"
+            >
+              <h1>{{ store.allProducts }}</h1>
+            </div>
           </div>
           <nav
             class="flex flex-row justify-between items-center md:items-center space-y-3 md:space-y-0 p-4"
@@ -408,11 +812,15 @@ const toggleModal = () => (modal.value = !modal.value);
 
 const store = reactive({
   allProducts: false,
+  groups: [{ name: "Guruh yaratilmagan" }],
+  subjects: [{ title: "Fan yaratilmagan" }],
+  roles: "",
+  error: false,
+  subjectModal: false,
+  groupModal: false,
+  addSubject: "",
+  hashed_password: "",
 });
-
-setTimeout(() => {
-  store.data = true;
-}, 1000);
 
 function enterSlug(id, name) {
   name = name.toLowerCase().split(" ").join("_");
@@ -429,22 +837,6 @@ function addSubject(e) {
   toggle.subjects.push(e.target.innerHTML);
 }
 
-function addGroup(e) {
-  let back = document.querySelector(`#${e.target.id}`);
-  back.classList.remove("bg-gray-300");
-  for (let i in toggle.groups) {
-    if (toggle.groups[i] == e.target.innerHTML) {
-      toggle.groups.splice(i, 1);
-      return;
-    }
-  }
-  toggle.groups.push(e.target.innerHTML);
-  for (let i of toggle.groups) {
-    let back = document.querySelector(`#back${i}`);
-    back.className += " bg-gray-300";
-  }
-}
-
 function cancelFunc() {
   form.full_name = "";
   form.phone_number = "";
@@ -458,6 +850,20 @@ function cancelFunc() {
   toggle.groups = [];
   toggle.subjects = [];
   modal.value = false;
+}
+
+function deleteFunc(id) {
+  remove.id = id;
+  remove.toggle = true;
+}
+
+function cancelFunc1() {
+  edit.full_name = "";
+  edit.login = "";
+  edit.password = "";
+  edit.role = "";
+  edit.phone_number = "";
+  edit.toggle = false;
 }
 
 // toggle
@@ -481,8 +887,26 @@ const form = reactive({
   group: "",
 });
 
-const subjects = ["ona tili", "matematika", "ingliz tili"];
-const groups = ["I", "II", "III", "IV", "VI"];
+const edit = reactive({
+  full_name: "",
+  phone_number: "",
+  email: "",
+  login: "",
+  password: "",
+  telegram_username: "",
+  role: "Rektor",
+  subject: "",
+  group: "",
+  id: "",
+  toggle: false,
+});
+
+const remove = reactive({
+  id: "",
+  title: "",
+  name: "",
+  toggle: false,
+});
 
 // ----------------------------------- axios --------------------------------
 
@@ -490,13 +914,9 @@ const createProduct = () => {
   const data = {
     full_name: form.full_name,
     phone_number: form.phone_number,
-    email: form.email,
     login: form.login,
     password: form.password,
-    telegram_username: form.telegram_username,
-    role: form.role || "Rektor",
-    subject: toggle.subjects.join(", ") || "null",
-    group: toggle.groups.join(", ") || "null",
+    role: form.role || "admin",
   };
   axios
     .post("/staff/create", data, {
@@ -505,34 +925,300 @@ const createProduct = () => {
       },
     })
     .then((res) => {
-      console.log(res.data.statusCode);
-      if (res.data.statusCode == 400) {
-        console.log(res.data.message);
-      }
+      modal.value = false;
+      notification.success(res.data.message);
+      getProduct();
+      form.full_name = "";
+      form.login = "";
+      form.password = "";
+      form.role = "";
+      form.phone_number = "";
     })
     .catch((error) => {
       if (error.response.data.statusCode == 400) {
-        console.log(error.response.data.message);
         notification.warning(error.response.data.message);
       }
-      console.log("error", error);
+      console.log(error);
     });
 };
 
 const getProduct = () => {
   axios
-    .get("/staff")
+    .get("/staff", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
     .then((res) => {
       console.log(res.data);
       store.allProducts = res.data;
+      store.error = false;
+    })
+    .catch((error) => {
+      store.error = true;
+      store.allProducts = error.response.data.message;
+      console.log("error", error);
+    });
+};
+
+const getOneProduct = (id, modal) => {
+  axios
+    .get(`/staff/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      edit.full_name = res.data.full_name;
+      edit.login = res.data.login;
+      edit.password = "";
+      store.hashed_password = res.data.hashed_password;
+      edit.role = res.data.roles[0].name;
+      edit.subject = res.data.subjects;
+      edit.group = res.data.groups;
+      edit.phone_number = res.data.phone_number;
+      form.group = res.data.groups;
+      form.subject = res.data.subjects;
+      edit.id = res.data.id;
+      if (modal == "edit") {
+        edit.toggle = true;
+      } else if (modal == "subject") {
+        store.subjectModal = true;
+      } else if (modal == "group") {
+        store.groupModal = true;
+      } else {
+        store.addSubject = res.data;
+      }
     })
     .catch((error) => {
       console.log("error", error);
     });
 };
 
+const editProduct = () => {
+  const data = {
+    full_name: edit.full_name,
+    phone_number: edit.phone_number,
+    login: edit.login,
+    password: edit.password || store.hashed_password,
+    role: edit.role,
+  };
+  axios
+    .patch(`/staff/${edit.id}`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      notification.success(res.data.message);
+      getProduct();
+      edit.full_name = "";
+      edit.login = "";
+      edit.password = "";
+      edit.role = "";
+      edit.phone_number = "";
+      edit.toggle = false;
+    })
+    .catch((error) => {
+      notification.warning(error.response.data.message);
+      console.log("error", error);
+    });
+};
+
+const addSubjects = async () => {
+  const data = {
+    staff_id: edit.id,
+    title: edit.title,
+  };
+  async function add() {
+    const info = await axios.get(`/staff/${edit.id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    });
+    console.log(info.data);
+    for (let i of info.data.subjects) {
+      console.log(i.title == data.title);
+      if (i.title == data.title) {
+        notification.warning("Bu fan qo'shilgan");
+        return true;
+      }
+    }
+  }
+  if (await add()) {
+    return;
+  }
+  axios
+    .post(`/staff/addSubject`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      notification.success(res.data.message);
+      getProduct();
+      store.subjectModal = false;
+    })
+    .catch((error) => {
+      notification.warning(error.response.data.message);
+      console.log("error", error);
+    });
+};
+
+const addGroups = async () => {
+  const data = {
+    staff_id: edit.id,
+    name: edit.name,
+  };
+  async function add() {
+    const info = await axios.get(`/staff/${edit.id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    });
+    for (let i of info.data.groups) {
+      if (i.name == data.name) {
+        notification.warning("Bu guruh qo'shilgan");
+        return true;
+      }
+    }
+  }
+  if (await add()) {
+    return;
+  }
+  axios
+    .post(`/staff/addGroup`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then(async (res) => {
+      notification.success(res.data.message);
+      getProduct();
+      store.groupModal = false;
+    })
+    .catch((error) => {
+      notification.warning(error.response.data.message);
+      console.log("error", error);
+    });
+};
+
+const removeSubjects = () => {
+  const data = {
+    staff_id: edit.id,
+    title: remove.title,
+  };
+  axios
+    .delete(`/staff/removeSubject`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      }, data
+    })
+    .then((res) => {
+      notification.success(res.data.message);
+      getProduct();
+      store.subjectModal = false;
+    })
+    .catch((error) => {
+      notification.warning(error.response.data.message);
+      console.log("error", error);
+    });
+};
+
+const removeGroups = () => {
+  const data = {
+    staff_id: edit.id,
+    name: "n7",
+  };
+  axios
+    .delete("/staff/removeGroup", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+      data,
+    })
+    .then((res) => {
+      notification.success(res.data.message);
+      getProduct();
+      store.groupModal = false;
+    })
+    .catch((error) => {
+      notification.warning(error.response.data.message);
+      console.log("error", error);
+    });
+};
+
+const getSubject = () => {
+  axios
+    .get("/subject", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      store.subjects = res.data || [{ title: "Fan yaratilmagan" }];
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
+};
+
+const getGroup = () => {
+  axios
+    .get("/group", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      store.groups = res.data || [{ name: "Guruh yaratilmagan" }];
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
+};
+
+const getRole = () => {
+  axios
+    .get("/role", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      store.roles = res.data;
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
+};
+
+const deleteProduct = () => {
+  axios
+    .delete(`/staff/${remove.id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      notification.success(res.data.message);
+      getProduct();
+      remove.toggle = false;
+    })
+    .catch((error) => {
+      notification.warning(error.response.data.message);
+      console.log(error);
+    });
+};
+
 onMounted(() => {
   getProduct();
+  getRole();
+  getSubject();
+  getGroup();
 });
 </script>
 
