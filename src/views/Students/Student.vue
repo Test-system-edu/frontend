@@ -56,6 +56,30 @@
           >
             <div class="grid font-medium gap-4 mb-4 sm:grid-cols-2">
               <div>
+                <label for="login" class="block mb-2 text-sm">Login</label>
+                <input
+                  v-model="form.login"
+                  type="text"
+                  name="login"
+                  id="login"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
+                  placeholder="login"
+                  required
+                />
+              </div>
+              <div>
+                <label for="password" class="block mb-2 text-sm">Parol</label>
+                <input
+                  v-model="form.password"
+                  type="password"
+                  name="password"
+                  id="password"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
+                  placeholder="*********"
+                  required
+                />
+              </div>
+              <div>
                 <label for="name" class="block mb-2 text-sm">Ism</label>
                 <input
                   v-model="form.first_name"
@@ -64,6 +88,7 @@
                   id="name"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                   placeholder="Ismini kiriting"
+                  required
                 />
               </div>
               <div>
@@ -75,6 +100,7 @@
                   id="surname"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                   placeholder="Familiyani kiriting"
+                  required
                 />
               </div>
               <div>
@@ -88,6 +114,7 @@
                   id="phone"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                   placeholder="Telefon raqamini kiriting"
+                  required
                 />
               </div>
               <div>
@@ -97,45 +124,12 @@
                 <select
                   v-model="form.group_id"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                  required
                 >
                   <option v-for="i in store.groups" :key="i.id" :value="i.id">
                     {{ i.name }}
                   </option>
                 </select>
-              </div>
-              <div class="w-[203%]">
-                <label for="login" class="block mb-2 text-sm">Email</label>
-                <input
-                  v-model="form.email"
-                  type="text"
-                  name="login"
-                  id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Emailini kiriting"
-                />
-              </div>
-              <div></div>
-              <div>
-                <label for="login" class="block mb-2 text-sm">Username</label>
-                <input
-                  v-model="form.username"
-                  type="text"
-                  name="login"
-                  id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Usernameni kiriting"
-                />
-              </div>
-              <div>
-                <label for="password" class="block mb-2 text-sm">Parol</label>
-                <input
-                  v-model="form.password"
-                  type="password"
-                  name="password"
-                  id="password"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="*********"
-                />
               </div>
             </div>
             <div
@@ -524,7 +518,7 @@
                       Kirish
                     </button>
                   </td>
-                  <td class="text-center whitespace-nowrap font-medium">
+                  <td class="text-center whitespace-nowrap font-medium pr-5">
                     <i
                       @click="getOneProduct(i.email)"
                       class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
@@ -601,8 +595,8 @@ const toggleModal = () => {
 
 const store = reactive({
   allProducts: false,
-  groups: false,
   error: false,
+  groups: [{ name: "Guruh yaratilmagan" }],
 });
 
 function enterSlug(id, name) {
@@ -682,16 +676,17 @@ const getProduct = () => {
 
 const getGroups = () => {
   axios
-    .get("/group")
+    .get("/group", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
     .then((res) => {
       console.log(res.data);
       store.groups = res.data;
     })
     .catch((error) => {
-      console.log(error);
-      if (error.response.data.statusCode == 400) {
-        store.groups = [];
-      }
+      store.groups = [{ name: "Guruh yaratilmagan" }];
       console.log("error", error);
     });
 };
@@ -699,7 +694,15 @@ const getGroups = () => {
 const getOneProduct = (email) => {
   alert(email);
   axios
-    .get("/student/email", { email })
+    .get(
+      "/student/email",
+      { email },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        },
+      }
+    )
     .then((res) => {
       console.log(res);
       // edit.name = res.data.name;
@@ -714,16 +717,14 @@ const getOneProduct = (email) => {
 
 const createProduct = () => {
   const data = {
-    first_name: form.first_name,
-    last_name: form.last_name,
+    full_name: form.first_name + " " + form.last_name,
     phone_number: form.phone_number,
-    email: form.email,
-    username: form.username,
+    login: form.login,
     password: form.password,
     group_id: form.group_id || store.groups[0],
   };
   axios
-    .post("/student/register", data, {
+    .post("/student/create", data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
       },
@@ -735,14 +736,8 @@ const createProduct = () => {
       cancelFunc();
     })
     .catch((error) => {
-      if (error.response.data.statusCode == 400) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      } else if (error.response.data.statusCode == 401) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      }
-      console.log("error", error);
+      notification.warning(error.response.data.message);
+      console.log(error);
     });
 };
 
