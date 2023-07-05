@@ -1,7 +1,7 @@
 export const header = [
     {
         id: 1,
-        title: "Dashboard",
+        title: "Asosiy",
         link: "/",
         icon: "bx bxs-dashboard",
         role: [],
