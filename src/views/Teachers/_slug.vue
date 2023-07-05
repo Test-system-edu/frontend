@@ -19,12 +19,12 @@
             <li class="mr-2">
               <button @click="toggleInfo" id="about-tab" data-tabs-target="#about" type="button" role="tab"
                 aria-controls="about" aria-selected="true" class="inline-block px-3 py-1 hover:text-[#203843]"
-                :class="info ? 'text-white font-semibold border-b border-white ' : 'text-white'">Info</button>
+                :class="info ? 'text-white font-semibold border-b border-white ' : 'text-white'">Ma'lumot</button>
             </li>
             <li class="mr-2">
               <button @click="toggleGroup" id="services-tab" data-tabs-target="#services" type="button" role="tab"
                 aria-controls="services" aria-selected="false" class="inline-block px-3 py-1 hover:text-[#203843]"
-                :class="group ? 'text-white font-semibold border-b border-white ' : 'text-white'">Group</button>
+                :class="group ? 'text-white font-semibold border-b border-white ' : 'text-white'">Guruh</button>
             </li>
           </ul>
           <div id="defaultTabContent" :class="navbar.userNav ? 'bg-[#203843]' : 'bg-white'">
@@ -38,18 +38,19 @@
                     class="w-full flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between border-b border-[#046f80]"
                     :class="navbar.userNav ? 'text-white' : 'text-[#203843]'">
                     <span class="flex items-center gap-3 text-[24px]">
-                      <span class="text-[24px] font-bold">John Doe</span> | <span class="text-[16px]">Teacher</span>
+                      <span class="text-[24px] font-bold">Davlat Jo'rayev</span> | <span
+                        class="text-[16px]">O'qituvchi</span>
                     </span>
                     <span class="flex items-center gap-3">
-                      <span>Username:</span>
-                      <span class="font-bold">john</span>
+                      <span>Login:</span>
+                      <span class="font-bold">jurayevlive</span>
                     </span>
                   </h2>
 
                   <h2 class="w-full flex items-center justify-between border-b border-[#046f80]"
                     :class="navbar.userNav ? 'text-white' : 'text-[#203843]'">
                     <span class="flex flex-col gap-3 text-[24px]">
-                      <span>Subjects :</span>
+                      <span>Fanlar :</span>
                       <span class="flex flex-col gap-3 lg:flex-row lg:items-center pb-2">
                         <span class="text-[16px] font-bold px-5 py-1">Frontend</span>
                         <span class="text-[16px] font-bold px-5 lg:border-l-2 border-[#203843]">Backend</span>
@@ -61,7 +62,7 @@
                   <h2 class="w-full flex items-center justify-between sm:border-b border-[#046f80]"
                     :class="navbar.userNav ? 'text-white' : 'text-[#203843]'">
                     <span class="w-full flex flex-col gap-3 text-[24px]">
-                      <span class="text-[24px] ">Contacts :</span>
+                      <span class="text-[24px] ">Bog'lanish :</span>
                       <span
                         class="w-full flex flex-col gap-3 xl:flex-row xl:items-center xl:gap-10 2xl:gap-20 text-[24px] pl-5">
                         <span class="flex items-center gap-3">
@@ -89,11 +90,11 @@
                 :class="navbar.userNav ? 'bg-[#203843] text-white' : 'bg-white'">
                 <div class="overflow-x-auto">
                   <table class="w-full text-sm text-left">
-                    <thead class="btn text-xs rounded-lg uppercase">
-                      <tr class="text-white">
-                        <th scope="col" class="text-center py-3">Name</th>
-                        <th scope="col" class="text-center py-3">Statr date</th>
-                        <th scope="col" class="text-center py-3">Total studebts</th>
+                    <thead class="bg-gray-50 text-xs rounded-lg uppercase">
+                      <tr class="text-black">
+                        <th scope="col" class="text-center py-3">Nomi</th>
+                        <th scope="col" class="text-center py-3">Boshlangan sana</th>
+                        <th scope="col" class="text-center py-3">O'quvchilar soni</th>
                       </tr>
                     </thead>
                     <tbody>
