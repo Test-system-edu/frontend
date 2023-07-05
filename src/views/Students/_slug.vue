@@ -91,9 +91,9 @@
                   <table class="w-full text-sm text-left">
                     <thead class="bg-gray-50 text-xs rounded-lg uppercase">
                       <tr class="text-black">
+                        <th scope="col" class="text-center py-3">Fan nomi</th>
                         <th scope="col" class="text-center py-3">Testlar soni</th>
                         <th scope="col" class="text-center py-3">Test vaqti</th>
-                        <th scope="col" class="text-center py-3">Fan</th>
                         <th scope="col" class="text-center py-3">Savollar</th>
                         <th scope="col" class="text-center py-3">Natija</th>
                       </tr>
@@ -102,13 +102,13 @@
                       <tr class="border-b" :class="navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
                         ">
                         <th scope="row" class="text-center px-8 py-3 font-medium whitespace-nowrap">
-                          30
+                          VeuJs
                         </th>
                         <td class="text-center font-medium text-green-800 px-8 py-2">
                           <p class="bg-green-100 rounded-[5px] p-1">180 daqiqa</p>
                         </td>
                         <td class="text-center font-medium text-red-800 px-8 py-2">
-                          <p class="bg-red-100 rounded-[5px] p-1">VeuJs</p>
+                          <p class="bg-red-100 rounded-[5px] p-1">30</p>
                         </td>
                         <td class="text-center font-medium py-3">
                           <button @click="enterSlug(i.id, i.first_name + '_' + i.last_name)"
