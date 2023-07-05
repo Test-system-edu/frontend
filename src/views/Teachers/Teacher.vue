@@ -691,23 +691,23 @@
                 >
                   <th
                     scope="row"
-                    class="text-center px-8 py-3 font-medium whitespace-nowrap"
+                    class="text-center px-5 py-3 font-medium whitespace-nowrap"
                   >
                     {{ i.full_name }}
                   </th>
-                  <td class="text-center font-medium text-blue-800 px-8 py-2">
+                  <td class="text-center font-medium text-blue-800 px-5 py-2">
                     <p
                       class="bg-blue-100 min-w-fit rounded-[5px] px-2 py-1 whitespace-nowrap"
                     >
                       {{ i.roles[0]?.name }}
                     </p>
                   </td>
-                  <td class="text-center font-medium text-red-800 px-8 py-2">
+                  <td class="text-center font-medium text-red-800 px-5 py-2">
                     <p class="bg-red-100 rounded-[5px] p-1 whitespace-nowrap">
                       {{ i.phone_number }}
                     </p>
                   </td>
-                  <td class="text-center font-medium text-blue-800 px-8 py-2">
+                  <td class="text-center font-medium text-blue-800 px-5 py-2">
                     <div
                       class="flex gap-1 justify-between text-center bg-blue-100 min-w-fit rounded-[5px] px-2 py-1 whitespace-nowrap"
                     >
@@ -722,7 +722,7 @@
                       ></i>
                     </div>
                   </td>
-                  <td class="text-center font-medium text-blue-800 px-8 py-2">
+                  <td class="text-center font-medium text-blue-800 px-5 py-2">
                     <div
                       class="flex gap-2 justify-between bg-blue-100 min-w-fit rounded-[5px] px-2 py-1 whitespace-nowrap"
                     >
@@ -737,7 +737,7 @@
                       ></i>
                     </div>
                   </td>
-                  <td class="text-center font-medium px-8 py-3">
+                  <td class="text-center font-medium px-5 py-3">
                     <button
                       @click="enterSlug(i.id, i.full_name)"
                       class="btnKirish bg-blue-600 rounded-lg px-5 py-2.5 text-white focus:ring-2"
@@ -745,7 +745,7 @@
                       Kirish
                     </button>
                   </td>
-                  <td class="text-center whitespace-nowrap font-medium">
+                  <td class="text-center whitespace-nowrap font-medium pr-5">
                     <i
                       @click="getOneProduct(i.id, 'edit')"
                       class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
