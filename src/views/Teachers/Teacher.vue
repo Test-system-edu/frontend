@@ -389,7 +389,7 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              Xodimni o'zgartirish
+              Xodim ma'lumotlarini o'zgartirish
             </h3>
             <button
               @click="cancelFunc1"
@@ -696,7 +696,7 @@
                     {{ i.full_name }}
                   </th>
                   <td class="text-center font-medium text-blue-800 px-5 py-2">
-                    <p
+                    <p v-if="i.roles"
                       class="bg-blue-100 min-w-fit rounded-[5px] px-2 py-1 whitespace-nowrap"
                     >
                       {{ i.roles[0]?.name }}
@@ -955,6 +955,7 @@ const getProduct = () => {
       store.error = false;
     })
     .catch((error) => {
+      notification.warning(error.response.data.message);
       store.error = true;
       store.allProducts = error.response.data.message;
       console.log("error", error);

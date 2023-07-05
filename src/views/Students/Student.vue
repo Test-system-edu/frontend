@@ -11,7 +11,7 @@
           : 'hidden'
       "
     >
-      <div class="relative p-4 w-full max-w-5xl h-auto">
+      <div class="relative p-4 w-full max-w-3xl h-auto">
         <!-- Modal content -->
         <div
           class="relative p-4 rounded-lg shadow sm:p-5"
@@ -79,30 +79,19 @@
                   required
                 />
               </div>
-              <div>
-                <label for="name" class="block mb-2 text-sm">Ism</label>
+              <div class="w-[204%]">
+                <label for="name" class="block mb-2 text-sm">F . I . O</label>
                 <input
-                  v-model="form.first_name"
+                  v-model="form.full_name"
                   type="text"
                   name="name"
                   id="name"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Ismini kiriting"
+                  placeholder="F . I . O"
                   required
                 />
               </div>
-              <div>
-                <label for="surname" class="block mb-2 text-sm">Familiya</label>
-                <input
-                  v-model="form.last_name"
-                  type="text"
-                  name="surname"
-                  id="surname"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Familiyani kiriting"
-                  required
-                />
-              </div>
+              <div></div>
               <div>
                 <label for="phone" class="block mb-2 text-sm"
                   >Telefon raqami</label
@@ -163,7 +152,7 @@
           : 'hidden'
       "
     >
-      <div class="relative p-4 w-full max-w-5xl h-auto">
+      <div class="relative p-4 w-full max-w-3xl h-auto">
         <!-- Modal content -->
         <div
           class="relative p-4 rounded-lg shadow sm:p-5"
@@ -177,7 +166,7 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              Yangi talaba qo'shish
+              O'quvchi ma'lumotlarini o'zgartirish
             </h3>
             <button
               @click="toggleModal"
@@ -208,38 +197,54 @@
           >
             <div class="grid font-medium gap-4 mb-4 sm:grid-cols-2">
               <div>
-                <label for="name" class="block mb-2 text-sm">Ism</label>
+                <label for="login" class="block mb-2 text-sm">Login</label>
                 <input
-                  v-model="form.first_name"
+                  v-model="edit.login"
+                  type="text"
+                  name="login"
+                  id="login"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
+                  placeholder="login"
+                  required
+                />
+              </div>
+              <div>
+                <label for="password" class="block mb-2 text-sm">Parol</label>
+                <input
+                  v-model="edit.password"
+                  type="password"
+                  name="password"
+                  id="password"
+                  class="bg-gray-50 placeholder-black border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
+                  placeholder="*********"
+                  required
+                />
+              </div>
+              <div class="w-[204%]">
+                <label for="name" class="block mb-2 text-sm">F . I . O</label>
+                <input
+                  v-model="edit.full_name"
                   type="text"
                   name="name"
                   id="name"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Ismini kiriting"
+                  placeholder="F . I . O"
+                  required
                 />
               </div>
-              <div>
-                <label for="surname" class="block mb-2 text-sm">Familiya</label>
-                <input
-                  v-model="form.last_name"
-                  type="text"
-                  name="surname"
-                  id="surname"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Familiyani kiriting"
-                />
-              </div>
+              <div></div>
               <div>
                 <label for="phone" class="block mb-2 text-sm"
                   >Telefon raqami</label
                 >
                 <input
-                  v-model="form.phone_number"
+                  v-model="edit.phone_number"
                   type="text"
                   name="phone"
                   id="phone"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                   placeholder="Telefon raqamini kiriting"
+                  required
                 />
               </div>
               <div>
@@ -247,47 +252,14 @@
                   >Guruhni tanlang</label
                 >
                 <select
-                  v-model="form.group_id"
+                  v-model="edit.group_id"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                  required
                 >
                   <option v-for="i in store.groups" :key="i.id" :value="i.id">
                     {{ i.name }}
                   </option>
                 </select>
-              </div>
-              <div class="w-[203%]">
-                <label for="login" class="block mb-2 text-sm">Email</label>
-                <input
-                  v-model="form.email"
-                  type="text"
-                  name="login"
-                  id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Emailini kiriting"
-                />
-              </div>
-              <div></div>
-              <div>
-                <label for="login" class="block mb-2 text-sm">Username</label>
-                <input
-                  v-model="form.username"
-                  type="text"
-                  name="login"
-                  id="login"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="Usernameni kiriting"
-                />
-              </div>
-              <div>
-                <label for="password" class="block mb-2 text-sm">Parol</label>
-                <input
-                  v-model="form.password"
-                  type="password"
-                  name="password"
-                  id="password"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
-                  placeholder="*********"
-                />
               </div>
             </div>
             <div
@@ -363,7 +335,12 @@
             <div class="grid font-medium gap-4 mb-4 grid-cols-1">
               <div>
                 <div></div>
-                <h1 class="text-2xl">Siz lavozimni o'chirishni xohlaysizmi?</h1>
+                <h1
+                  class="text-2xl"
+                  :class="navbar.userNav ? 'text-white' : 'text-black'"
+                >
+                  Siz lavozimni o'chirishni xohlaysizmi?
+                </h1>
               </div>
               <div
                 class="w-full flex items-center justify-between border-t pt-5 mt-5"
@@ -469,9 +446,9 @@
                 :class="navbar.userNav ? 'bg-gray-700' : 'bg-gray-50'"
               >
                 <tr>
-                  <th scope="col" class="text-center py-3">I . F . O</th>
+                  <th scope="col" class="text-center py-3">F . I . O</th>
                   <th scope="col" class="text-center py-3 whitespace-nowrap">
-                    Guruh talabasi
+                    Guruhi
                   </th>
                   <th scope="col" class="text-center py-3">Telefon Raqami</th>
                   <th scope="col" class="text-center py-3">Holati</th>
@@ -492,8 +469,7 @@
                     scope="row"
                     class="text-center px-8 py-3 font-medium whitespace-nowrap"
                   >
-                    <span>{{ i.first_name }}</span>
-                    <span>{{ i.last_name }}</span>
+                    <span>{{ i.full_name }}</span>
                   </th>
                   <td class="text-center font-medium text-blue-800 px-8 py-2">
                     <p class="bg-blue-100 rounded-[5px] p-1 whitespace-nowrap">
@@ -503,7 +479,7 @@
                   <td class="text-center font-medium text-red-800 px-8 py-2">
                     <p class="bg-red-100 rounded-[5px] p-1">
                       {{ i.phone_number }}
-                    </p> 
+                    </p>
                   </td>
                   <td class="text-center font-medium text-green-800 px-8 py-2">
                     <p class="bg-green-100 rounded-[5px] p-1">
@@ -520,7 +496,7 @@
                   </td>
                   <td class="text-center whitespace-nowrap font-medium pr-5">
                     <i
-                      @click="getOneProduct(i.email)"
+                      @click="getOneProduct(i.id)"
                       class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
                     >
                     </i>
@@ -584,11 +560,9 @@ const modal = ref(false);
 
 const toggleModal = () => {
   modal.value = !modal.value;
-  form.first_name = "";
-  form.last_name = "";
+  form.full_name = "";
   form.phone_number = "";
-  form.email = "";
-  form.username = "";
+  form.login = "";
   form.password = "";
   form.group_id = "";
 };
@@ -604,11 +578,9 @@ function enterSlug(id, name) {
 }
 
 function cancelFunc() {
-  form.first_name = "";
-  form.last_name = "";
+  form.full_name = "";
   form.phone_number = "";
-  form.email = "";
-  form.username = "";
+  form.login = "";
   form.password = "";
   form.group_id = "";
   modal.value = false;
@@ -627,21 +599,17 @@ function deleteFunc(id) {
 
 // ----------------------------------- forms -----------------------------------
 const form = reactive({
-  first_name: "",
-  last_name: "",
+  full_name: "",
   phone_number: "",
-  email: "",
-  username: "",
+  login: "",
   password: "",
   group_id: "",
 });
 
 const edit = reactive({
-  first_name: "",
-  last_name: "",
+  full_name: "",
   phone_number: "",
-  email: "",
-  username: "",
+  login: "",
   password: "",
   group_id: "",
   id: "",
@@ -691,33 +659,31 @@ const getGroups = () => {
     });
 };
 
-const getOneProduct = (email) => {
-  alert(email);
+const getOneProduct = (id) => {
   axios
-    .get(
-      "/student/email",
-      { email },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
-        },
-      }
-    )
+    .get(`/student/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
     .then((res) => {
-      console.log(res);
-      // edit.name = res.data.name;
-      // edit.start_date = res.data.start_date.slice(0, 10);
-      // edit.id = id;
-      // edit.toggle = true;
+      edit.full_name = res.data.full_name;
+      edit.phone_number = res.data.phone_number;
+      edit.login = res.data.login;
+      edit.password = res.data.password;
+      edit.group_id = res.data.group_id;
+      edit.id = id;
+      edit.toggle = true;
     })
     .catch((error) => {
+      notification.warning(error.response.data.message);
       console.log("error", error);
     });
 };
 
 const createProduct = () => {
   const data = {
-    full_name: form.first_name + " " + form.last_name,
+    full_name: form.full_name,
     phone_number: form.phone_number,
     login: form.login,
     password: form.password,
