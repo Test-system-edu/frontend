@@ -66,7 +66,7 @@
                 amet neque illum veniam placeat laboriosam doloribus hic ratione sed excepturi ipsa quidem non delectus
                 aliquid nihil facere voluptas.</h2>
             </div>
-            <i :class="modal
+            <i :class="modal2
               ? 'bx bx-minus bg-white p-2 text-[#046f80] text-[30px] rounded-full'
               : 'bx bx-plus bg-white p-2 text-[#046f80] text-[30px] rounded-full'
               "></i>
