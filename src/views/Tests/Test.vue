@@ -129,6 +129,216 @@
 
     <!-- ----------------------------------------- MODAL END ---------------------------------------------------- -->
 
+    <!-- ----------------------------------------- EDIT MODAL END ---------------------------------------------------- -->
+    <div
+      :class="
+        edit.toggle
+          ? 'absolute overflow-y-auto flex bg-[rgba(0,0,0,0.5)] overflow-x-hidden z-50 justify-center items-center w-full inset-0 h-full'
+          : 'hidden'
+      "
+    >
+      <div class="relative p-4 w-full max-w-xl h-auto">
+        <!-- Modal content -->
+        <div
+          class="relative p-10 rounded-lg shadow"
+          :class="navbar.userNav ? 'bg-[#203843] text-white' : 'bg-white'"
+        >
+          <!-- Modal header -->
+          <div
+            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5"
+          >
+            <h3 class="text-lg">Test ma'lumotlarini o'zgartirish</h3>
+            <button
+              @click="edit.toggle = false"
+              type="button"
+              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <form @submit.prevent="editProduct">
+            <div class="grid mb-4 grid-cols-1">
+              <div class="w-full flex justify-between gap-8">
+                <div class="flex w-full flex-col gap-5">
+                  <div class="">
+                    <label
+                      for="name"
+                      class="block mb-2 text-sm text-center text-amber-900 font-medium bg-amber-200 rounded-[5px] py-1"
+                      >Fanni tanlang</label
+                    >
+                    <select
+                      v-model="edit.subject_id"
+                      id="name"
+                      class="bg-gray-50 text-black cursor-pointer border border-gray-300 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                      required
+                    >
+                      <option
+                        v-for="i in store.subjects"
+                        :key="i.id"
+                        :value="i.id"
+                      >
+                        {{ i.title }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="flex gap-5">
+                    <div class="w-1/2">
+                      <label
+                        for="time"
+                        class="block mb-2 text-sm text-amber-900 text-center font-medium bg-amber-200 py-1 rounded-[5px]"
+                        >Savollarning umumiy soni</label
+                      >
+                      <input
+                        type="number"
+                        name="time"
+                        max="600"
+                        min="1"
+                        v-model="edit.test_time"
+                        class="bg-gray-50 border float-left w-full border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block p-2.5"
+                        placeholder="60"
+                        required
+                      />
+                    </div>
+                    <div class="w-1/2">
+                      <label
+                        for="time"
+                        class="block mb-2 text-sm text-amber-900 text-center font-medium bg-amber-200 py-1 rounded-[5px]"
+                        >Savollarning umumiy vaqti</label
+                      >
+                      <input
+                        v-model="edit.test_count"
+                        type="number"
+                        name="time"
+                        max="600"
+                        min="1"
+                        class="bg-gray-50 border float-left w-1/2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block p-2.5"
+                        placeholder="60"
+                        required
+                      />
+                      <span class="float-left pt-1 pl-5 text-xl">daqiqa</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="w-full flex items-center justify-between border-t pt-5 mt-5"
+            >
+              <button
+                type="button"
+                @click="edit.toggle = false"
+                class="text-gray-500 border inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              >
+                Bekor qilish
+              </button>
+              <button
+                type="submit"
+                class="btnAdd text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              >
+                O'zgartirish
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ----------------------------------------- EDIT MODAL END ---------------------------------------------------- -->
+
+    <!-- ----------------------------------------- Delete modal ---------------------------------------------------- -->
+    <div
+      :class="
+        remove.toggle
+          ? 'absolute overflow-y-auto flex bg-[rgba(0,0,0,0.5)] overflow-x-hidden z-50 justify-center items-center w-full inset-0 h-full'
+          : 'hidden'
+      "
+    >
+      <div class="relative p-4 max-w-5xl min-w-[30%] h-auto">
+        <!-- Modal content -->
+        <div
+          class="relative p-4 rounded-lg shadow sm:p-5"
+          :class="navbar.userNav ? 'bg-[#203843]' : 'bg-white'"
+        >
+          <!-- Modal header -->
+          <div
+            class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5"
+          >
+            <h3
+              class="text-lg"
+              :class="navbar.userNav ? 'text-white' : 'text-black'"
+            >
+              Testni o'chirib tashlash
+            </h3>
+            <button
+              @click="remove.toggle = false"
+              type="button"
+              class="bg-transparent hover:bg-gray-200 hover rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+              :class="navbar.userNav ? 'text-white' : 'text-black'"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div :class="{ darkForm: navbar.userNav }">
+            <div class="grid font-medium gap-4 mb-4 grid-cols-1">
+              <div>
+                <div></div>
+                <h1
+                  class="text-2xl"
+                  :class="navbar.userNav ? 'text-white' : 'text-black'"
+                >
+                  Siz testni o'chirishni xohlaysizmi?
+                </h1>
+              </div>
+              <div
+                class="w-full flex items-center justify-between border-t pt-5 mt-5"
+              >
+                <button
+                  @click="remove.toggle = false"
+                  type="button"
+                  class="border cursor-pointer inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  Bekor qilish
+                </button>
+                <button
+                  @click="deleteProduct"
+                  class="btnAdd cursor-pointer text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                >
+                  O'chirish
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ----------------------------------------- delete modal end ---------------------------------------------------- -->
+
     <!-- ----------------------------------------- EMPLYE TABLE ------------------------------------------------- -->
 
     <section class="md:py-4" :class="{ 'text-white': navbar.userNav }">
@@ -212,7 +422,7 @@
                   <th scope="col" class="py-3 pl-8">Fan nomi</th>
                   <th scope="col" class="text-center py-3">Savollar soni</th>
                   <th scope="col" class="text-center py-3">Test vaqti</th>
-                  <th scope="col" class="text-center py-3">Savol qo'shish</th>
+                  <th scope="col" class="text-center py-3">Savollar</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
@@ -239,7 +449,7 @@
                   </td>
                   <td class="text-center font-medium px-8 py-3">
                     <button
-                      @click="enterSlug('Qobilov Shoxsuvor')"
+                      @click="enterSlug(i.id)"
                       class="btnKirish bg-blue-600 rounded-lg px-5 py-2.5 text-white focus:ring-2"
                     >
                       Qo'shish
@@ -315,10 +525,9 @@ const store = reactive({
   subjects: [{ title: "Fan yaratilmagan" }],
 });
 
-function enterSlug(name) {
-  router.push(`./tests/question/${name.toLowerCase()}`);
+function enterSlug(id) {
+  router.push(`./tests/question/${id}`);
 }
-
 
 function cancelFunc1() {
   edit.name = "";
@@ -329,32 +538,6 @@ function cancelFunc1() {
 function deleteFunc(id) {
   remove.id = id;
   remove.toggle = true;
-}
-
-function createProduct() {
-  const data = {
-    test_count: form.test_count,
-    test_time: form.test_time,
-    subject_id: form.subject_id,
-  };
-
-  axios
-    .post("/test-group", data, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
-      },
-    })
-    .then((res) => {
-      notification.success(res.data.message);
-      form.test_group_id = res.data.id;
-      getProduct();
-      modal.value = false;
-    })
-    .catch((error) => {
-      notification.warning(error.response.data.message);
-      console.log(error.response.data.message);
-      console.log("error", error);
-    });
 }
 
 // ----------------------------------- forms -----------------------------------
@@ -395,6 +578,7 @@ const getProduct = () => {
     .then((res) => {
       console.log(res.data);
       store.allProducts = res.data;
+      store.error = false;
     })
     .catch((error) => {
       notification.warning(error.response.data.message);
@@ -404,20 +588,49 @@ const getProduct = () => {
     });
 };
 
-const getOneProduct = (id) => {
+function createProduct() {
+  const data = {
+    test_count: form.test_count,
+    test_time: form.test_time,
+    subject_id: form.subject_id,
+  };
+
   axios
-    .get(`/role/${id}`, {
+    .post("/test-group", data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
       },
     })
     .then((res) => {
-      edit.name = res.data.name;
-      edit.description = res.data.description;
+      notification.success(res.data.message);
+      form.test_group_id = res.data.id;
+      modal.value = false;
+      getProduct();
+    })
+    .catch((error) => {
+      notification.warning(error.response.data.message);
+      console.log(error.response.data.message);
+      console.log("error", error);
+    });
+}
+
+const getOneProduct = (id) => {
+  axios
+    .get(`/test-group/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      edit.test_count = res.data.test_count;
+      edit.test_time = res.data.test_time;
+      edit.subject_id = res.data.subject_id;
       edit.id = id;
       edit.toggle = true;
     })
     .catch((error) => {
+      notification.warning(error.response.data.message);
       console.log("error", error);
     });
 };
@@ -440,56 +653,42 @@ const getSubject = () => {
 
 const editProduct = () => {
   const data = {
-    name: edit.name,
-    description: edit.description,
+    test_count: edit.test_count,
+    test_time: edit.test_time,
+    subject_id: edit.subject_id,
   };
   axios
-    .patch(`/role/${edit.id}`, data, {
+    .patch(`/test-group/${edit.id}`, data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
       },
     })
     .then((res) => {
-      console.log(res.data.statusCode);
-      notification.success("Lavozim tahrirlandi");
+      notification.success(res.data.message);
       getProduct();
-      edit.name = "";
-      edit.description = "";
       edit.toggle = false;
     })
     .catch((error) => {
-      if (error.response.data.statusCode == 400) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      } else if (error.response.data.statusCode == 401) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      }
+      notification.warning(error.response.data.message);
       console.log("error", error);
     });
 };
 
 const deleteProduct = () => {
   axios
-    .delete(`/role/${remove.id}`, {
+    .delete(`/test-group/${remove.id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
       },
     })
     .then((res) => {
       console.log(res.data.statusCode);
-      notification.success("Lavozim o'chirildi");
+      notification.success(res.data.message);
       getProduct();
       remove.toggle = false;
     })
     .catch((error) => {
-      if (error.response.data.statusCode == 400) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      } else if (error.response.data.statusCode == 401) {
-        console.log(error.response.data.message);
-        notification.warning(error.response.data.message);
-      }
+      console.log(error.response.data.message);
       console.log("error", error);
     });
 };
