@@ -529,7 +529,7 @@ const getProduct = () => {
   axios
     .get("/group", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -547,7 +547,7 @@ const getOneProduct = (id) => {
   axios
     .get(`/group/${id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -569,7 +569,7 @@ const createProduct = () => {
   axios
     .post("/group", data, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -591,7 +591,7 @@ const editProduct = () => {
   axios
     .patch(`/group/${edit.id}`, data, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -615,7 +615,7 @@ const deleteProduct = () => {
   axios
     .delete(`/group/${remove.id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {

@@ -755,7 +755,7 @@ const getProduct = () => {
   axios
     .get(`/test-group/${+router.currentRoute?.value?.params?.name}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -779,7 +779,7 @@ const getOneProduct = (id) => {
   axios
     .get(`/question/${id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -809,7 +809,7 @@ const createProduct = () => {
       },
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
     )
@@ -817,7 +817,7 @@ const createProduct = () => {
       if (!form.true_answer) {
         axios.delete(`/question/${res.data.id}`, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         });
         notification.warning("To'g'ri javobni belgilang!");
@@ -835,7 +835,7 @@ const createProduct = () => {
       axios
         .post("/answer", data, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         })
         .then((res) => {
@@ -858,7 +858,7 @@ const getSubject = () => {
   axios
     .get("/subject", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -880,7 +880,7 @@ const editProduct = () => {
       },
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }
     )
@@ -897,7 +897,7 @@ const editProduct = () => {
       axios
         .patch(`/answer/${res.data.question?.answers[0]?.id}`, data, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         })
         .then((res) => {
@@ -920,7 +920,7 @@ const deleteProduct = () => {
   axios
     .delete(`/question/${remove.id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {

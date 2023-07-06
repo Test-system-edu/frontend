@@ -20,6 +20,7 @@ import {
   SlugSubjects,
   Subjects,
   SlugStartTest,
+  SignupSuperAdmin
 } from '../views'
 
 const router = createRouter({
@@ -123,6 +124,11 @@ const router = createRouter({
       ]
     },
     {
+      path: '/signup',
+      name: 'signup',
+      component: SignupSuperAdmin,
+    },
+    {
       path: '/login',
       name: 'login',
       component: Login,
@@ -133,6 +139,15 @@ const router = createRouter({
       component: Error,
     },
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token')
+  if (to.name !== 'login' && !token) {
+    next({ name: 'login' })
+  } else {
+    next()
+  }
 })
 
 export default router

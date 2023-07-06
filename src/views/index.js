@@ -18,6 +18,7 @@ import SlugResults from './Results/_slug.vue';
 import SlugRoles from './Results/_slug.vue';
 import SlugSubjects from './Subjects/_slug.vue';
 import SlugStartTest from './Start_test/_slug.vue';
+import SignupSuperAdmin from './SignupSuperAdmin/SignupSuperAdmin.vue';
 
 export {
     HomeView,
@@ -40,4 +41,5 @@ export {
     SlugRoles,
     SlugSubjects,
     SlugStartTest,
+    SignupSuperAdmin,
 }
