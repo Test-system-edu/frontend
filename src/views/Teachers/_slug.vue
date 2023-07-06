@@ -6,7 +6,7 @@
       <div class="mt-[30px] rounded-[6px] p-[15px]" :class="navbar.userNav ? 'bg-[#203843] text-white' : 'bg-white'">
         <div class="flex justify-between items-center font-bold mb-10">
           <h1>
-            <span>{{ store.id }}</span>. <span>{{ store.name }}</span>
+            <span>{{ store.name }}</span>
           </h1>
           <button @click="router.back(-1)" class="btn shadow-lg rounded-lg px-5 py-2.5 text-white focus:ring-2">
             Orqaga qaytish
@@ -31,19 +31,19 @@
             <div :class="info ? 'p-4 rounded-lg md:p-8' : 'hidden p-4 rounded-lg md:p-8'" id="about" role="tabpanel"
               aria-labelledby="about-tab">
               <div class="flex flex-col lg:flex-row gap-10">
-                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt=""
+                <img :src="store.image ? store.image : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'" alt=""
                   class="w-56 h-56 2xl:w-80 2xl:h-80 rounded-full object-cover mx-auto">
                 <div class="w-full lg:border-l border-[#046f80] p-5 flex flex-col gap-10 justify-between">
                   <h2
                     class="w-full flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between border-b border-[#046f80]"
                     :class="navbar.userNav ? 'text-white' : 'text-[#203843]'">
                     <span class="flex items-center gap-3 text-[24px]">
-                      <span class="text-[24px] font-bold">Davlat Jo'rayev</span> | <span
-                        class="text-[16px]">O'qituvchi</span>
+                      <span class="text-[24px] font-bold">{{ store.name }}</span> | <span
+                        class="text-[16px] uppercase">{{ store.role }}</span>
                     </span>
                     <span class="flex items-center gap-3">
                       <span>Login:</span>
-                      <span class="font-bold">jurayevlive</span>
+                      <span class="font-bold">{{ store.login }}</span>
                     </span>
                   </h2>
 
@@ -52,12 +52,10 @@
                     <span class="flex flex-col gap-3 text-[24px]">
                       <span>Fanlar :</span>
                       <span class="flex flex-col gap-3 lg:flex-row lg:items-center pb-2">
-                        <span class="text-[16px] font-bold px-5 py-1">Frontend</span>
-                        <span class="text-[16px] font-bold px-5 lg:border-l-2 border-[#203843]">Backend</span>
-                        <span class="text-[16px] font-bold px-5 lg:border-l-2 border-[#203843]">Smm</span>
+                        <span v-for="el in store.fan" :key="el.id" class="text-[16px] font-bold px-5 py-1">{{ el.title }}</span>
                       </span>
                     </span>
-                  </h2>
+                  </h2> 
 
                   <h2 class="w-full flex items-center justify-between sm:border-b border-[#046f80]"
                     :class="navbar.userNav ? 'text-white' : 'text-[#203843]'">
@@ -65,17 +63,17 @@
                       <span class="text-[24px] ">Bog'lanish :</span>
                       <span
                         class="w-full flex flex-col gap-3 xl:flex-row xl:items-center xl:gap-10 2xl:gap-20 text-[24px] pl-5">
-                        <span class="flex items-center gap-3">
+                        <span :class="store.email ? 'flex items-center gap-3' : 'hidden'">
                           <i class='bx bx-envelope' style='color:#f50000'></i>|
-                          <span class="text-[16px] font-bold">john@gmail.com</span>
+                          <span class="text-[16px] font-bold">{{ store.email }}</span>
                         </span>
-                        <span class="flex items-center gap-3">
+                        <span :class="store.phone ? 'flex items-center gap-3' : 'hidden'">
                           <i class='bx bxs-phone' style='color:#16f500'></i>|
-                          <span class="text-[16px] font-bold">+998901234567</span>
+                          <span class="text-[16px] font-bold">{{ store.phone }}</span>
                         </span>
-                        <span class="flex items-center gap-3">
+                        <span :class="store.tg_name ? 'flex items-center gap-3' : 'hidden'">
                           <i class='bx bxl-telegram' style='color:#009cf5'></i>|
-                          <a href="" class="text-[16px] font-bold underline">@johndoe</a>
+                          <a href="" class="text-[16px] font-bold underline">{{ store.tg_name }}</a>
                         </span>
                       </span>
                     </span>
@@ -94,21 +92,18 @@
                       <tr class="text-black">
                         <th scope="col" class="text-center py-3">Nomi</th>
                         <th scope="col" class="text-center py-3">Boshlangan sana</th>
-                        <th scope="col" class="text-center py-3">O'quvchilar soni</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr class="border-b" :class="navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
+                      <tr v-for="el in store.group" :key="el.id" class="border-b" :class="navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
                         ">
                         <th scope="row" class="text-center px-8 py-3 font-medium whitespace-nowrap">
-                          N=7
+                          {{ el.name }}
                         </th>
                         <td class="text-center font-medium text-green-800 px-8 py-2">
-                          <p class="bg-green-100 rounded-[5px] p-1">2023-07-05</p>
+                          <p class="bg-green-100 rounded-[5px] p-1">{{ el.start_date }}</p>
                         </td>
-                        <td class="text-center font-medium text-red-800 px-8 py-2">
-                          <p class="bg-red-100 rounded-[5px] p-1">30 </p>
-                        </td>
+                        
                       </tr>
                     </tbody>
                   </table>
@@ -149,6 +144,8 @@
 import { onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useNavStore } from "../../stores/toggle";
+import axios from "@/services/axios";
+
 const navbar = useNavStore();
 const router = useRouter();
 
@@ -161,7 +158,68 @@ const toggleGroup = () => (group.value = !group.value, info.value = false);
 const store = reactive({
   id: "",
   name: "",
+  image: "",
+  role: "",
+  login: "",
+  fan: [],
+  email: "",
+  phone: "",
+  tg_name: "",
+  group: [], 
 });
+
+const getStaff = () => {
+  axios
+    .get("/staff", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      store.allProducts = res.data;
+      store.error = false;
+      for (let i in res.data) {
+        if (res.data[i].id == store.id) {
+          store.role = res.data[i].roles[0].name
+          store.image = res.data[i].image
+          store.login = res.data[i].login
+          store.fan = res.data[i].subjects
+          store.email = res.data[i].email
+          store.phone = res.data[i].phone_number
+          store.tg_name = res.data[i].telegram_username
+          store.group = res.data[i].groups
+        }
+      }
+
+      console.log(res.data);
+      console.log(store.phone);
+    })
+    .catch((error) => {
+      notification.warning(error.response.data.message);
+      store.error = true;
+      store.allProducts = error.response.data.message;
+    });
+};
+
+const getStudent = () => {
+  axios
+    .get("/student", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      store.allProducts = res.data;
+      store.error = false;
+    })
+    .catch((error) => {
+      notification.warning(error.response.data.message);
+      store.allProducts = error.response.data.message;
+      store.error = true;
+      console.log("error", error);
+    });
+};
 
 onMounted(() => {
   store.name = router.currentRoute.value.params.name
@@ -169,7 +227,10 @@ onMounted(() => {
     .join(" ")
     .toUpperCase();
   store.id = router.currentRoute.value.params.id;
-  console.log(store.name);
+  getStaff(),
+  getStudent()
+  // console.log(store.name);
+  // console.log(router.currentRoute.value);
 });
 </script>
 
