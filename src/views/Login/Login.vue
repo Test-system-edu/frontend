@@ -72,7 +72,7 @@ const formInfo = () => {
     )
     .then((res) => {
       if (res.status == 201) {
-        localStorage.setItem("AdminToken", res.data.access_token);
+        localStorage.setItem("token", res.data.access_token);
         notification.success("Xush kelibsiz!");
         router.push("/");
       } else {

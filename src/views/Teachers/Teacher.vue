@@ -612,7 +612,7 @@ const createProduct = () => {
   axios
     .post("/staff/create", data, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -636,7 +636,7 @@ const getProduct = () => {
   axios
     .get("/staff", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -654,7 +654,7 @@ const getOneProduct = (id, modal) => {
   axios
     .get(`/staff/${id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -695,7 +695,7 @@ const editProduct = () => {
   axios
     .patch(`/staff/${edit.id}`, data, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -722,7 +722,7 @@ const addSubjects = async () => {
   async function add() {
     const info = await axios.get(`/staff/${edit.id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
     console.log(info.data);
@@ -740,7 +740,7 @@ const addSubjects = async () => {
   axios
     .post(`/staff/addSubject`, data, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -762,7 +762,7 @@ const addGroups = async () => {
   async function add() {
     const info = await axios.get(`/staff/${edit.id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
     for (let i of info.data.groups) {
@@ -778,7 +778,7 @@ const addGroups = async () => {
   axios
     .post(`/staff/addGroup`, data, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then(async (res) => {
@@ -800,7 +800,7 @@ const removeSubjects = () => {
   axios
     .delete(`/staff/removeSubject`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       }, data
     })
     .then((res) => {
@@ -822,7 +822,7 @@ const removeGroups = () => {
   axios
     .delete("/staff/removeGroup", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       data,
     })
@@ -841,7 +841,7 @@ const getSubject = () => {
   axios
     .get("/subject", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -856,7 +856,7 @@ const getGroup = () => {
   axios
     .get("/group", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -871,7 +871,7 @@ const getRole = () => {
   axios
     .get("/role", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -886,7 +886,7 @@ const deleteProduct = () => {
   axios
     .delete(`/staff/${remove.id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
