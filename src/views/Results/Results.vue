@@ -14,7 +14,7 @@
       <div
         class="w-full flex items-center lg:justify-start justify-between gap-5"
       >
-        <h1 class="text-blue-700 font-bold text-3xl">Natijalar</h1>
+        <h1 class="text-blue-700 font-bold text-lg">Test natijalari</h1>
       </div>
     </div>
     <!------------------------------------------- Search ------------------------------------------->

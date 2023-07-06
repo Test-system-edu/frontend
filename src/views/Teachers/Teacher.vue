@@ -171,7 +171,7 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              Yangi fan qo'shish
+              Fan qo'shish va o'chirish
             </h3>
             <button
               @click="store.subjectModal = false"
@@ -283,7 +283,7 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              Yangi guruh qo'shish
+              Guruh qo'shish va o'chirish
             </h3>
             <button
               @click="store.groupModal = false"
@@ -671,12 +671,12 @@
                 :class="navbar.userNav ? 'bg-gray-700' : 'bg-gray-50'"
               >
                 <tr>
-                  <th scope="col" class="text-center py-3">I . F . O</th>
-                  <th scope="col" class="text-center py-3">Lavozimi</th>
-                  <th scope="col" class="text-center py-3">Telefon raqami</th>
-                  <th scope="col" class="text-center py-3">Fanlari</th>
-                  <th scope="col" class="text-center py-3">Guruhlari</th>
-                  <th scope="col" class="text-center py-3">To'liq</th>
+                  <th scope="col" class="text-center py-3">F. I. O.</th>
+                  <th scope="col" class="text-center py-3">Lavozim</th>
+                  <th scope="col" class="text-center py-3">Telefon raqam</th>
+                  <th scope="col" class="text-center py-3">Fanlar</th>
+                  <th scope="col" class="text-center py-3">Guruhlar</th>
+                  <th scope="col" class="text-center py-3">To'liq ma'lumot</th>
                   <th></th>
                 </tr>
               </thead>
@@ -742,7 +742,7 @@
                       @click="enterSlug(i.id, i.full_name)"
                       class="btnKirish bg-blue-600 rounded-lg px-5 py-2.5 text-white focus:ring-2"
                     >
-                      Kirish
+                      Batafsil
                     </button>
                   </td>
                   <td class="text-center whitespace-nowrap font-medium pr-5">
