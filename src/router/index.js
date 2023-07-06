@@ -18,6 +18,7 @@ import {
   SlugRoles,
   SlugSubjects,
   Subjects,
+  SignupSuperAdmin
 } from '../views'
 
 const router = createRouter({
@@ -109,6 +110,11 @@ const router = createRouter({
           component: SlugTests,
         },
       ]
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: SignupSuperAdmin,
     },
     {
       path: '/login',
