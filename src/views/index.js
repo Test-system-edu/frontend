@@ -7,6 +7,7 @@ import Groups from './Groups/Groups.vue';
 import Subjects from './Subjects/Subjects.vue';
 import Tests from './Tests/Test.vue';
 import Roles from './Roles/Roles.vue';
+import Start_test from './Start_test/Start_test.vue';
 import Login from './Login/Login.vue';
 import Error from './Error/Error.vue';
 import SlugStudent from './Students/_slug.vue';
@@ -16,6 +17,7 @@ import SlugGroups from './Groups/_slug.vue';
 import SlugResults from './Results/_slug.vue';
 import SlugRoles from './Results/_slug.vue';
 import SlugSubjects from './Subjects/_slug.vue';
+import SlugStartTest from './Start_test/_slug.vue';
 
 export {
     HomeView,
@@ -26,6 +28,7 @@ export {
     Login,
     Error,
     Tests,
+    Start_test,
     Results,
     Groups,
     Roles,
@@ -36,4 +39,5 @@ export {
     SlugResults,
     SlugRoles,
     SlugSubjects,
+    SlugStartTest,
 }
