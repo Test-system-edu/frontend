@@ -169,7 +169,7 @@
               O'quvchi ma'lumotlarini tahrirlash
             </h3>
             <button
-              @click="toggleModal"
+              @click="edit.toggle = false"
               type="button"
               class="bg-transparent hover:bg-gray-200 hover rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
               :class="{ 'text-white': navbar.userNav }"
@@ -192,7 +192,7 @@
           </div>
           <!-- Modal body -->
           <form
-            @submit.prevent="createProduct"
+            @submit.prevent="editProduct"
             :class="{ darkForm: navbar.userNav }"
           >
             <div class="grid font-medium gap-4 mb-4 sm:grid-cols-2">
@@ -217,7 +217,6 @@
                   id="password"
                   class="bg-gray-50 placeholder-black border border-gray-300 text-sm rounded-lg focus:ring-green-600 focus:border-green-600 block w-full p-2.5"
                   placeholder="*********"
-                  required
                 />
               </div>
               <div class="w-[204%]">
@@ -266,7 +265,7 @@
               class="w-full flex items-center justify-between border-t pt-5 mt-5"
             >
               <button
-                @click="toggleModal"
+                @click="edit.toggle = false"
                 type="button"
                 class="border inline-flex items-center bg-white hover:bg-red-700 hover:border-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
@@ -709,11 +708,14 @@ const createProduct = () => {
 
 const editProduct = () => {
   const data = {
-    name: edit.name,
-    start_date: edit.start_date,
+    full_name: edit.full_name,
+    phone_number: edit.phone_number,
+    login: edit.login,
+    password: edit.password || 'parol',
+    group_id: edit.group_id,
   };
   axios
-    .patch(`/group/${edit.id}`, data, {
+    .patch(`/student/${edit.id}`, data, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

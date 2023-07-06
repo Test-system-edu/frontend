@@ -4,6 +4,7 @@ import Navbar from './Navbar.vue';
 import Sidebar from './Sidebar.vue';
 import Placeholder1 from './Placeholder1.vue';
 import Placeholder2 from './Placeholder2.vue';
+import Timer from './Timer.vue';
 
 export {
     ChartLine,
@@ -12,4 +13,5 @@ export {
     Sidebar,
     Placeholder1,
     Placeholder2,
+    Timer,
 }

@@ -8,6 +8,7 @@ import {
   Login,
   Error,
   Tests,
+  Start_test,
   Groups,
   Results,
   SlugStudent,
@@ -18,6 +19,7 @@ import {
   SlugRoles,
   SlugSubjects,
   Subjects,
+  SlugStartTest,
   SignupSuperAdmin
 } from '../views'
 
@@ -68,6 +70,16 @@ const router = createRouter({
           path: '/tests',
           name: 'tests',
           component: Tests,
+        },
+        {
+          path: '/start_test',
+          name: 'start_test',
+          component: Start_test,
+        },
+        {
+          path: '/start_test/start/:id',
+          name: 'slug_start_test',
+          component: SlugStartTest,
         },
         {
           path: '/subjects/:id/:name',

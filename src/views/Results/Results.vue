@@ -1,20 +1,52 @@
 <template>
   <div class="container mx-auto py-4 px-2">
     <!------------------------------------------- Placeholder ------------------------------------------->
-    <div v-show="!store.data">
+    <div v-show="!store.allProducts">
       <Placeholder2 />
     </div>
     <!------------------------------------------- Placeholder ------------------------------------------->
 
     <!------------------------------------------- Search ------------------------------------------->
     <div
+      v-show="store.allProducts"
       class="shadow rounded-xl flex flex-col lg:flex-row items-center justify-between lg:space-x-4 p-4 mb-4"
       :class="navbar.userNav ? 'bg-[#203843]' : 'bg-white'"
     >
       <div
-        class="w-full flex items-center lg:justify-start justify-between gap-5"
+        class="w-full flex items-center lg:justify-start lg:pb-0 pb-4 justify-between gap-5"
       >
         <h1 class="text-blue-700 font-bold text-lg">Test natijalari</h1>
+      </div>
+
+      <div class="w-full lg:w-80">
+        <form class="flex items-center text-gray-900 font-medium">
+          <label for="simple-search" class="sr-only">Qidiruv</label>
+          <div class="relative w-full">
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+            >
+              <svg
+                aria-hidden="true"
+                class="w-5 h-5"
+                fill="currentColor"
+                viewbox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </div>
+            <input
+              type="text"
+              id="simple-search"
+              class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
+              placeholder="Izlash uchun yozing..."
+            />
+          </div>
+        </form>
       </div>
     </div>
     <!------------------------------------------- Search ------------------------------------------->
@@ -39,7 +71,7 @@
               <th scope="col" class="text-center py-3">To'liq</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody v-show="!store.error">
             <tr
               class="border-b cursor-pointer"
               :class="navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'"
@@ -76,6 +108,9 @@
             </tr>
           </tbody>
         </table>
+        <div v-show="store.error" class="flex w-full justify-center">
+          <h1 class="p-20 text-2xl font-medium">{{ store.allProducts }}</h1>
+        </div>
       </div>
       <nav
         class="flex flex-row justify-between items-center md:items-center space-y-3 md:space-y-0 p-4"
@@ -102,28 +137,182 @@
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
+import { onMounted, ref, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { useNavStore } from "../../stores/toggle";
 import { Placeholder2 } from "../../components";
+import { useNotificationStore } from "../../stores/notification";
+import axios from "@/services/axios";
+
+const notification = useNotificationStore();
 const navbar = useNavStore();
 const router = useRouter();
 
 const modal = ref(false);
-const toggleModal = () => (modal.value = !modal.value);
+
+const toggleModal = () => {
+  modal.value = !modal.value;
+  form.name = "";
+  form.start_date = "";
+};
 
 const store = reactive({
-  data: false,
+  allProducts: false,
+  error: false,
+});
+
+function cancelFunc() {
+  form.name = "";
+  form.start_date = "";
+  modal.value = false;
+}
+
+function cancelFunc1() {
+  edit.name = "";
+  edit.start_date = "";
+  edit.toggle = false;
+}
+
+function deleteFunc(id) {
+  remove.id = id;
+  remove.toggle = true;
+}
+
+// ----------------------------------- forms -----------------------------------
+const form = reactive({
+  name: "",
+  start_date: "",
+});
+
+const edit = reactive({
+  name: "",
+  start_date: "",
+  id: "",
+  toggle: false,
+});
+
+const remove = reactive({
+  id: "",
+  toggle: false,
+});
+
+// ----------------------------------- axios --------------------------------
+const getProduct = () => {
+  axios
+    .get("/test-result", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      store.allProducts = res.data;
+      store.error = false;
+    })
+    .catch((error) => {
+      notification.warning(error.response.data.message);
+      store.allProducts = error.response.data.message;
+      store.error = true;
+    });
+};
+
+const getOneProduct = (id) => {
+  axios
+    .get(`/test-result/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      edit.name = res.data.name;
+      edit.start_date = res.data.start_date.slice(0, 10);
+      edit.id = id;
+      edit.toggle = true;
+    })
+    .catch((error) => {
+      console.log("error", error);
+    });
+};
+
+const createProduct = () => {
+  const data = {
+    name: form.name,
+    start_date: form.start_date,
+  };
+  axios
+    .post("/test-result", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      notification.success(res.data.message);
+      getProduct();
+      cancelFunc();
+    })
+    .catch((error) => {
+      notification.warning(error.response.data.message);
+      console.log(error);
+    });
+};
+
+const editProduct = () => {
+  const data = {
+    name: edit.name,
+    start_date: edit.start_date,
+  };
+  axios
+    .patch(`/test-result/${edit.id}`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      notification.success(res.data.message);
+      getProduct();
+      edit.name = "";
+      edit.start_date = "";
+      edit.toggle = false;
+    })
+    .catch((error) => {
+      if (error.response.data.statusCode == 400) {
+        notification.warning(error.response.data.message);
+      } else if (error.response.data.statusCode == 401) {
+        notification.warning(error.response.data.message);
+      }
+      console.log("error", error);
+    });
+};
+
+const deleteProduct = () => {
+  axios
+    .delete(`/test-result/${remove.id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+      },
+    })
+    .then((res) => {
+      notification.success("Guruh o'chirildi");
+      getProduct();
+      remove.toggle = false;
+    })
+    .catch((error) => {
+      if (error.response.data.statusCode == 400) {
+        notification.warning(error.response.data.message);
+      } else if (error.response.data.statusCode == 401) {
+        notification.warning(error.response.data.message);
+      }
+      console.log(error);
+    });
+};
+
+onMounted(() => {
+  getProduct();
 });
 
 function enterSlug(id, name) {
   name = name.toLowerCase().split(" ").join("_");
   router.push(`./results/${id}/${name}`);
 }
-
-setTimeout(() => {
-  store.data = true;
-}, 1000);
 
 const examResults = ref([
   {
