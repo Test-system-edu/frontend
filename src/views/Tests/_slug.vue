@@ -929,6 +929,7 @@ const deleteProduct = () => {
       remove.toggle = false;
     })
     .catch((error) => {
+      notification.warning(error.response.data.message);
       console.log(error.response.data.message);
       console.log("error", error);
     });

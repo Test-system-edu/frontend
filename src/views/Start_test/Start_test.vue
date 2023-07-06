@@ -169,7 +169,7 @@ const getProduct = () => {
   axios
     .get("/test-group", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {

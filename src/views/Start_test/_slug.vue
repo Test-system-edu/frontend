@@ -209,12 +209,13 @@ function showModal() {
 
 function setData(step) {
   store.true_answer = "";
-  store.question_id = store.data?.questions[step].id;
+  console.log(store.data?.questions[step].id, '----------------------------------------------------------------');
+  store.question_id = store.data?.questions[step]?.id;
   store.question = store.data?.questions[step]?.question;
-  store.a = store.data?.questions[step].answers[0]?.a;
-  store.b = store.data?.questions[step].answers[0]?.b;
-  store.c = store.data?.questions[step].answers[0]?.c;
-  store.d = store.data?.questions[step].answers[0]?.d;
+  store.a = store.data?.questions[step]?.answers[0]?.a;
+  store.b = store.data?.questions[step]?.answers[0]?.b;
+  store.c = store.data?.questions[step]?.answers[0]?.c;
+  store.d = store.data?.questions[step]?.answers[0]?.d;
 }
 
 // ----------------------------------------------------------------
@@ -224,7 +225,7 @@ const getOneProduct = () => {
   axios
     .get(`/test-group/${id}`, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
@@ -242,12 +243,12 @@ const createAnswer = () => {
     answer: store.true_answer,
     test_group_id: +router.currentRoute?.value?.params?.id,
     question_id: store.question_id,
-    student_id: localStorage.getItem('AdminToken')
+    student_id: localStorage.getItem('token')
   };
   axios
     .post(`/answer-of-student`, data, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("AdminToken")}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
