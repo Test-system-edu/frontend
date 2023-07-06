@@ -54,7 +54,7 @@
           >
             <div class="grid font-medium gap-4 mb-4 grid-cols-1">
               <div>
-                <label for="name" class="block mb-2 text-sm">Guruh nomi</label>
+                <label for="name" class="block mb-2 text-sm">Lavozim nomi</label>
                 <input
                   v-model="form.name"
                   type="text"
@@ -319,7 +319,7 @@
                 type="button"
                 class="btnAdd flex items-center max-w-fit justify-center whitespace-nowrap border border-gray-200 text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 sm:py-2"
               >
-                <span class="sm:block hidden">Lavozimlar qo'shish</span>
+                <span class="sm:block hidden">Lavozim qo'shish</span>
                 <i class="sm:hidden block bx bxs-user-plus text-lg"></i>
               </button>
             </div>
@@ -384,18 +384,18 @@
                   v-for="i in store.allProducts"
                   :key="i.id"
                 >
-                  <th
+                  <th v-if="i.name != 'superadmin'"
                     scope="row"
                     class="text-center px-8 py-3 font-medium whitespace-nowrap"
                   >
                     {{ i.name }}
                   </th>
-                  <td class="text-center font-medium text-green-800 px-8 py-2">
+                  <td v-if="i.name != 'superadmin'" class="text-center font-medium text-green-800 px-8 py-2">
                     <p class="bg-green-100 rounded-[5px] py-1 px-4">
                       {{ i.description }}
                     </p>
                   </td>
-                  <td class="text-center font-medium px-8 py-3">
+                  <td v-if="i.name != 'superadmin'" class="text-center font-medium px-8 py-3">
                     <button
                       @click="enterSlug(i.id, i.name)"
                       class="btnKirish bg-blue-600 rounded-lg px-5 py-2.5 text-white focus:ring-2"
@@ -403,7 +403,7 @@
                       Kirish
                     </button>
                   </td>
-                  <td class="text-center whitespace-nowrap font-medium pr-5">
+                  <td v-if="i.name != 'superadmin'" class="text-center whitespace-nowrap font-medium pr-5">
                     <i
                       @click="getOneProduct(i.id)"
                       class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"

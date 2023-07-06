@@ -405,20 +405,21 @@
               <tbody v-show="!store.error">
                 <tr class="border-b" :class="navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
                   " v-for="i in store.allProducts" :key="i.id">
-                  <th scope="row" class="text-center px-5 py-3 font-medium whitespace-nowrap">
+                  <th v-if="i.roles[0]?.name != 'superadmin'" scope="row"
+                    class="text-center px-5 py-3 font-medium whitespace-nowrap">
                     {{ i.full_name }}
                   </th>
-                  <td class="text-center font-medium text-blue-800 px-5 py-2">
+                  <td v-if="i.roles[0]?.name != 'superadmin'" class="text-center font-medium text-blue-800 px-5 py-2">
                     <p v-if="i.roles" class="bg-blue-100 min-w-fit rounded-[5px] px-2 py-1 whitespace-nowrap">
                       {{ i.roles[0]?.name }}
                     </p>
                   </td>
-                  <td class="text-center font-medium text-red-800 px-5 py-2">
+                  <td v-if="i.roles[0]?.name != 'superadmin'" class="text-center font-medium text-red-800 px-5 py-2">
                     <p class="bg-red-100 rounded-[5px] p-1 whitespace-nowrap">
                       {{ i.phone_number }}
                     </p>
                   </td>
-                  <td class="text-center font-medium text-blue-800 px-5 py-2">
+                  <td v-if="i.roles[0]?.name != 'superadmin'" class="text-center font-medium text-blue-800 px-5 py-2">
                     <div
                       class="flex gap-1 justify-between text-center bg-blue-100 min-w-fit rounded-[5px] px-2 py-1 whitespace-nowrap">
                       <p>
@@ -429,7 +430,7 @@
                         class="bx bx-plus cursor-pointer bg-blue-800 ml-2 font-extrabold text-white p-1 rounded-md"></i>
                     </div>
                   </td>
-                  <td class="text-center font-medium text-blue-800 px-5 py-2">
+                  <td v-if="i.roles[0]?.name != 'superadmin'" class="text-center font-medium text-blue-800 px-5 py-2">
                     <div
                       class="flex gap-2 justify-between bg-blue-100 min-w-fit rounded-[5px] px-2 py-1 whitespace-nowrap">
                       <p>
@@ -440,13 +441,13 @@
                         class="bx bx-plus cursor-pointer bg-blue-800 ml-2 font-extrabold text-white p-1 rounded-md"></i>
                     </div>
                   </td>
-                  <td class="text-center font-medium px-5 py-3">
+                  <td v-if="i.roles[0]?.name != 'superadmin'" class="text-center font-medium px-5 py-3">
                     <button @click="enterSlug(i.id, i.full_name)"
                       class="btnKirish bg-blue-600 rounded-lg px-5 py-2.5 text-white focus:ring-2">
                       Batafsil
                     </button>
                   </td>
-                  <td class="text-center whitespace-nowrap font-medium pr-5">
+                  <td v-if="i.roles[0]?.name != 'superadmin'" class="text-center whitespace-nowrap font-medium pr-5">
                     <i @click="getOneProduct(i.id, 'edit')"
                       class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2">
                     </i>
