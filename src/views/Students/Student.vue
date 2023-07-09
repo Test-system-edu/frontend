@@ -390,6 +390,7 @@
               class="lg:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3"
             >
               <button
+                v-show="!store.guard"
                 @click="toggleModal"
                 id=""
                 type="button"
@@ -570,6 +571,7 @@ const store = reactive({
   allProducts: false,
   error: false,
   groups: [{ name: "Guruh yaratilmagan" }],
+  guard: false,
 });
 
 function enterSlug(id, name) {
@@ -634,6 +636,9 @@ const getProduct = () => {
       store.error = false;
     })
     .catch((error) => {
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+        store.guard = true;
+      }
       notification.warning(error.response.data.message);
       store.allProducts = error.response.data.message;
       store.error = true;
@@ -711,7 +716,7 @@ const editProduct = () => {
     full_name: edit.full_name,
     phone_number: edit.phone_number,
     login: edit.login,
-    password: edit.password || 'parol',
+    password: edit.password || "parol",
     group_id: edit.group_id,
   };
   axios

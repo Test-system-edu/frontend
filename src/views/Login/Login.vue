@@ -51,7 +51,7 @@
 import { onMounted, reactive } from "vue";
 import axios from "@/services/axios";
 import { useRouter } from "vue-router";
-import { useNotificationStore } from "../../stores/notification";
+import { useNotificationStore } from "@/stores/notification";
 const notification = useNotificationStore();
 const router = useRouter();
 
@@ -63,25 +63,41 @@ const form = reactive({
 const formInfo = () => {
   console.log(form.login, form.password);
   axios
-    .post(
-      "staff/login",
-      {
-        login: form.login,
-        password: form.password,
-      },
-    )
+    .post("staff/login", {
+      login: form.login,
+      password: form.password,
+    })
     .then((res) => {
       if (res.status == 201) {
+        localStorage.setItem("userId", res.data.id);
         localStorage.setItem("token", res.data.access_token);
-        notification.success("Xush kelibsiz!");
+        notification.success(res.data.message);
         router.push("/");
       } else {
         error("Error");
       }
     })
     .catch((error) => {
-      console.log(error);
-      notification.error(error);
+      axios
+        .post("student/login", {
+          login: form.login,
+          password: form.password,
+        })
+        .then((res) => {
+          if (res.status == 201) {
+            console.log(res.data);
+            localStorage.setItem("userId", res.data.id);
+            localStorage.setItem("token", res.data.access_token);
+            notification.success(res.data.message);
+            router.push("/");
+          } else {
+            error("Error");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          notification.warning("Foydalanuvchi topilmadi!");
+        });
     });
 };
 </script>

@@ -526,6 +526,7 @@
               class="lg:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3"
             >
               <button
+                v-show="!store.guard"
                 @click="modal = true"
                 id=""
                 type="button"
@@ -557,7 +558,7 @@
             v-for="(i, index) in store.allProducts.questions"
             :key="i.id"
           >
-            <div v-show="!store.error">
+            <div v-show="!store.error && !store.guard">
               <div class="flex w-full">
                 <div
                   @click="accordion(i.id)"
@@ -644,6 +645,12 @@
           >
             <h1>{{ store.allProducts }}</h1>
           </div>
+          <div
+            v-show="store.guard"
+            class="w-full max-w-screen text-center p-20 text-2xl font-medium"
+          >
+            <h1>Siz savollarni ko'rish huququga ega emassiz!</h1>
+          </div>
           <nav
             class="flex flex-row justify-between items-center md:items-center space-y-3 md:space-y-0 p-4"
             aria-label="Table navigation"
@@ -692,6 +699,7 @@ const store = reactive({
   subjects: [{ title: "Fan yaratilmagan" }],
   accordion: [],
   plus: "",
+  guard: false,
 });
 
 function enterSlug(name) {
@@ -760,6 +768,7 @@ const getProduct = () => {
     })
     .then((res) => {
       store.allProducts = res.data;
+      store.guard = false;
       if (store.allProducts.questions.length != 0) {
         store.error = false;
       } else {
@@ -768,6 +777,9 @@ const getProduct = () => {
       }
     })
     .catch((error) => {
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+        store.guard = true;
+      }
       notification.warning(error.response.data.message);
       store.allProducts = error.response.data.message;
       store.error = true;

@@ -5,28 +5,46 @@ import { ElNotification } from "element-plus";
 
 export const useNotificationStore = defineStore('nptification', () => {
     const success = (message) => {
-        ElNotification({
-            title: "Success",
-            message: h("b", { style: "color: green;" }, message),
-            customClass: "background: black;",
-            type: "success",
-        });
+        if (typeof (message) === 'string') {
+            message = [message]
+        }
+        for (let i of message) {
+            setTimeout(() => {
+                ElNotification({
+                    title: "Success",
+                    message: h("b", { style: "color: green;" }, i),
+                    customClass: "background: black;",
+                    type: "success",
+                });
+            }, 1)
+        }
     };
 
     const warning = (message) => {
-        ElNotification({
-            title: "Warning",
-            message: h("b", { style: "color: #e6a23c;" }, message),
-            type: "warning",
-        });
+        if (typeof (message) === 'string') {
+            message = [message]
+        }
+        for (let i of message) {
+            setTimeout(() => {
+                ElNotification({
+                    title: "Warning",
+                    message: h("b", { style: "color: #e6a23c;" }, i),
+                    type: "warning",
+                });
+            }, 1)
+        }
     };
 
     const error = (message) => {
-        ElNotification({
-            title: "Error",
-            message: message,
-            type: "error",
-        });
+        for (let i of message) {
+            setTimeout(() => {
+                ElNotification({
+                    title: "Error",
+                    message: i,
+                    type: "error",
+                });
+            }, 1)
+        }
     };
 
     return { success, warning, error };
