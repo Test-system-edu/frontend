@@ -364,6 +364,7 @@
               class="lg:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3"
             >
               <button
+                v-show="!store.guard"
                 @click="modal = true"
                 id=""
                 type="button"
@@ -426,7 +427,7 @@
                   <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody v-show="!store.error">
+              <tbody v-show="!store.error && !store.guard">
                 <tr
                   class="border-b"
                   :class="
@@ -476,6 +477,12 @@
             >
               <h1>{{ store.allProducts }}</h1>
             </div>
+            <div
+              v-show="store.guard"
+              class="w-full max-w-screen text-center p-20 text-2xl font-medium"
+            >
+              <h1>Siz testlarni ko'rish huququga ega emassiz!</h1>
+            </div>
           </div>
           <nav
             class="flex flex-row justify-between items-center md:items-center space-y-3 md:space-y-0 p-4"
@@ -523,6 +530,7 @@ const store = reactive({
   allProducts: false,
   error: false,
   subjects: [{ title: "Fan yaratilmagan" }],
+  guard: false,
 });
 
 function enterSlug(id) {
@@ -579,8 +587,12 @@ const getProduct = () => {
       console.log(res.data);
       store.allProducts = res.data;
       store.error = false;
+      store.guard = false;
     })
     .catch((error) => {
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+        store.guard = true;
+      }
       notification.warning(error.response.data.message);
       store.allProducts = error.response.data.message;
       store.error = true;
@@ -675,6 +687,7 @@ const editProduct = () => {
 };
 
 const deleteProduct = () => {
+  alert(remove.id);
   axios
     .delete(`/test-group/${remove.id}`, {
       headers: {

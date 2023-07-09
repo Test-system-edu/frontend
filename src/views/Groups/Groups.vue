@@ -314,6 +314,7 @@
               class="lg:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3"
             >
               <button
+                v-show="!store.guard"
                 @click="toggleModal"
                 id=""
                 type="button"
@@ -407,7 +408,10 @@
                       Kirish
                     </button>
                   </td>
-                  <td class="text-center whitespace-nowrap font-medium pr-5">
+                  <td
+                    v-show="!store.guard"
+                    class="text-center whitespace-nowrap font-medium pr-5"
+                  >
                     <i
                       @click="getOneProduct(i.id)"
                       class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
@@ -483,6 +487,7 @@ const toggleModal = () => {
 const store = reactive({
   allProducts: false,
   error: false,
+  guard: false,
 });
 
 function enterSlug(id, name) {
@@ -537,6 +542,9 @@ const getProduct = () => {
       store.error = false;
     })
     .catch((error) => {
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+        store.guard = true;
+      }
       notification.warning(error.response.data.message);
       store.allProducts = error.response.data.message;
       store.error = true;

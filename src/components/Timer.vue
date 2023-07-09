@@ -33,55 +33,107 @@
 </template>
 
 <script setup>
-setInterval(() => {
-  // get time indicator elements
-  let hours = document.getElementById("hours");
-  let minutes = document.getElementById("minutes");
-  let secondes = document.getElementById("seconds");
-  let ampm = document.getElementById("ampm");
+import { onMounted } from "vue";
+import { useTimeStore } from "../stores/timer";
+import sound from "../assets/sound.mp3";
+import alarm from "../assets/alarm.mp3";
+const timer = useTimeStore();
+// get current time
+let h = 0;
+let m = 0;
+let s = 0;
+let ap = h >= 12 ? "" : "";
 
-  // digits time indicator
-  let hh = document.getElementById("hh");
-  let mm = document.getElementById("mm");
-  let ss = document.getElementById("ss");
+function playSound() {
+  // let audio = new Audio(sound);
+  // audio.pause();
+  // audio.play();
+}
 
-  // dot time indicator
-  let dotH = document.querySelector(".h_dot");
-  let dotM = document.querySelector(".m_dot");
-  let dotS = document.querySelector(".s_dot");
+function playAlarm() {
+  // let audio = new Audio(alarm);
+  // audio.pause();
+  // audio.play();
+}
 
-  // get current time
-  let h = new Date().getHours();
-  let m = new Date().getMinutes();
-  let s = new Date().getSeconds();
-  let ap = h >= 12 ? "" : "";
+const interval = () => {
+  setInterval(() => {
+    console.log();
+    // get time indicator elements
+    let hours = document.getElementById("hours");
+    let minutes = document.getElementById("minutes");
+    let secondes = document.getElementById("seconds");
+    let ampm = document.getElementById("ampm");
 
-  // convert to 12 hour format
-  if (h > 12) {
-    h = h - 12;
-  }
+    if (minutes.innerHTML == "00" && timer.time) {
+      m = timer.time;
+    }
 
-  // add 0 before single digit
-  h = h < 10 ? "0" + h : h;
-  m = m < 10 ? "0" + m : m;
-  s = s < 10 ? "0" + s : s;
+    // digits time indicator
+    let hh = document.getElementById("hh");
+    let mm = document.getElementById("mm");
+    let ss = document.getElementById("ss");
 
-  // set time and label
-  hours.innerHTML = h + "<br /><span>Soat</span>";
-  minutes.innerHTML = m + "<br /><span>Daqiqa</span>";
-  secondes.innerHTML = s + "<br /><span>Soniya</span>";
-  ampm.innerHTML = ap;
+    // dot time indicator
+    let dotH = document.querySelector(".h_dot");
+    let dotM = document.querySelector(".m_dot");
+    let dotS = document.querySelector(".s_dot");
+    h = Number(h);
+    m = Number(m);
+    s = Number(s);
+    // get current time
+    if (h > -1) {
+      if (m == 0 && h > 0) {
+        h -= 1;
+      } else if (m == 0) {
+        return;
+      }
+      if (s == 0 && m > 0) {
+        playSound();
+        playAlarm();
+        m -= 1;
+      } else if (s == 0) {
+        m = 59;
+      }
+      if (s == 0 && m > 0) {
+        s = 59;
+      } else if (m > 0) {
+        s -= 1;
+      }
+    }
+    ap = h >= 12 ? "" : "";
 
-  // set time circular indicator
-  hh.style.strokeDashoffset = 440 - (440 * h) / 12;
-  mm.style.strokeDashoffset = 440 - (440 * m) / 60;
-  ss.style.strokeDashoffset = 440 - (440 * s) / 60;
+    // convert to 12 hour format
+    if (h > 12) {
+      h = h - 12;
+    }
 
-  // set dot time position indicator
-  dotH.style.transform = `rotate(${h * 30}deg)`;
-  dotM.style.transform = `rotate(${m * 6}deg)`;
-  dotS.style.transform = `rotate(${s * 6}deg)`;
-}, 1000);
+    // add 0 before single digit
+    h = h < 10 ? "0" + h : h;
+    m = m < 10 ? "0" + m : m;
+    s = s < 10 ? "0" + s : s;
+
+    // set time and label
+    hours.innerHTML = h + "<br /><span>Soat</span>";
+    minutes.innerHTML = m + "<br /><span>Daqiqa</span>";
+    secondes.innerHTML = s + "<br /><span>Soniya</span>";
+    ampm.innerHTML = ap;
+
+    // set time circular indicator
+    hh.style.strokeDashoffset = 440 - (440 * h) / 12;
+    mm.style.strokeDashoffset = 440 - (440 * m) / 60;
+    ss.style.strokeDashoffset = 440 - (440 * s) / 60;
+
+    // set dot time position indicator
+    dotH.style.transform = `rotate(${h * 30}deg)`;
+    dotM.style.transform = `rotate(${m * 6}deg)`;
+    dotS.style.transform = `rotate(${s * 6}deg)`;
+  }, 1000);
+};
+
+onMounted(() => {
+  interval();
+});
 </script>
 
 <style lang="scss" scoped>

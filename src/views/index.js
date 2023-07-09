@@ -6,7 +6,6 @@ import Results from './Results/Results.vue';
 import Groups from './Groups/Groups.vue';
 import Subjects from './Subjects/Subjects.vue';
 import Tests from './Tests/Test.vue';
-import Roles from './Roles/Roles.vue';
 import Start_test from './Start_test/Start_test.vue';
 import Login from './Login/Login.vue';
 import Error from './Error/Error.vue';
@@ -32,13 +31,11 @@ export {
     Start_test,
     Results,
     Groups,
-    Roles,
     SlugStudent,
     SlugTeachers,
     SlugTests,
     SlugGroups,
     SlugResults,
-    SlugRoles,
     SlugSubjects,
     SlugStartTest,
     SignupSuperAdmin,

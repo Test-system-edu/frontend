@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import axios from "@/services/axios";
 import {
   HomeView,
   Dashboard,
   Students,
   Teachers,
-  Roles,
   Login,
   Error,
   Tests,
@@ -16,7 +16,6 @@ import {
   SlugTests,
   SlugResults,
   SlugGroups,
-  SlugRoles,
   SlugSubjects,
   Subjects,
   SlugStartTest,
@@ -45,16 +44,6 @@ const router = createRouter({
           path: '/employees/:id/:name',
           name: 'slug_teachers',
           component: SlugTeachers,
-        },
-        {
-          path: '/roles',
-          name: 'roles',
-          component: Roles,
-        },
-        {
-          path: '/roles/:id/:name',
-          name: 'slug_roles',
-          component: SlugRoles,
         },
         {
           path: '/students',
@@ -124,8 +113,8 @@ const router = createRouter({
       ]
     },
     {
-      path: '/signup',
-      name: 'signup',
+      path: '/register',
+      name: 'register',
       component: SignupSuperAdmin,
     },
     {
@@ -142,11 +131,26 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token')
-  if (to.name !== 'login' && !token) {
-    next({ name: 'login' })
-  } else {
-    next()
+  try {
+    axios.get('/staff', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then(res => {
+        console.log(res.data);
+        next()
+      })
+      .catch(err => {
+        console.log(err.response.data.message, err.response.data.message == "Token vaqti tugagan!");
+        if (err.response.data.message == "Token vaqti tugagan!" && to.name !== 'login') {
+          next({ name: 'login' })
+        } else {
+          next()
+        }
+      })
+  } catch (error) {
+    console.log(error);
   }
 })
 

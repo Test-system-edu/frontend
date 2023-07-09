@@ -1,6 +1,7 @@
 <template>
   <div class="container mx-auto py-4 px-2">
     <!------------------------------------------- Placeholder ------------------------------------------->
+    {{ store.allProducts }}
     <div v-show="!store.allProducts">
       <Placeholder2 />
     </div>
@@ -75,31 +76,38 @@
             <tr
               class="border-b cursor-pointer"
               :class="navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'"
-              v-for="result in examResults"
-              :key="result.id"
+              v-for="i in store.allProducts"
+              :key="i.id"
             >
               <td class="py-3 pr-6 pl-8 flex items-center gap-3">
                 <img
-                  :src="result.imageUrl"
+                  v-if="i.imageUrl"
+                  :src="i.imageUrl"
                   alt="img"
                   class="h-12 w-12 object-cover object-center rounded-full"
                 />
-                <p class="whitespace-nowrap mr-3">{{ result.name }}</p>
+                <img
+                  v-if="!i.imageUrl"
+                  src="https://img.freepik.com/free-icon/user_318-563642.jpg?w=360"
+                  alt="img"
+                  class="h-12 w-12 object-cover object-center rounded-full"
+                />
+                <p class="whitespace-nowrap mr-3">{{ i.student?.full_name }}</p>
               </td>
               <td class="py-3 px-6 font-bold text-[green]">
-                {{ result.isPassed }}
+                {{ 12 }}
               </td>
               <td class="py-3 px-6 font-bold text-[red]">
-                {{ result.isFailed }}
+                {{ 28 }}
               </td>
-              <td class="py-3 px-6 font-bold">{{ result.grade }}</td>
-              <td class="py-3 px-6 font-bold">{{ result.score }}</td>
+              <td class="py-3 px-6 font-bold">12.23.23</td>
+              <td class="py-3 px-6 font-bold">13.23.23</td>
               <td class="py-3 px-6 whitespace-nowrap text-center">
-                {{ result.timeSpent }}
+                {{ i.test_group?.test_time }} / 27
               </td>
               <td class="text-center font-medium px-8 py-3">
                 <button
-                  @click="enterSlug(i, 'Qobilov Shoxsuvor')"
+                  @click="enterSlug(i.id, i.student.full_name)"
                   class="btnKirish bg-blue-600 rounded-lg px-5 py-2.5 text-white focus:ring-2"
                 >
                   Kirish
@@ -205,6 +213,7 @@ const getProduct = () => {
       },
     })
     .then((res) => {
+      console.log(res.data);
       store.allProducts = res.data;
       store.error = false;
     })
@@ -313,141 +322,6 @@ function enterSlug(id, name) {
   name = name.toLowerCase().split(" ").join("_");
   router.push(`./results/${id}/${name}`);
 }
-
-const examResults = ref([
-  {
-    id: 1,
-    name: "John Doe",
-    isPassed: "23",
-    isFailed: "7",
-    grade: "Excellent",
-    score: 92,
-    timeSpent: "2 hours",
-    imageUrl:
-      "https://c4.wallpaperflare.com/wallpaper/218/322/342/john-doe-vigilante-wallpaper-preview.jpg",
-  },
-  {
-    id: 2,
-    name: "Robert Lewangoalski",
-    isPassed: "23",
-    isFailed: "7",
-    grade: "Poor",
-    score: 33,
-    timeSpent: "1 hour",
-    imageUrl:
-      "https://c4.wallpaperflare.com/wallpaper/441/496/1022/soccer-robert-lewandowski-robert-lewandowski-wallpaper-preview.jpg",
-  },
-  {
-    id: 3,
-    name: "Dwayne Johnson",
-    isPassed: "23",
-    isFailed: "7",
-    grade: "Average",
-    score: 76,
-    timeSpent: "3 hours",
-    imageUrl:
-      "https://c4.wallpaperflare.com/wallpaper/259/859/646/chain-actor-the-rock-dwayne-johnson-dwayne-johnson-the-rock-hd-wallpaper-preview.jpg",
-  },
-  {
-    id: 4,
-    name: "Paul Walker",
-    isPassed: "23",
-    isFailed: "7",
-    grade: "Average",
-    score: 61,
-    timeSpent: "2 hours",
-    imageUrl:
-      "https://c4.wallpaperflare.com/wallpaper/875/627/582/fast-furious-movies-paul-wallpaper-preview.jpg",
-  },
-  {
-    id: 5,
-    name: "Harry Potter",
-    isPassed: "23",
-    isFailed: "7",
-    grade: "Poor",
-    score: 45,
-    timeSpent: "1.5 hours",
-    imageUrl:
-      "https://c4.wallpaperflare.com/wallpaper/653/948/13/harry-potter-hogwarts-lantern-castle-wallpaper-preview.jpg",
-  },
-  {
-    id: 6,
-    name: "Edvard Bill",
-    isPassed: "23",
-    isFailed: "7",
-    grade: "Excellent",
-    score: 95,
-    timeSpent: "2 hours",
-    imageUrl:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEzHgtFeTmsoY0uD9HovuiBVUXe1a7oNa7YA&usqp=CAU",
-  },
-  {
-    id: 7,
-    name: "Cristiano Ronaldo",
-    isPassed: "23",
-    isFailed: "7",
-    grade: "Perfect",
-    score: 100,
-    timeSpent: "2.5 hours",
-    imageUrl:
-      "https://c4.wallpaperflare.com/wallpaper/874/671/650/soccer-cristiano-ronaldo-portuguese-wallpaper-preview.jpg",
-  },
-  {
-    id: 8,
-    name: "Leo Messi",
-    isPassed: "23",
-    isFailed: "7",
-    grade: "Poor",
-    score: 23,
-    timeSpent: "1 hour",
-    imageUrl:
-      "https://c4.wallpaperflare.com/wallpaper/642/137/247/lionel-messi-celebrating-leo-messi-wallpaper-preview.jpg",
-  },
-  {
-    id: 9,
-    name: "Mike Tyson",
-    isPassed: "23",
-    isFailed: "7",
-    grade: "Average",
-    score: 77,
-    timeSpent: "3 hours",
-    imageUrl:
-      "https://c4.wallpaperflare.com/wallpaper/874/671/650/soccer-cristiano-ronaldo-portuguese-wallpaper-preview.jpg",
-  },
-  {
-    id: 10,
-    name: "Elon Musk",
-    isPassed: "23",
-    isFailed: "7",
-    grade: "Excellent",
-    score: 92,
-    timeSpent: "2 hours",
-    imageUrl:
-      "https://c4.wallpaperflare.com/wallpaper/874/671/650/soccer-cristiano-ronaldo-portuguese-wallpaper-preview.jpg",
-  },
-  {
-    id: 11,
-    name: "Jamal Musiala",
-    isPassed: "23",
-    isFailed: "7",
-    grade: "Poor",
-    score: 53,
-    timeSpent: "1.5 hours",
-    imageUrl:
-      "https://c4.wallpaperflare.com/wallpaper/874/671/650/soccer-cristiano-ronaldo-portuguese-wallpaper-preview.jpg",
-  },
-  {
-    id: 12,
-    name: "Gianluigi Buffon",
-    isPassed: "23",
-    isFailed: "7",
-    grade: "Poor",
-    score: 37,
-    timeSpent: "2 hours",
-    imageUrl:
-      "https://c4.wallpaperflare.com/wallpaper/874/671/650/soccer-cristiano-ronaldo-portuguese-wallpaper-preview.jpg",
-  },
-]);
 </script>
 
 <style lang="scss" scoped>

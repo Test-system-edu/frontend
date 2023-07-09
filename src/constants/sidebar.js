@@ -11,21 +11,14 @@ export const header = [
         title: "Xodimlar",
         link: "/employees",
         icon: "bx bxs-user-rectangle",
-        role: [],
+        role: ['student'],
     },
     {
         id: 3,
         title: "O'quvchilar",
         link: "/students",
         icon: "bx bxs-user",
-        role: [],
-    },
-    {
-        id: 4,
-        title: "Lavozimlar",
-        link: "/roles",
-        icon: "bx bxs-group",
-        role: [],
+        role: ['student'],
     },
     {
         id: 4,
@@ -46,7 +39,7 @@ export const header = [
         title: "Testlar",
         link: "/tests",
         icon: "bx bx-credit-card-front",
-        role: [],
+        role: ['student'],
     },
     {
         id: 7,
