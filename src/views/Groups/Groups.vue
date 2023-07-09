@@ -545,7 +545,6 @@ const getProduct = () => {
       if (error.response.data.message == "Admin huquqi sizda yo'q!") {
         store.guard = true;
       }
-      notification.warning(error.response.data.message);
       store.allProducts = error.response.data.message;
       store.error = true;
     });

@@ -9,7 +9,7 @@
             <h1 class="text-[24px] font-bold border-b border-[#046f80]">Gruh nomi</h1>
             <p class="text-[14px] flex items-center gap-3"><span class="font-bold">Boshlangan sana:</span> 2023-07-04</p>
           </div>
-          <button class="btn shadow-lg rounded-lg px-5 py-2.5 text-white focus:ring-2">
+          <button @click="router.back(-1)" class="btn shadow-lg rounded-lg px-5 py-2.5 text-white focus:ring-2">
             Orqaga qaytish
           </button>
         </div>
@@ -144,6 +144,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useNavStore } from "../../stores/toggle";
+import { useRouter } from "vue-router";
 
 const modal = ref(false)
 const modal2 = ref(false)
@@ -152,6 +153,8 @@ const toggleModal = () => (modal.value = !modal.value);
 const toggleModal2 = () => (modal2.value = !modal2.value);
 
 const navbar = useNavStore();
+
+const router = useRouter();
 
 </script>
 

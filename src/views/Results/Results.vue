@@ -218,7 +218,6 @@ const getProduct = () => {
       store.error = false;
     })
     .catch((error) => {
-      notification.warning(error.response.data.message);
       store.allProducts = error.response.data.message;
       store.error = true;
     });
