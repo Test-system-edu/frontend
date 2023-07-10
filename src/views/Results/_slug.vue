@@ -10,7 +10,7 @@
           </h1>
           <button @click="router.back(-1)" class="btn shadow-lg font-bold rounded-lg px-5 py-2.5 text-white focus:ring-2">
             Orqaga qaytish
-          </button>
+          </button> 
         </div>
 
         <div class="w-full bg-white border rounded-lg border-[#046f80]">
