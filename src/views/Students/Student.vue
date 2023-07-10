@@ -166,7 +166,7 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              O'quvchi ma'lumotlarini tahrirlash
+              O'quvchi ma'lumotlarini o'zgartirish
             </h3>
             <button
               @click="edit.toggle = false"
