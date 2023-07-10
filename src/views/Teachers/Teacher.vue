@@ -118,7 +118,6 @@
                 >
                   <option value="admin">admin</option>
                   <option value="o'qituvchi">o'qituvchi</option>
-                  <option value="talaba">talaba</option>
                 </select>
               </div>
             </div>

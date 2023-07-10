@@ -608,6 +608,9 @@ const getProduct = () => {
     })
     .catch((error) => {
       notification.warning(error.response.data.message);
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+        store.guard = true;
+      }
       store.allProducts = error.response.data.message;
       console.log("error", error);
     });
