@@ -305,7 +305,7 @@ const getOneProduct = () => {
 const getAllResults = () => {
   const id = router.currentRoute?.value?.params?.id;
   axios
-    .get(`/test-result/studentId/${localStorage.getItem("userId")}`, {
+    .get(`/test-result/studentId/${sessionStorage.getItem("userId")}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -344,7 +344,7 @@ const createAnswer = () => {
     answer: store.true_answer,
     test_group_id: +router.currentRoute?.value?.params?.id,
     question_id: store.question_id,
-    student_id: localStorage.getItem("userId"),
+    student_id: sessionStorage.getItem("userId"),
   };
   axios
     .post(`/test-result`, data, {

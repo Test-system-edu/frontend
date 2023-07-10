@@ -130,28 +130,28 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  try {
-    axios.get('/staff', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then(res => {
-        console.log(res.data);
-        next()
-      })
-      .catch(err => {
-        console.log(err.response.data.message, err.response.data.message == "Token vaqti tugagan!");
-        if (err.response.data.message == "Token vaqti tugagan!" && to.name !== 'login') {
-          next({ name: 'login' })
-        } else {
-          next()
-        }
-      })
-  } catch (error) {
-    console.log(error);
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   try {
+//     axios.get('/staff', {
+//       headers: {
+//         Authorization: `Bearer ${localStorage.getItem("token")}`,
+//       },
+//     })
+//       .then(res => {
+//         console.log(res.data);
+//         next()
+//       })
+//       .catch(err => {
+//         console.log(err.response.data.message, err.response.data.message == "Token vaqti tugagan!");
+//         if (err.response.data.message == "Token vaqti tugagan!" && to.name !== 'login') {
+//           next({ name: 'login' })
+//         } else {
+//           next()
+//         }
+//       })
+//   } catch (error) {
+//     console.log(error);
+//   }
+// })
 
 export default router
