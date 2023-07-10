@@ -483,7 +483,7 @@ const sendResult = () => {
   const data = {
     is_submit: false,
     correct_answers: answer,
-    student_id: localStorage.getItem("userId"),
+    student_id: sessionStorage.getItem("userId"),
     test_group_id: +router.currentRoute?.value?.params?.id,
   };
   axios
@@ -501,7 +501,7 @@ const sendResult = () => {
 };
 
 const getFinishTime = () => {
-  let student_id = localStorage.getItem("userId");
+  let student_id = sessionStorage.getItem("userId");
   let test_group_id = +router.currentRoute?.value?.params?.id;
   axios
     .get(`/test-submit/find/${student_id}/${test_group_id}`, {
@@ -546,7 +546,7 @@ const createTime = () => {
   const data = {
     start_time: new Date(),
     end_time: date,
-    student_id: localStorage.getItem("userId"),
+    student_id: sessionStorage.getItem("userId"),
     test_group_id: +router.currentRoute?.value?.params?.id,
   };
 
@@ -616,7 +616,7 @@ const createAnswer = () => {
     test_group_id: +router.currentRoute?.value?.params?.id,
     question_id: store.question_id,
     test_time_id: store.test_time_id,
-    student_id: localStorage.getItem("userId"),
+    student_id: sessionStorage.getItem("userId"),
     student_id: sessionStorage.getItem("userId"),
   };
   axios
@@ -652,7 +652,7 @@ const setTime = () => {
     notification.warning("Test vaqti tugagan!");
     return;
   }
-  let student_id = localStorage.getItem("userId");
+  let student_id = sessionStorage.getItem("userId");
   let test_group_id = +router.currentRoute?.value?.params?.id;
   axios
     .get(`/test-time/find/${student_id}/${test_group_id}`, {
