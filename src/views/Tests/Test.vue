@@ -427,7 +427,7 @@
                   <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody v-show="!store.error && !store.guard">
+              <tbody v-show="!store.error">
                 <tr
                   class="border-b"
                   :class="
@@ -576,6 +576,24 @@ const remove = reactive({
 });
 
 // ----------------------------------- axios --------------------------------
+const guard = () => {
+  axios
+    .post("/test-group", 'data', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      store.guard = false;
+    })
+    .catch((error) => {
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+        store.guard = true;
+      }
+      // console.log(error);
+    });
+};
+
 const getProduct = () => {
   axios
     .get("/test-group", {
@@ -587,14 +605,13 @@ const getProduct = () => {
       console.log(res.data);
       store.allProducts = res.data;
       store.error = false;
-      store.guard = false;
     })
     .catch((error) => {
+      notification.warning(error.response.data.message);
       if (error.response.data.message == "Admin huquqi sizda yo'q!") {
         store.guard = true;
       }
       store.allProducts = error.response.data.message;
-      store.error = true;
       console.log("error", error);
     });
 };
@@ -707,6 +724,7 @@ const deleteProduct = () => {
 };
 
 onMounted(() => {
+  guard();
   getProduct();
   getSubject();
 });

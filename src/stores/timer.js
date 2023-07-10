@@ -1,8 +1,12 @@
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useTimeStore = defineStore('time', () => {
-    const time = ref(0);
+    const timer = reactive({
+        hour: 0,
+        minute: 0,
+    })
 
-    return { time };
+
+    return { timer };
 })

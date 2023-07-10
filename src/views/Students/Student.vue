@@ -166,7 +166,7 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              O'quvchi ma'lumotlarini tahrirlash
+              O'quvchi ma'lumotlarini o'zgartirish
             </h3>
             <button
               @click="edit.toggle = false"
@@ -631,7 +631,7 @@ const getProduct = () => {
       },
     })
     .then((res) => {
-      console.log(res.data);
+      console.log(res.data, 'all');
       store.allProducts = res.data;
       store.error = false;
     })
@@ -753,7 +753,7 @@ const deleteProduct = () => {
     })
     .then((res) => {
       console.log(res.data.statusCode);
-      notification.success("Guruh o'chirildi");
+      notification.success(res.data.message);
       getProduct();
       remove.toggle = false;
     })
