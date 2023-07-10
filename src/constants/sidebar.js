@@ -4,7 +4,6 @@ export const header = [
         title: "Asosiy",
         link: "/",
         icon: "bx bxs-dashboard",
-        role: ['student'],
         role: ['admin', 'teacher'],
     },
     {
@@ -40,7 +39,6 @@ export const header = [
         title: "Testlar",
         link: "/tests",
         icon: "bx bx-credit-card-front",
-        role: ['student', 'staff'],
         role: ['admin'],
     },
     {
@@ -48,7 +46,6 @@ export const header = [
         title: "Testni boshlash",
         link: "/start_test",
         icon: "bx bxs-hourglass-bottom",
-        role: ['staff'],
         role: ['student'],
     },
     {
