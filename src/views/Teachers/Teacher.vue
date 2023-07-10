@@ -1189,7 +1189,7 @@ const getGroup = () => {
 
 const deleteProduct = () => {
   const data = {
-    admin_id: localStorage.getItem("userId"),
+    admin_id: sessionStorage.getItem("userId"),
   };
   axios
     .delete(`/staff/${remove.id}`, {

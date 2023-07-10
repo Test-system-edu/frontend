@@ -68,7 +68,7 @@ const formInfo = () => {
     })
     .then((res) => {
       if (res.status == 201) {
-        localStorage.setItem("userId", res.data.id);
+        sessionStorage.setItem("userId", res.data.id);
         localStorage.setItem("token", res.data.access_token);
         notification.success(res.data.message);
         router.push("/");
@@ -87,6 +87,8 @@ const formInfo = () => {
           console.log(res.data);
           if (res.status == 201) {
             localStorage.setItem("userId", res.data.id);
+            console.log(res.data);
+            sessionStorage.setItem("userId", res.data.id);
             localStorage.setItem("token", res.data.access_token);
             notification.success(res.data.message);
             router.push("/");
