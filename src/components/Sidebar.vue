@@ -5,6 +5,11 @@
     <div class="h-full px-3 py-4 pb-4 overflow-y-auto"
       :class="{ 'bg-[#203843]': navbar.userNav, 'bg-white': !navbar.userNav }">
       <ul class="space-y-2 font-medium">
+        <li
+          v-show="store.guard ? i.role[0] != store.guard : true"
+          v-for="i in header"
+          :key="i.id"
+        >
         <li v-for="i in header" v-show="i.role != store.guard" :key="i.id">
           <router-link
             class="flex items-center border border-dashed border-gray-300 text-lg p-2 cursor-pointer duration-500 hover:bg-[#8080801f] rounded-lg gap-2"
@@ -42,6 +47,23 @@ onMounted(() => {
         },
       })
       .then((res) => {
+        alert("error");
+        axios
+          .delete("/staff/1", {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
+          .then((res) => {
+            console.log(res.data);
+            store.guard = "";
+          })
+          .catch((err) => {
+            alert(err.response.data.message);
+            if (err.response.data.message == "Admin huquqi sizda yo'q!") {
+              store.guard = "teacher";
+            }
+          });
         console.log(res.data);
         store.guard = ['admin', 'teacher'];
         axios

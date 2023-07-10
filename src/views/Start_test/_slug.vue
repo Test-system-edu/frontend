@@ -147,10 +147,33 @@
                       :class="{
                         'ring-4 ring-[#04fc43] hover:bg-gray-500':
                           store.true_answer == 'a' || store.trueCheck == 'a',
+                        'bg-green-400': store.checkedAnswer[store.step] == 'a' && !store.time,
                       }"
-                      class="bg-gray-50 hover:bg-[#04fc43] hover:text-white cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                      class="flex justify-between relative bg-gray-50 hover:bg-[#04fc43] hover:text-white cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-green-600 focus:border-green-600 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                     >
                       {{ store.a }}
+                      <span
+                        v-show="
+                          !store.time &&
+                          store.checkAnswer[store.step] != 'g' &&
+                          store.trueCheck == 'a'
+                        "
+                      >
+                        <i
+                          v-show="
+                            store.checkedAnswer[store.step] ==
+                            store.checkAnswer[store.step]
+                          "
+                          class="bx bx-check bg-[#04fc43] text-white border-2 border-black text-2xl rounded-full absolute right-2 top-0.5 px-1"
+                        ></i>
+                        <i
+                          v-show="
+                            store.checkedAnswer[store.step] !=
+                            store.checkAnswer[store.step]
+                          "
+                          class="bx bx-x bg-red-400 text-2xl rounded-full absolute right-2 top-1 px-1"
+                        ></i>
+                      </span>
                     </p>
                   </div>
 
@@ -168,10 +191,33 @@
                       :class="{
                         'ring-4 ring-[#04fc43] hover:bg-gray-500':
                           store.true_answer == 'b' || store.trueCheck == 'b',
+                        'bg-green-400': store.checkedAnswer[store.step] == 'b' && !store.time,
                       }"
-                      class="bg-gray-50 hover:bg-[#04fc43] hover:text-white cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                      class="relative bg-gray-50 hover:bg-[#04fc43] hover:text-white cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                     >
                       {{ store.b }}
+                      <span
+                        v-show="
+                          !store.time &&
+                          store.checkAnswer[store.step] != 'g' &&
+                          store.trueCheck == 'b'
+                        "
+                      >
+                        <i
+                          v-show="
+                            store.checkedAnswer[store.step] ==
+                            store.checkAnswer[store.step]
+                          "
+                          class="bx bx-check bg-[#04fc43] text-white border-2 border-black text-2xl rounded-full absolute right-2 top-0.5 px-1"
+                        ></i>
+                        <i
+                          v-show="
+                            store.checkedAnswer[store.step] !=
+                            store.checkAnswer[store.step]
+                          "
+                          class="bx bx-x bg-red-400 text-2xl rounded-full absolute right-2 top-1 px-1"
+                        ></i>
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -191,10 +237,33 @@
                       :class="{
                         'ring-4 ring-[#04fc43] hover:bg-gray-500':
                           store.true_answer == 'c' || store.trueCheck == 'c',
+                        'bg-green-400': store.checkedAnswer[store.step] == 'c' && !store.time,
                       }"
-                      class="bg-gray-50 hover:bg-[#04fc43] hover:text-white cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                      class="relative bg-gray-50 hover:bg-[#04fc43] hover:text-white cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                     >
                       {{ store.c }}
+                      <span
+                        v-show="
+                          !store.time &&
+                          store.checkAnswer[store.step] != 'g' &&
+                          store.trueCheck == 'c'
+                        "
+                      >
+                        <i
+                          v-show="
+                            store.checkedAnswer[store.step] ==
+                            store.checkAnswer[store.step]
+                          "
+                          class="bx bx-check bg-[#04fc43] text-white border-2 border-black text-2xl rounded-full absolute right-2 top-0.5 px-1"
+                        ></i>
+                        <i
+                          v-show="
+                            store.checkedAnswer[store.step] !=
+                            store.checkAnswer[store.step]
+                          "
+                          class="bx bx-x bg-red-400 text-2xl rounded-full absolute right-2 top-1 px-1"
+                        ></i>
+                      </span>
                     </p>
                   </div>
 
@@ -212,10 +281,33 @@
                       :class="{
                         'ring-4 ring-[#04fc43] hover:bg-gray-500':
                           store.true_answer == 'd' || store.trueCheck == 'd',
+                        'bg-green-400': store.checkedAnswer[store.step] == 'd' && !store.time,
                       }"
-                      class="bg-gray-50 hover:bg-[#04fc43] hover:text-white cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                      class="relative bg-gray-50 hover:bg-[#04fc43] hover:text-white cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                     >
                       {{ store.d }}
+                      <span
+                        v-show="
+                          !store.time &&
+                          store.checkAnswer[store.step] != 'g' &&
+                          store.trueCheck == 'd'
+                        "
+                      >
+                        <i
+                          v-show="
+                            store.checkedAnswer[store.step] ==
+                            store.checkAnswer[store.step]
+                          "
+                          class="bx bx-check bg-[#04fc43] text-white border-2 border-black text-2xl rounded-full absolute right-2 top-0.5 px-1"
+                        ></i>
+                        <i
+                          v-show="
+                            store.checkedAnswer[store.step] !=
+                            store.checkAnswer[store.step]
+                          "
+                          class="bx bx-x bg-red-400 text-2xl rounded-full absolute right-2 top-1 px-1"
+                        ></i>
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -358,6 +450,7 @@ function playSound() {
 }
 
 function allResponse() {
+  store.checkedAnswer = [];
   for (let i of store.data.questions) {
     store.questionStore.push(i.answers[0].question_id);
     store.checkedAnswer.push(i.answers[0].true_answer);
@@ -365,17 +458,20 @@ function allResponse() {
 }
 
 function allAnswers() {
-  for (let i of store.allResults) {
-    store.checkAnswer.push(i.answer || "g");
-  }
+  let answers = false;
+  store.checkAnswer = [];
   for (let i of store.questionStore) {
-    for (let i of store.allResults) {
-      if (i == i.question_id) {
-        store.checkAnswer.push(i.answer);
-        return;
+    for (let res of store.allResults) {
+      if (i == res.question_id) {
+        store.checkAnswer.push(res.answer);
+        answers = false;
+        break;
       } else {
-        store.checkAnswer.push("g");
+        answers = true;
       }
+    }
+    if (answers) {
+      store.checkAnswer.push("g");
     }
   }
 }
@@ -649,7 +745,6 @@ const createAnswer = () => {
 
 const setTime = () => {
   if (!store.time) {
-    notification.warning("Test vaqti tugagan!");
     return;
   }
   let student_id = sessionStorage.getItem("userId");
@@ -686,7 +781,6 @@ const setTime = () => {
       }
     })
     .catch((error) => {
-      notification.warning(error.response.data.message);
       console.log("error", error);
     });
 };

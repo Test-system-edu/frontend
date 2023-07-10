@@ -14,7 +14,6 @@ import SlugTeachers from './Teachers/_slug.vue';
 import SlugTests from './Tests/_slug.vue';
 import SlugGroups from './Groups/_slug.vue';
 import SlugResults from './Results/_slug.vue';
-import SlugRoles from './Results/_slug.vue';
 import SlugSubjects from './Subjects/_slug.vue';
 import SlugStartTest from './Start_test/_slug.vue';
 import SignupSuperAdmin from './SignupSuperAdmin/SignupSuperAdmin.vue';

@@ -81,6 +81,11 @@ const router = createRouter({
           component: Subjects,
         },
         {
+          path: '/subjects',
+          name: 'subjects',
+          component: Subjects,
+        },
+        {
           path: '/students/:id/:name',
           name: 'slug_students',
           component: SlugStudent,

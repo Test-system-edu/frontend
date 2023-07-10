@@ -194,7 +194,7 @@
             </button>
           </div>
           <!-- Modal body -->
-          <div class="py-5 flex gap-5">
+          <div class="py-5 flex flex-wrap gap-5">
             <span
               v-for="i in form.subject"
               :key="i.id"
@@ -306,7 +306,7 @@
             </button>
           </div>
           <!-- Modal body -->
-          <div class="py-5">
+          <div class="flex flex-wrap gap-5 py-5">
             <span
               v-for="i in form.group"
               :key="i.id"
@@ -959,7 +959,7 @@ const getProduct = () => {
       store.error = false;
     })
     .catch((error) => {
-      if (error.response.data.message=="Admin huquqi sizda yo'q!"){
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
         store.guard = true;
       }
       notification.warning(error.response.data.message);
