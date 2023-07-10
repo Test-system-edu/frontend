@@ -759,6 +759,24 @@ const remove = reactive({
 });
 
 // ----------------------------------- axios --------------------------------
+const guard = () => {
+  axios
+    .post("/test-group", "data", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      store.guard = false;
+    })
+    .catch((error) => {
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+        store.guard = true;
+      }
+      // console.log("error", error);
+    });
+};
+
 const getProduct = () => {
   axios
     .get(`/test-group/${+router.currentRoute?.value?.params?.name}`, {
@@ -768,7 +786,6 @@ const getProduct = () => {
     })
     .then((res) => {
       store.allProducts = res.data;
-      store.guard = false;
       if (store.allProducts.questions.length != 0) {
         store.error = false;
       } else {
@@ -777,9 +794,6 @@ const getProduct = () => {
       }
     })
     .catch((error) => {
-      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
-        store.guard = true;
-      }
       notification.warning(error.response.data.message);
       store.allProducts = error.response.data.message;
       store.error = true;
@@ -948,6 +962,7 @@ const deleteProduct = () => {
 };
 
 onMounted(() => {
+  guard();
   console.log(router.currentRoute?.value?.params?.name);
   getProduct();
   getSubject();

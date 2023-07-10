@@ -31,7 +31,7 @@
 import { header } from "../constants/sidebar";
 import { useNavStore } from "../stores/toggle";
 import { useSidebarStore } from "../stores/sidebar.js";
-import { onBeforeMount, reactive } from "vue";
+import { onMounted, reactive } from "vue";
 import { useRouter } from "vue-router";
 import axios from "../services/axios";
 
@@ -43,7 +43,7 @@ const store = reactive({
   guard: "",
 });
 
-onBeforeMount(() => {
+onMounted(() => {
   try {
     axios
       .get("/staff", {

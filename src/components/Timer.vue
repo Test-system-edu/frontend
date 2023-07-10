@@ -65,8 +65,9 @@ const interval = () => {
     let secondes = document.getElementById("seconds");
     let ampm = document.getElementById("ampm");
 
-    if (minutes.innerHTML == "00" && timer.time) {
-      m = timer.time;
+    if (minutes.innerHTML == "00" && timer.minute) {
+      m = timer.minute;
+      h = timer.hour;
     }
 
     // digits time indicator

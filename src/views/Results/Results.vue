@@ -1,7 +1,6 @@
 <template>
   <div class="container mx-auto py-4 px-2">
     <!------------------------------------------- Placeholder ------------------------------------------->
-    {{ store.allProducts }}
     <div v-show="!store.allProducts">
       <Placeholder2 />
     </div>
@@ -213,7 +212,6 @@ const getProduct = () => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       store.allProducts = res.data;
       store.error = false;
     })

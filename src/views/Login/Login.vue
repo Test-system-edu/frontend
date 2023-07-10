@@ -61,7 +61,6 @@ const form = reactive({
 });
 
 const formInfo = () => {
-  console.log(form.login, form.password);
   axios
     .post("staff/login", {
       login: form.login,
@@ -78,14 +77,15 @@ const formInfo = () => {
       }
     })
     .catch((error) => {
+      notification.warning(error.response.data.message);
       axios
         .post("student/login", {
           login: form.login,
           password: form.password,
         })
         .then((res) => {
+          console.log(res.data);
           if (res.status == 201) {
-            console.log(res.data);
             localStorage.setItem("userId", res.data.id);
             localStorage.setItem("token", res.data.access_token);
             notification.success(res.data.message);
