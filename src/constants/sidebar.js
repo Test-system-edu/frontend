@@ -25,14 +25,14 @@ export const header = [
         title: "Guruhlar",
         link: "/groups",
         icon: "bx bxs-group",
-        role: [],
+        role: ['student'],
     },
     {
         id: 5,
         title: "Fanlar",
         link: "/subjects",
         icon: "bx bxs-book-bookmark",
-        role: [],
+        role: ['student'],
     },
     {
         id: 6,

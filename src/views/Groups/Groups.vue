@@ -409,7 +409,6 @@
                     </button>
                   </td>
                   <td
-                    v-show="!store.guard"
                     class="text-center whitespace-nowrap font-medium pr-5"
                   >
                     <i

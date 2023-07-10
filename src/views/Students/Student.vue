@@ -631,7 +631,7 @@ const getProduct = () => {
       },
     })
     .then((res) => {
-      console.log(res.data);
+      console.log(res.data, 'all');
       store.allProducts = res.data;
       store.error = false;
     })
@@ -754,7 +754,7 @@ const deleteProduct = () => {
     })
     .then((res) => {
       console.log(res.data.statusCode);
-      notification.success("Guruh o'chirildi");
+      notification.success(res.data.message);
       getProduct();
       remove.toggle = false;
     })
