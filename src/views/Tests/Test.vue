@@ -590,7 +590,6 @@ const guard = () => {
       if (error.response.data.message == "Admin huquqi sizda yo'q!") {
         store.guard = true;
       }
-      // console.log(error);
     });
 };
 
@@ -602,17 +601,14 @@ const getProduct = () => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       store.allProducts = res.data;
       store.error = false;
     })
     .catch((error) => {
-      notification.warning(error.response.data.message);
       if (error.response.data.message == "Admin huquqi sizda yo'q!") {
         store.guard = true;
       }
       store.allProducts = error.response.data.message;
-      console.log("error", error);
     });
 };
 
@@ -637,8 +633,6 @@ function createProduct() {
     })
     .catch((error) => {
       notification.warning(error.response.data.message);
-      console.log(error.response.data.message);
-      console.log("error", error);
     });
 }
 
@@ -650,7 +644,6 @@ const getOneProduct = (id) => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       edit.test_count = res.data.test_count;
       edit.test_time = res.data.test_time;
       edit.subject_id = res.data.subject_id;
@@ -671,7 +664,6 @@ const getSubject = () => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       store.subjects = res.data || [{ title: "Fan yaratilmagan" }];
     })
     .catch((error) => {
@@ -703,7 +695,6 @@ const editProduct = () => {
 };
 
 const deleteProduct = () => {
-  alert(remove.id);
   axios
     .delete(`/test-group/${remove.id}`, {
       headers: {
@@ -711,7 +702,6 @@ const deleteProduct = () => {
       },
     })
     .then((res) => {
-      console.log(res.data.statusCode);
       notification.success(res.data.message);
       getProduct();
       remove.toggle = false;
