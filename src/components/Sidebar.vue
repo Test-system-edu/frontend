@@ -59,7 +59,6 @@ onMounted(() => {
               store.guard = "teacher";
             }
           });
-        console.log(res.data);
         store.guard = ['admin', 'teacher'];
         axios
           .delete('/staff/1', {

@@ -601,6 +601,7 @@ const getProduct = () => {
       },
     })
     .then((res) => {
+      console.log(res.data);
       store.allProducts = res.data;
       store.error = false;
     })
@@ -608,6 +609,7 @@ const getProduct = () => {
       if (error.response.data.message == "Admin huquqi sizda yo'q!") {
         store.guard = true;
       }
+      store.error = true;
       store.allProducts = error.response.data.message;
     });
 };
