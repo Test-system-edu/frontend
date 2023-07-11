@@ -70,7 +70,9 @@
           >
             <div
               :class="
-                store.toggle ? 'p-4 rounded-lg md:p-8' : 'hidden p-4 rounded-lg md:p-8'
+                store.toggle
+                  ? 'p-4 rounded-lg md:p-8'
+                  : 'hidden p-4 rounded-lg md:p-8'
               "
               id="about"
               role="tabpanel"
@@ -133,7 +135,9 @@
                       >
                         <span
                           :class="
-                            store.data.email ? 'flex items-center gap-3' : 'hidden'
+                            store.data.email
+                              ? 'flex items-center gap-3'
+                              : 'hidden'
                           "
                         >
                           <i class="bx bx-envelope" style="color: #f50000"></i>|
@@ -143,7 +147,9 @@
                         </span>
                         <span
                           :class="
-                            store.data.phone_number ? 'flex items-center gap-3' : 'hidden'
+                            store.data.phone_number
+                              ? 'flex items-center gap-3'
+                              : 'hidden'
                           "
                         >
                           <i class="bx bxs-phone" style="color: #16f500"></i>|
@@ -153,7 +159,9 @@
                         </span>
                         <span
                           :class="
-                            store.data.telegram_username ? 'flex items-center gap-3' : 'hidden'
+                            store.data.telegram_username
+                              ? 'flex items-center gap-3'
+                              : 'hidden'
                           "
                         >
                           <i class="bx bxl-telegram" style="color: #009cf5"></i
@@ -170,7 +178,7 @@
             </div>
             <div
               :class="
-              !store.toggle
+                !store.toggle
                   ? 'p-4 rounded-lg md:p-8 dark:bg-gray-800'
                   : 'hidden p-4 rounded-lg md:p-8 dark:bg-gray-800'
               "
@@ -261,7 +269,7 @@ const router = useRouter();
 
 const store = reactive({
   data: "",
-  toggle:true,
+  toggle: true,
 });
 
 const getStaff = () => {
