@@ -959,7 +959,7 @@ const getProduct = () => {
       store.error = false;
     })
     .catch((error) => {
-      if (error.response.data.message=="Admin huquqi sizda yo'q!"){
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
         store.guard = true;
       }
       notification.warning(error.response.data.message);
