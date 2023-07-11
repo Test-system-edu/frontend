@@ -612,28 +612,32 @@
                   v-if="i.answers"
                 >
                   <p
-                    class="w-full text-justify text-black flex gap-3 bg-red-200 p-5 rounded-lg"
+                    class="w-full text-justify text-black flex gap-3 p-5 rounded-lg"
+                    :class="store.trueAnswers[index] == 'a' ? 'bg-green-400' : 'bg-red-400'"
                   >
                     <strong>A:</strong>
                     <span>{{ i.answers[0]?.a }}</span>
                   </p>
                   <p
-                    class="w-full text-justify text-black flex gap-3 bg-red-200 p-5 rounded-lg"
+                  :class="store.trueAnswers[index] == 'b' ? 'bg-green-400' : 'bg-red-400'"
+                    class="w-full text-justify text-black flex gap-3 p-5 rounded-lg"
                   >
                     <strong>B:</strong>
                     <span>{{ i.answers[0]?.b }}</span>
                   </p>
                   <p
-                    class="w-full text-justify text-black flex gap-3 bg-green-200 p-5 rounded-lg"
+                  :class="store.trueAnswers[index] == 'c' ? 'bg-green-400' : 'bg-red-400'"
+                    class="w-full text-justify text-black flex gap-3 p-5 rounded-lg"
                   >
                     <strong>C:</strong>
                     <span>{{ i.answers[0]?.c }}</span>
                   </p>
                   <p
-                    class="w-full text-justify text-black flex gap-3 bg-red-200 p-5 rounded-lg"
+                  :class="store.trueAnswers[index] == 'd' ? 'bg-green-400' : 'bg-red-400'"
+                    class="w-full text-justify text-black flex gap-3 p-5 rounded-lg"
                   >
                     <strong>D:</strong>
-                    <span>{{ i.answers[0]?.d }}</span>
+                    <span>{{ i.answers[0]?.d }}</span>  
                   </p>
                 </div>
               </div>
@@ -700,6 +704,7 @@ const store = reactive({
   accordion: [],
   plus: "",
   guard: false,
+  trueAnswers: [],
 });
 
 function enterSlug(name) {
@@ -718,7 +723,6 @@ function accordion(id) {
     }
   }
   let show = document.querySelector(`#answers${id}`);
-  console.log(show);
   show.classList.toggle("hidden");
   store.accordion.push(id);
   if (store.plus == id) {
@@ -785,6 +789,11 @@ const getProduct = () => {
       },
     })
     .then((res) => {
+      console.log(res.data);
+      store.trueAnswers = []
+      for(let i of res.data.questions){
+        store.trueAnswers.push(i.answers[0].true_answer)
+      }
       store.allProducts = res.data;
       if (store.allProducts.questions.length != 0) {
         store.error = false;
@@ -911,7 +920,6 @@ const editProduct = () => {
       }
     )
     .then((res) => {
-      getProduct();
       let data = {
         a: edit.a,
         b: edit.b,
@@ -927,8 +935,8 @@ const editProduct = () => {
           },
         })
         .then((res) => {
-          notification.success("Muvaffaqiyatli o'zgartirildi");
           getProduct();
+          notification.success("Muvaffaqiyatli o'zgartirildi");
           edit.toggle = false;
         })
         .catch((error) => {
@@ -956,14 +964,12 @@ const deleteProduct = () => {
     })
     .catch((error) => {
       notification.warning(error.response.data.message);
-      console.log(error.response.data.message);
       console.log("error", error);
     });
 };
 
 onMounted(() => {
   guard();
-  console.log(router.currentRoute?.value?.params?.name);
   getProduct();
   getSubject();
 });

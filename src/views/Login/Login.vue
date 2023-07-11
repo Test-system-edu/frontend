@@ -67,6 +67,7 @@ const formInfo = () => {
       password: form.password,
     })
     .then((res) => {
+      console.log(res.data);
       if (res.status == 201) {
         sessionStorage.setItem("userId", res.data.id);
         localStorage.setItem("token", res.data.access_token);
@@ -77,7 +78,6 @@ const formInfo = () => {
       }
     })
     .catch((error) => {
-      notification.warning(error.response.data.message);
       axios
         .post("student/login", {
           login: form.login,

@@ -10,7 +10,7 @@
     >
       <ul class="space-y-2 font-medium">
         <li
-          v-show="store.guard ? i.role != store.guard : true"
+          v-show="store.guard ? i.role[0] != store.guard : true"
           v-for="i in header"
           :key="i.id"
         >
@@ -52,6 +52,23 @@ onMounted(() => {
         },
       })
       .then((res) => {
+        alert("error");
+        axios
+          .delete("/staff/1", {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
+          .then((res) => {
+            console.log(res.data);
+            store.guard = "";
+          })
+          .catch((err) => {
+            alert(err.response.data.message);
+            if (err.response.data.message == "Admin huquqi sizda yo'q!") {
+              store.guard = "teacher";
+            }
+          });
         console.log(res.data);
         store.guard = "";
       })

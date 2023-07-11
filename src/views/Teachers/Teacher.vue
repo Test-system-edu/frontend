@@ -194,7 +194,7 @@
             </button>
           </div>
           <!-- Modal body -->
-          <div class="py-5 flex gap-5">
+          <div class="py-5 flex flex-wrap gap-5">
             <span
               v-for="i in form.subject"
               :key="i.id"
@@ -306,7 +306,7 @@
             </button>
           </div>
           <!-- Modal body -->
-          <div class="py-5">
+          <div class="flex flex-wrap gap-5 py-5">
             <span
               v-for="i in form.group"
               :key="i.id"

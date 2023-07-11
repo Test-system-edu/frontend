@@ -24,13 +24,13 @@
                       class="mb-0 font-sans font-semibold leading-normal text-sm"
                       v-show="index == 0"
                     >
-                      Xodimlar
+                      O'quvchilar
                     </p>
                     <p
                       class="mb-0 font-sans font-semibold leading-normal text-sm"
                       v-show="index == 1"
                     >
-                      O'qituchi
+                      Xodimlar
                     </p>
                     <p
                       class="mb-0 font-sans font-semibold leading-normal text-sm"
@@ -44,7 +44,7 @@
                     >
                       Guruhlar
                     </p>
-                    <h5 class="mb-0 font-bold" v-show="index == 0">{{ info.Students.length }}</h5>
+                    <h5 class="mb-0 font-bold" v-show="index == 0">{{ info.Students.length || 0 }}</h5>
                     <h5 class="mb-0 font-bold" v-show="index == 1">{{ info.Staff }}</h5>
                     <h5 class="mb-0 font-bold" v-show="index == 2">{{ info.Subjects }}</h5>
                     <h5 class="mb-0 font-bold" v-show="index == 3">{{ info.Groups }}</h5>
@@ -253,14 +253,12 @@
 
       <!------------------------------------------------------------- Cards ---------------------------------------------------------------->
 
-      <div class="cards flex flex-wrap mt-4">
-        <!-- card1 -->
+      <!-- <div class="cards flex flex-wrap mt-4">
         <div
           class="card max-w-full px-2 mb-4 sm:w-full w-1/2 md:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4"
           v-for="(i, index) in 4"
           :key="i"
         >
-          <!-- card -->
           <div
             class="relative flex flex-col min-w-0 break-words shadow-soft-xl rounded-lg bg-clip-border"
             :class="{
@@ -316,7 +314,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!------------------------------------------------------------- Cards end ---------------------------------------------------------------->

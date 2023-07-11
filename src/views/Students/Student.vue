@@ -488,7 +488,7 @@
                   </td>
                   <td class="text-center font-medium px-8 py-3">
                     <button
-                      @click="enterSlug(i.id, i.first_name + '_' + i.last_name)"
+                      @click="enterSlug(i.id, i.full_name.split(' ').join('_').toLowerCase())"
                       class="btnKirish bg-blue-600 rounded-lg px-5 py-2.5 text-white focus:ring-2"
                     >
                       Kirish

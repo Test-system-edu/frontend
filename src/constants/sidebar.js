@@ -4,7 +4,7 @@ export const header = [
         title: "Asosiy",
         link: "/",
         icon: "bx bxs-dashboard",
-        role: [],
+        role: ['student'],
     },
     {
         id: 2,
@@ -39,14 +39,14 @@ export const header = [
         title: "Testlar",
         link: "/tests",
         icon: "bx bx-credit-card-front",
-        role: ['student'],
+        role: ['student', 'staff'],
     },
     {
         id: 7,
         title: "Testni boshlash",
         link: "/start_test",
         icon: "bx bxs-hourglass-bottom",
-        role: [],
+        role: ['staff'],
     },
     {
         id: 8,
