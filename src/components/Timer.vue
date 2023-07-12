@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, onUnmounted, reactive } from "vue";
 import { useTimeStore } from "../stores/timer";
 import sound from "../assets/sound.mp3";
 import alarm from "../assets/alarm.mp3";
@@ -43,6 +43,10 @@ let h = 0;
 let m = 0;
 let s = 0;
 let ap = h >= 12 ? "" : "";
+
+const store = reactive({
+  is_time: true,
+});
 
 function playSound() {
   // let audio = new Audio(sound);
@@ -62,13 +66,8 @@ const interval = () => {
     // get time indicator elements
     let hours = document.getElementById("hours");
     let minutes = document.getElementById("minutes");
-    let secondes = document.getElementById("seconds");
+    let seconds = document.getElementById("seconds");
     let ampm = document.getElementById("ampm");
-
-    if (minutes.innerHTML == "00" && timer.minute) {
-      m = timer.minute;
-      h = timer.hour;
-    }
 
     // digits time indicator
     let hh = document.getElementById("hh");
@@ -79,9 +78,9 @@ const interval = () => {
     let dotH = document.querySelector(".h_dot");
     let dotM = document.querySelector(".m_dot");
     let dotS = document.querySelector(".s_dot");
-    h = Number(h);
-    m = Number(m);
-    s = Number(s);
+    h = Number(timer.Hours);
+    m = Number(timer.Minutes);
+    s = Number(timer.Seconds);
     // get current time
     if (h > -1) {
       if (m == 0 && h > 0) {
@@ -114,10 +113,11 @@ const interval = () => {
     m = m < 10 ? "0" + m : m;
     s = s < 10 ? "0" + s : s;
 
+    console.log(hours, h);
     // set time and label
     hours.innerHTML = h + "<br /><span>Soat</span>";
     minutes.innerHTML = m + "<br /><span>Daqiqa</span>";
-    secondes.innerHTML = s + "<br /><span>Soniya</span>";
+    seconds.innerHTML = s + "<br /><span>Soniya</span>";
     ampm.innerHTML = ap;
 
     // set time circular indicator
@@ -129,11 +129,16 @@ const interval = () => {
     dotH.style.transform = `rotate(${h * 30}deg)`;
     dotM.style.transform = `rotate(${m * 6}deg)`;
     dotS.style.transform = `rotate(${s * 6}deg)`;
+    timer.changeTime(h, m, s);
   }, 1000);
 };
 
 onMounted(() => {
   interval();
+});
+
+onUnmounted(() => {
+  timer.changeTime("00", "00", "00");
 });
 </script>
 

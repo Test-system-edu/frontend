@@ -17,7 +17,7 @@
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
               Testni tugatish
             </h3>
-            <button
+            <button @click="store.toggle = false"
               type="button"
               class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
               data-modal-hide="defaultModal"
@@ -54,7 +54,7 @@
               @click="
                 store.time = false;
                 store.toggle = false;
-                sendResult();
+                sendResult(true);
               "
               type="button"
               class="text-gray-500 hover:bg-red-500 hover:text-white bg-white focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 focus:z-10"
@@ -147,7 +147,8 @@
                       :class="{
                         'ring-4 ring-[#04fc43] hover:bg-gray-500':
                           store.true_answer == 'a' || store.trueCheck == 'a',
-                        'bg-green-400': store.checkedAnswer[store.step] == 'a' && !store.time,
+                        'bg-green-400':
+                          store.checkedAnswer[store.step] == 'a' && !store.time,
                       }"
                       class="flex justify-between relative bg-gray-50 hover:bg-[#04fc43] hover:text-white cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-green-600 focus:border-green-600 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                     >
@@ -191,7 +192,8 @@
                       :class="{
                         'ring-4 ring-[#04fc43] hover:bg-gray-500':
                           store.true_answer == 'b' || store.trueCheck == 'b',
-                        'bg-green-400': store.checkedAnswer[store.step] == 'b' && !store.time,
+                        'bg-green-400':
+                          store.checkedAnswer[store.step] == 'b' && !store.time,
                       }"
                       class="relative bg-gray-50 hover:bg-[#04fc43] hover:text-white cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                     >
@@ -237,7 +239,8 @@
                       :class="{
                         'ring-4 ring-[#04fc43] hover:bg-gray-500':
                           store.true_answer == 'c' || store.trueCheck == 'c',
-                        'bg-green-400': store.checkedAnswer[store.step] == 'c' && !store.time,
+                        'bg-green-400':
+                          store.checkedAnswer[store.step] == 'c' && !store.time,
                       }"
                       class="relative bg-gray-50 hover:bg-[#04fc43] hover:text-white cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                     >
@@ -281,7 +284,8 @@
                       :class="{
                         'ring-4 ring-[#04fc43] hover:bg-gray-500':
                           store.true_answer == 'd' || store.trueCheck == 'd',
-                        'bg-green-400': store.checkedAnswer[store.step] == 'd' && !store.time,
+                        'bg-green-400':
+                          store.checkedAnswer[store.step] == 'd' && !store.time,
                       }"
                       class="relative bg-gray-50 hover:bg-[#04fc43] hover:text-white cursor-pointer border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-green-600 focus:border-green-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                     >
@@ -378,7 +382,10 @@
               </div>
               <div class="w-[15%] text-end">
                 <button
-                  @click="createAnswer()"
+                  @click="
+                    createAnswer();
+                    sendResult(false);
+                  "
                   type="submit"
                   :class="{
                     'pointer-events-none hidden': store.trueCheck,
@@ -556,6 +563,7 @@ const getAllResults = () => {
         }
       }
       allAnswers();
+      getFinishTime();
       for (let i of store.allResults) {
         if (i.question_id == store.question_id) {
           store.trueCheck = i.answer;
@@ -568,7 +576,7 @@ const getAllResults = () => {
     });
 };
 
-const sendResult = () => {
+const sendResult = (is_true) => {
   let answer = 0;
   for (let i in store.checkedAnswer) {
     if (store.checkAnswer[i] == store.checkedAnswer[i]) {
@@ -577,7 +585,7 @@ const sendResult = () => {
   }
 
   const data = {
-    is_submit: false,
+    is_submit: is_true,
     correct_answers: answer,
     student_id: sessionStorage.getItem("userId"),
     test_group_id: +router.currentRoute?.value?.params?.id,
@@ -589,7 +597,9 @@ const sendResult = () => {
       },
     })
     .then((res) => {
-      console.log(res.data);
+      if (res.data.is_submit) {
+        store.time = false;
+      }
     })
     .catch((error) => {
       console.log("error", error);
@@ -606,9 +616,12 @@ const getFinishTime = () => {
       },
     })
     .then((res) => {
-      console.log(res.data), "finish time";
-      if (!res.data.is_submit) {
+      console.log(res.data, "finish time");
+      allAnswers();
+      allResponse();
+      if (res.data[0].is_submit) {
         store.time = false;
+        sendResult(true);
       }
     })
     .catch((error) => {
@@ -624,17 +637,19 @@ const createTime = () => {
   let minute = date.getMinutes();
   let h = Math.floor(store.test_time / 60);
   let m = Math.floor(store.test_time % 60);
+  console.log(day, hour, minute);
   m += minute;
-  if (m > 60) {
+  if (m >= 60) {
     h += hour + 1;
     m = Math.floor(m % 60);
   } else {
     h += hour;
   }
-  if (h > 60) {
+  if (h >= 24) {
     day += 1;
     h = Math.floor(h % 24);
   }
+  console.log(day, h, m);
   date.setDate(day);
   date.setHours(h);
   date.setMinutes(m);
@@ -660,44 +675,49 @@ const createTime = () => {
       let day = date.getDate();
       let hour = date.getHours();
       let minute = date.getMinutes();
+      let second = date.getSeconds();
 
       let d = now.getDate();
       let h = now.getHours();
       let m = now.getMinutes();
+      let s = now.getSeconds();
 
       if (d > day) {
-        sendResult();
+        sendResult(true);
         store.time = false;
       } else {
-        now = hour * 60 + minute - h * 60 - m;
+        now = hour * 3600 + minute * 60 + second - h * 3600 - m * 60 - s;
+        console.log(now);
         if (now > 0) {
-          timer.hour = Math.floor(now / 60);
-          timer.minute = now % 60;
+          hour = Math.floor(now / 3600);
+          minute = Math.floor((now % 3600) / 60);
+          second = (now % 3600) % 60;
+          timer.changeTime(hour, minute, second);
         } else {
-          sendResult();
+          sendResult(true);
           store.time = false;
         }
       }
     })
     .catch((error) => {
-      // if (error.response?.data?.message.length <= 1) {
-      //   if (
-      //     i == "Talaba ID si matn shaklida bo'lishi zarur!" ||
-      //     i == "Iltimos, talaba ID sini kiriting!"
-      //   ) {
-      //     router.push("/login");
-      //   }
-      //   console.log("error", error);
-      //   return;
-      // }
-      // for (let i of error.response?.data?.message) {
-      //   if (
-      //     i == "Talaba ID si matn shaklida bo'lishi zarur!" ||
-      //     i == "Iltimos, talaba ID sini kiriting!"
-      //   ) {
-      //     router.push("/login");
-      //   }
-      // }
+      if (error.response?.data?.message.length <= 1) {
+        if (
+          i == "Talaba ID si matn shaklida bo'lishi zarur!" ||
+          i == "Iltimos, talaba ID sini kiriting!"
+        ) {
+          router.push("/login");
+        }
+        console.log("error", error);
+        return;
+      }
+      for (let i of error.response?.data?.message) {
+        if (
+          i == "Talaba ID si matn shaklida bo'lishi zarur!" ||
+          i == "Iltimos, talaba ID sini kiriting!"
+        ) {
+          router.push("/login");
+        }
+      }
       console.log("error", error);
     });
 };
@@ -756,7 +776,8 @@ const setTime = () => {
       },
     })
     .then((res) => {
-      console.log(res.data[0]?.end_time, "dsjkdfj");
+      console.log(res.data);
+      console.log(res.data[0]?.end_time);
       let date = new Date(res.data[0]?.end_time);
       let now = new Date();
       let day = date.getDate();
@@ -767,15 +788,15 @@ const setTime = () => {
       let m = now.getMinutes();
 
       if (d > day) {
-        sendResult();
+        sendResult(true);
         store.time = false;
       } else {
         now = hour * 60 + minute - h * 60 - m;
         if (now > 0) {
-          timer.hour = Math.floor(now / 60);
-          timer.minute = now % 60;
+          timer.Hours = Math.floor(now / 60);
+          timer.Minutes = now % 60;
         } else {
-          sendResult();
+          sendResult(true);
           store.time = false;
         }
       }

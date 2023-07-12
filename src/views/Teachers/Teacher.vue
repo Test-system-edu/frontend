@@ -806,7 +806,9 @@ import { useNavStore } from "../../stores/toggle";
 import { Placeholder2 } from "../../components";
 import { useNotificationStore } from "../../stores/notification";
 import axios from "@/services/axios";
+import {useInfoStore } from '../../stores/dashboard'
 
+const info = useInfoStore();
 const notification = useNotificationStore();
 const navbar = useNavStore();
 const router = useRouter();
@@ -933,6 +935,7 @@ const createProduct = () => {
       modal.value = false;
       notification.success(res.data.message);
       getProduct();
+      info.getStaff();
       form.full_name = "";
       form.login = "";
       form.password = "";
@@ -1003,7 +1006,6 @@ const getOneProduct = (id, modal) => {
 };
 
 const editProduct = () => {
-  o;
   const data = {
     full_name: edit.full_name,
     phone_number: edit.phone_number,
@@ -1202,6 +1204,7 @@ const deleteProduct = () => {
       notification.success(res.data.message);
       getProduct();
       remove.toggle = false;
+      info.getStaff();
     })
     .catch((error) => {
       notification.warning(error.response.data.message);

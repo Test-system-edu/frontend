@@ -398,6 +398,7 @@
                   </svg>
                 </div>
                 <input
+                  v-show="!store.guard"
                   type="text"
                   id="simple-search"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
@@ -427,7 +428,7 @@
                   <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody v-show="!store.error">
+              <tbody v-if="!store.guard" v-show="!store.error">
                 <tr
                   class="border-b"
                   :class="
@@ -472,6 +473,7 @@
               </tbody>
             </table>
             <div
+              v-if="!store.guard"
               v-show="store.allProducts && store.error"
               class="w-full max-w-screen text-center p-20 text-2xl font-medium"
             >
@@ -578,7 +580,7 @@ const remove = reactive({
 // ----------------------------------- axios --------------------------------
 const guard = () => {
   axios
-    .post("/test-group", 'data', {
+    .post("/test-group", "data", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

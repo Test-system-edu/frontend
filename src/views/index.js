@@ -9,6 +9,7 @@ import Tests from './Tests/Test.vue';
 import Start_test from './Start_test/Start_test.vue';
 import Login from './Login/Login.vue';
 import Error from './Error/Error.vue';
+import Settings from './Settings/Settings.vue';
 import SlugStudent from './Students/_slug.vue';
 import SlugTeachers from './Teachers/_slug.vue';
 import SlugTests from './Tests/_slug.vue';
@@ -28,6 +29,7 @@ export {
     Error,
     Tests,
     Start_test,
+    Settings,
     Results,
     Groups,
     SlugStudent,

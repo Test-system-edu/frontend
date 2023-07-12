@@ -8,6 +8,7 @@ import {
   Login,
   Error,
   Tests,
+  Settings,
   Start_test,
   Groups,
   Results,
@@ -123,6 +124,11 @@ const router = createRouter({
       component: SignupSuperAdmin,
     },
     {
+      path: '/settings',
+      name: 'settings',
+      component: Settings,
+    },
+    {
       path: '/login',
       name: 'login',
       component: Login,
@@ -168,5 +174,40 @@ router.beforeEach((to, from, next) => {
     console.log(error);
   }
 })
+
+// router.beforeEach((to, from, next) => {
+//   return next({ name: "register" })
+//   try {
+//     axios.get('/staff/all')
+//       .then((res) => {
+//         if (!res.data) {
+//           axios.get('/staff', {
+//             headers: {
+//               Authorization: `Bearer ${localStorage.getItem("token")}`,
+//             },
+//           })
+//             .then(res => {
+//               // next()
+//             })
+//             .catch(err => {
+//               if (err.response.data.message == "Token vaqti tugagan!" && to.name !== 'login') {
+//                 // next({ name: 'login' })
+//               } else {
+//                 // next()
+//               }
+//             })
+//         }
+//         else if (to.name !== 'register') {
+//           console.log('object');
+//           // return next({ name: "register" })
+//         }
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       })
+//   } catch (error) {
+//     console.log(error, 'register');
+//   }
+// })
 
 export default router
