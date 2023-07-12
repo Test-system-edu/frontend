@@ -94,12 +94,34 @@
                   <td class="text-center font-medium px-6 py-2">
                     {{ i.test_time }}
                   </td>
-                  <td class="text-center font-medium px-8 py-3">
+                  <td
+                    v-if="i.questions"
+                    v-show="
+                      i.questions[0]?.test_group_id != store.test_group_id
+                    "
+                    class="text-center font-medium px-8 py-3"
+                  >
                     <button
                       @click="enterSlug(i.id)"
+                      v-if="
+                        !store.is_show.includes(
+                          `,${i.questions[0]?.test_group_id},`
+                        )
+                      "
                       class="btnKirish bg-blue-600 rounded-lg px-5 py-2.5 text-white focus:ring-2"
                     >
                       Boshlash
+                    </button>
+                    <button
+                      @click="enterSlug(i.id)"
+                      v-if="
+                        store.is_show.includes(
+                          `,${i.questions[0]?.test_group_id},`
+                        )
+                      "
+                      class="btnKirish bg-blue-600 rounded-lg px-5 py-2.5 text-white focus:ring-2"
+                    >
+                      Ko'rish
                     </button>
                   </td>
                 </tr>
@@ -157,6 +179,8 @@ const modal = ref(false);
 const store = reactive({
   allProducts: false,
   error: false,
+  test_group_id: "id",
+  is_show: "",
   subjects: [{ title: "Fan yaratilmagan" }],
 });
 
@@ -173,7 +197,6 @@ const getProduct = () => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       store.allProducts = res.data;
       store.error = false;
     })
@@ -184,8 +207,72 @@ const getProduct = () => {
     });
 };
 
+const getFinishTime = () => {
+  let student_id = sessionStorage.getItem("userId");
+  axios
+    .get(`/test-time/student/${student_id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      for (let i of res.data) {
+        let date = new Date(i.end_time);
+        let now = new Date();
+        let day = date.getDate();
+        let hour = date.getHours();
+        let minute = date.getMinutes();
+        let second = date.getSeconds();
+        let d = now.getDate();
+        let h = now.getHours();
+        let m = now.getMinutes();
+        let s = now.getSeconds();
+        if (day >= d) {
+          if (hour >= h) {
+            if (minute >= m) {
+              if (second >= s) {
+                // topilmadi
+              } else {
+                store.test_group_id = i.test_group_id;
+              }
+            } else {
+              store.test_group_id = i.test_group_id;
+            }
+          } else {
+            store.test_group_id = i.test_group_id;
+          }
+        } else {
+          store.test_group_id = i.test_group_id;
+        }
+      }
+      axios
+        .get(`/test-submit/student/${student_id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data, "dsds");
+          for (let i of res.data) {
+            if (i.is_submit) {
+              store.is_show += `,${i.test_group_id},`;
+            }
+          }
+          store.test_group_id = "id";
+        })
+        .catch((error) => {
+          console.log("error1", error);
+        });
+    })
+    .catch((error) => {
+      console.log("error", error);
+      store.is_show = true;
+    });
+};
+
 onMounted(() => {
   getProduct();
+  getFinishTime();
 });
 </script>
 

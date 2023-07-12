@@ -83,15 +83,15 @@
                   v-if="i.imageUrl"
                   :src="i.imageUrl"
                   alt="img"
-                  class="h-12 w-12 object-cover object-center rounded-full"
+                  class="min-h-10 min-w-10 max-h-10 max-w-10 my-auto object-cover object-center rounded-full"
                 />
                 <img
                   v-if="!i.imageUrl"
                   src="https://img.freepik.com/free-icon/user_318-563642.jpg?w=360"
                   alt="img"
-                  class="h-12 w-12 object-cover object-center rounded-full"
+                  class="min-h-10 min-w-10 max-h-10 max-w-10 my-auto object-cover object-center rounded-full"
                 />
-                <p class="whitespace-nowrap mr-3">{{ i.student?.full_name }}</p>
+                <p class="whitespace-nowrap mr-3">{{ i.full_name }}</p>
               </td>
               <td class="py-3 px-6 font-bold text-[green]">
                 {{ 12 }}
@@ -155,159 +155,32 @@ const notification = useNotificationStore();
 const navbar = useNavStore();
 const router = useRouter();
 
-const modal = ref(false);
-
-const toggleModal = () => {
-  modal.value = !modal.value;
-  form.name = "";
-  form.start_date = "";
-};
-
 const store = reactive({
   allProducts: false,
   error: false,
 });
 
-function cancelFunc() {
-  form.name = "";
-  form.start_date = "";
-  modal.value = false;
-}
-
-function cancelFunc1() {
-  edit.name = "";
-  edit.start_date = "";
-  edit.toggle = false;
-}
-
-function deleteFunc(id) {
-  remove.id = id;
-  remove.toggle = true;
-}
-
-// ----------------------------------- forms -----------------------------------
-const form = reactive({
-  name: "",
-  start_date: "",
-});
-
-const edit = reactive({
-  name: "",
-  start_date: "",
-  id: "",
-  toggle: false,
-});
-
-const remove = reactive({
-  id: "",
-  toggle: false,
-});
-
 // ----------------------------------- axios --------------------------------
 const getProduct = () => {
   axios
-    .get("/test-result", {
+    .get("/student", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
     .then((res) => {
+      console.log(res.data);
       store.allProducts = res.data;
       store.error = false;
+
+      let results = [];
+      for (let i of store.allProducts.test_results) {
+        
+      }
     })
     .catch((error) => {
       store.allProducts = error.response.data.message;
       store.error = true;
-    });
-};
-
-const getOneProduct = (id) => {
-  axios
-    .get(`/test-result/${id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-    .then((res) => {
-      edit.name = res.data.name;
-      edit.start_date = res.data.start_date.slice(0, 10);
-      edit.id = id;
-      edit.toggle = true;
-    })
-    .catch((error) => {
-      console.log("error", error);
-    });
-};
-
-const createProduct = () => {
-  const data = {
-    name: form.name,
-    start_date: form.start_date,
-  };
-  axios
-    .post("/test-result", data, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-    .then((res) => {
-      notification.success(res.data.message);
-      getProduct();
-      cancelFunc();
-    })
-    .catch((error) => {
-      notification.warning(error.response.data.message);
-      console.log(error);
-    });
-};
-
-const editProduct = () => {
-  const data = {
-    name: edit.name,
-    start_date: edit.start_date,
-  };
-  axios
-    .patch(`/test-result/${edit.id}`, data, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-    .then((res) => {
-      notification.success(res.data.message);
-      getProduct();
-      edit.name = "";
-      edit.start_date = "";
-      edit.toggle = false;
-    })
-    .catch((error) => {
-      if (error.response.data.statusCode == 400) {
-        notification.warning(error.response.data.message);
-      } else if (error.response.data.statusCode == 401) {
-        notification.warning(error.response.data.message);
-      }
-      console.log("error", error);
-    });
-};
-
-const deleteProduct = () => {
-  axios
-    .delete(`/test-result/${remove.id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-    .then((res) => {
-      notification.success("Guruh o'chirildi");
-      getProduct();
-      remove.toggle = false;
-    })
-    .catch((error) => {
-      if (error.response.data.statusCode == 400) {
-        notification.warning(error.response.data.message);
-      } else if (error.response.data.statusCode == 401) {
-        notification.warning(error.response.data.message);
-      }
-      console.log(error);
     });
 };
 

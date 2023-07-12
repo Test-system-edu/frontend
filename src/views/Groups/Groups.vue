@@ -408,9 +408,7 @@
                       Kirish
                     </button>
                   </td>
-                  <td
-                    class="text-center whitespace-nowrap font-medium pr-5"
-                  >
+                  <td class="text-center whitespace-nowrap font-medium pr-5">
                     <i
                       @click="getOneProduct(i.id)"
                       class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
@@ -470,7 +468,9 @@ import { useNavStore } from "../../stores/toggle";
 import { Placeholder2 } from "../../components";
 import { useNotificationStore } from "../../stores/notification";
 import axios from "@/services/axios";
+import { useInfoStore } from "../../stores/dashboard";
 
+const info = useInfoStore();
 const notification = useNotificationStore();
 const navbar = useNavStore();
 const router = useRouter();
@@ -580,6 +580,7 @@ const createProduct = () => {
     })
     .then((res) => {
       notification.success(res.data.message);
+      info.getGroup();
       getProduct();
       cancelFunc();
     })
@@ -626,6 +627,7 @@ const deleteProduct = () => {
     })
     .then((res) => {
       notification.success("Guruh o'chirildi");
+      info.getGroup();
       getProduct();
       remove.toggle = false;
     })

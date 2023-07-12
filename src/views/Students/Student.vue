@@ -390,7 +390,7 @@
               class="lg:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3"
             >
               <button
-                v-show="!store.guard"
+                v-show="store.guard"
                 @click="toggleModal"
                 id=""
                 type="button"
@@ -556,7 +556,9 @@ import { useNavStore } from "../../stores/toggle";
 import { Placeholder2 } from "../../components";
 import { useNotificationStore } from "../../stores/notification";
 import axios from "@/services/axios";
+import { useInfoStore } from "../../stores/dashboard";
 
+const info = useInfoStore();
 const notification = useNotificationStore();
 const navbar = useNavStore();
 const router = useRouter();
@@ -576,7 +578,7 @@ const store = reactive({
   allProducts: false,
   error: false,
   groups: [{ name: "Guruh yaratilmagan" }],
-  guard: false,
+  guard: true,
 });
 
 function enterSlug(id, name) {
@@ -642,7 +644,7 @@ const getProduct = () => {
     })
     .catch((error) => {
       if (error.response.data.message == "Admin huquqi sizda yo'q!") {
-        store.guard = true;
+        store.guard = false;
       }
       store.allProducts = error.response.data.message;
       store.error = true;
@@ -704,7 +706,7 @@ const createProduct = () => {
       },
     })
     .then((res) => {
-      console.log(res.data.statusCode);
+      info.getStudent();
       notification.success("Guruh qo'shildi");
       getProduct();
       cancelFunc();
@@ -760,6 +762,7 @@ const deleteProduct = () => {
       console.log(res.data.statusCode);
       notification.success(res.data.message);
       getProduct();
+      info.getStudent();
       remove.toggle = false;
     })
     .catch((error) => {

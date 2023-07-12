@@ -42,7 +42,6 @@ onMounted(() => {
         },
       })
       .then((res) => {
-        alert("error");
         axios
           .delete("/staff/1", {
             headers: {
@@ -54,26 +53,11 @@ onMounted(() => {
             store.guard = "";
           })
           .catch((err) => {
-            alert(err.response.data.message);
             if (err.response.data.message == "Admin huquqi sizda yo'q!") {
               store.guard = "teacher";
             }
           });
         store.guard = ['admin', 'teacher'];
-        axios
-          .delete('/staff/1', {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch((err) => {
-            if (err.response.data.message == "Admin huquqi sizda yo'q!") {
-              store.guard = ['admin'];
-            }
-          });
       })
       .catch((err) => {
         if (err.response.data.message == "Admin huquqi sizda yo'q!") {

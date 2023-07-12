@@ -2,7 +2,8 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useNavStore = defineStore('toggle', () => {
-  const userNav = ref(false);;
+  const userNav = ref(false);
+  const userInfo = ref(false);
   if (localStorage.getItem('darkMode') == 'true') {
     userNav.value = true;
   } else {
@@ -14,5 +15,5 @@ export const useNavStore = defineStore('toggle', () => {
     userNav.value = !userNav.value;
   }
 
-  return { userNav, setMode };
+  return { userNav, setMode, userInfo };
 })
