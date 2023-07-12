@@ -141,29 +141,39 @@ const router = createRouter({
   ]
 })
 
-// router.beforeEach((to, from, next) => {
-//   try {
-//     axios.get('/staff', {
-//       headers: {
-//         Authorization: `Bearer ${localStorage.getItem("token")}`,
-//       },
-//     })
-//       .then(res => {
-//         console.log(res.data);
-//         next()
-//       })
-//       .catch(err => {
-//         console.log(err.response.data.message, err.response.data.message == "Token vaqti tugagan!");
-//         if (err.response.data.message == "Token vaqti tugagan!" && to.name !== 'login') {
-//           next({ name: 'login' })
-//         } else {
-//           next()
-//         }
-//       })
-//   } catch (error) {
-//     console.log(error);
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  try {
+    axios.get('staff/all')
+      .then((res) => {
+        if (res.data && to.name !== 'register') {
+          next({ name: 'register' })
+        } else if (!res.data && to.name !== 'login') {
+          axios.get('test-result', {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
+            .then(res => {
+              next()
+            })
+            .catch(err => {
+              if (err.response.data.message == "Token vaqti tugagan!" && to.name !== 'login') {
+                next({ name: 'login' })
+              } else {
+                next()
+              }
+            })
+        } else {
+          next()
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } catch (error) {
+    console.log(error);
+  }
+})
 
 // router.beforeEach((to, from, next) => {
 //   return next({ name: "register" })
