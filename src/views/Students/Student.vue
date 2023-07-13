@@ -369,12 +369,12 @@
 
     <section class="pt-4">
       <!------------------------------------------- Search ------------------------------------------->
-      <div v-show="!store.allProducts">
+      <div v-show="!store.PageProduct">
         <Placeholder2 />
       </div>
       <!------------------------------------------- Search ------------------------------------------->
 
-      <div v-show="store.allProducts" class="w-full max-w-screen">
+      <div v-show="store.PageProduct" class="w-full max-w-screen">
         <!-- Start coding here -->
 
         <!------------------------------------------- Search ------------------------------------------->
@@ -485,7 +485,7 @@
                     navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
                   "
                   v-show="!store.searchList.length"
-                  v-for="i in store.allProducts"
+                  v-for="i in store.PageProduct"
                   :key="i"
                 >
                   <th
@@ -500,7 +500,7 @@
                     </p>
                   </td>
                   <td class="text-center font-medium text-red-800 px-8 py-2">
-                    <p class="bg-red-100 rounded-[5px] p-1">
+                    <p class="bg-red-100 whitespace-nowrap rounded-[5px] p-1">
                       {{ i.phone_number }}
                     </p>
                   </td>
@@ -600,29 +600,58 @@
               </tbody>
             </table>
             <div
-              v-show="store.allProducts && store.error"
+              v-show="store.PageProduct && store.error"
               class="w-full max-w-screen text-center p-20 text-2xl font-medium"
             >
-              <h1>{{ store.allProducts }}</h1>
+              <h1>O'quvchilar ro'yhati bo'sh</h1>
             </div>
           </div>
           <nav
+            v-if="!store.searchList.length"
             class="flex flex-row justify-between items-center md:items-center space-y-3 md:space-y-0 p-4"
             aria-label="Table navigation"
           >
+            <ul class="inline-flex items-stretch -space-x-px">
+              <li
+                :class="{
+                  'pointer-events-none opacity-50': store.page[0] == 1,
+                }"
+                @click="
+                  store.pagination -= 1;
+                  getProduct(store.pagination);
+                "
+                href="#"
+                class="flex font-bold text-black border-2 bg-white hover:bg-gray-300 items-center justify-center text-sm py-2 sm:mt-0 -mt-2 px-6 rounded-lg leading-tight"
+              >
+                Oldingi
+              </li>
+            </ul>
             <span class="text-sm font-normal">
               Sahifa
-              <span class="font-semibold">1 - 10</span>
+              <span class="font-semibold"
+                ><span>{{ store.page[0] * 10 - 9 }}</span> -
+                <span v-if="store.page[0] * 10 < store.page[1]">{{
+                  store.page[0] * 10
+                }}</span
+                ><span v-else>{{ store.page[1] }}</span></span
+              >
               dan
-              <span class="font-semibold">10</span>
+              <span class="font-semibold">{{ store.page[1] }}</span>
             </span>
             <ul class="inline-flex items-stretch -space-x-px">
-              <li>
-                <a
-                  href="#"
-                  class="flex font-bold text-black border-2 bg-white hover:bg-gray-300 items-center justify-center text-sm py-2 sm:mt-0 -mt-2 px-6 rounded-lg leading-tight"
-                  >Next</a
-                >
+              <li
+                :class="{
+                  'pointer-events-none opacity-50':
+                    store.page[0] * 10 >= store.page[1],
+                }"
+                @click="
+                  store.pagination += 1;
+                  getProduct(store.pagination);
+                "
+                href="#"
+                class="flex font-bold text-black border-2 bg-white hover:bg-gray-300 items-center justify-center text-sm py-2 sm:mt-0 -mt-2 px-6 rounded-lg leading-tight"
+              >
+                Keyingi
               </li>
             </ul>
           </nav>
@@ -660,6 +689,9 @@ const toggleModal = () => {
 };
 
 const store = reactive({
+  PageProduct: "",
+  page: [],
+  pagination: 1,
   allProducts: false,
   error: false,
   groups: [{ name: "Guruh yaratilmagan" }],
@@ -697,12 +729,6 @@ function cancelFunc() {
   modal.value = false;
 }
 
-function cancelFunc1() {
-  edit.name = "";
-  edit.start_date = "";
-  edit.toggle = false;
-}
-
 function deleteFunc(id) {
   remove.id = id;
   remove.toggle = true;
@@ -733,7 +759,7 @@ const remove = reactive({
 });
 
 // ----------------------------------- axios --------------------------------
-const getProduct = () => {
+const getAllProduct = () => {
   axios
     .get("/student", {
       headers: {
@@ -749,6 +775,27 @@ const getProduct = () => {
       store.allProducts = error.response.data.message;
       store.error = true;
       console.log("error", error);
+    });
+};
+
+const getProduct = (page) => {
+  axios
+    .get(`/student/page?page=${page}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      store.PageProduct = res.data?.data?.records;
+      const pagination = res.data?.data?.pagination;
+      store.page = [];
+      store.page.push(pagination.currentPage, pagination.total_count);
+      store.error = false;
+    })
+    .catch((error) => {
+      store.PageProduct = error.response.data.message;
+      store.error = true;
     });
 };
 
@@ -808,7 +855,7 @@ const createProduct = () => {
     .then((res) => {
       info.getStudent();
       notification.success("Guruh qo'shildi");
-      getProduct();
+      getProduct(store.pagination);
       cancelFunc();
     })
     .catch((error) => {
@@ -834,7 +881,7 @@ const editProduct = () => {
     .then((res) => {
       console.log(res.data.statusCode);
       notification.success("Guruh tahrirlandi");
-      getProduct();
+      getProduct(store.pagination);
       edit.name = "";
       edit.start_date = "";
       edit.toggle = false;
@@ -861,7 +908,7 @@ const deleteProduct = () => {
     .then((res) => {
       console.log(res.data.statusCode);
       notification.success(res.data.message);
-      getProduct();
+      getProduct(store.pagination);
       info.getStudent();
       remove.toggle = false;
     })
@@ -893,7 +940,8 @@ const getGuard = () => {
 };
 
 onMounted(() => {
-  getProduct();
+  getProduct(store.pagination);
+  getAllProduct();
   getGroups();
   getGuard();
 });

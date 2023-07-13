@@ -70,7 +70,7 @@
                 :class="navbar.userNav ? 'bg-gray-700' : 'bg-gray-50'"
               >
                 <tr>
-                  <th scope="col" class="py-3 pl-8">Fan nomi</th>
+                  <th scope="col" class="text-center py-3 px-8">Fan nomi</th>
                   <th scope="col" class="text-center py-3">Savollar soni</th>
                   <th scope="col" class="text-center py-3">Test vaqti</th>
                   <th scope="col" class="text-center py-3">Testni boshlash</th>
@@ -87,7 +87,7 @@
                 >
                   <th
                     scope="row"
-                    class="px-8 py-3 font-medium whitespace-nowrap"
+                    class="px-8 py-3 text-center font-medium whitespace-nowrap"
                   >
                     {{ i.subject?.title }}
                   </th>

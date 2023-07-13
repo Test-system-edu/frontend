@@ -259,12 +259,12 @@
 
     <section class="pt-4">
       <!------------------------------------------- Search ------------------------------------------->
-      <div v-show="!store.allProducts">
+      <div v-show="!store.PageProduct">
         <Placeholder2 />
       </div>
       <!------------------------------------------- Search ------------------------------------------->
 
-      <div v-show="store.allProducts" class="w-full max-w-screen">
+      <div v-show="store.PageProduct" class="w-full max-w-screen">
         <!-- Start coding here -->
 
         <!------------------------------------------- Search ------------------------------------------->
@@ -313,34 +313,34 @@
                     />
                   </svg>
                 </div>
-                  <input
-                    v-model="store.filter"
-                    @input="
-                      store.filter_show = true;
+                <input
+                  v-model="store.filter"
+                  @input="
+                    store.filter_show = true;
+                    searchFunc();
+                  "
+                  type="search"
+                  id="simple-search"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
+                  placeholder="Qidirish..."
+                />
+                <ul
+                  v-show="store.filter_show"
+                  class="absolute z-10 max-h-80 overflow-y-auto overflow-hidden py-1 text-gray-600 rounded bg-white w-full"
+                  :class="{ hidden: !store.searchList.length }"
+                >
+                  <li
+                    class="hover:bg-gray-100 cursor-pointer pl-2"
+                    v-for="(i, index) in store.searchList"
+                    :key="index"
+                    @click="
+                      store.filter = i.title;
                       searchFunc();
                     "
-                    type="search"
-                    id="simple-search"
-                    class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
-                    placeholder="Qidirish..."
-                  />
-                  <ul
-                    v-show="store.filter_show"
-                    class="absolute z-10 max-h-80 overflow-y-auto overflow-hidden py-1 text-gray-600 rounded bg-white w-full"
-                    :class="{ hidden: !store.searchList.length }"
                   >
-                    <li
-                      class="hover:bg-gray-100 cursor-pointer pl-2"
-                      v-for="(i, index) in store.searchList"
-                      :key="index"
-                      @click="
-                        store.filter = i.title;
-                        searchFunc();
-                      "
-                    >
-                      {{ i.title }}
-                    </li>
-                  </ul>
+                    {{ i.title }}
+                  </li>
+                </ul>
               </div>
             </form>
           </div>
@@ -372,8 +372,8 @@
                     navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
                   "
                   v-show="!store.searchList.length"
-                  v-for="i in store.allProducts"
-                  :key="i"
+                  v-for="i in store.PageProduct"
+                  :key="i.id"
                 >
                   <th
                     scope="row"
@@ -448,27 +448,56 @@
             </table>
             <div v-show="store.error" class="flex w-full justify-center">
               <h1 class="p-20 text-2xl font-medium">
-                {{ store.allProducts }}
+                Fanlar ro'yhati bo'sh
               </h1>
             </div>
           </div>
           <nav
+            v-if="!store.searchList.length"
             class="flex flex-row justify-between items-center md:items-center space-y-3 md:space-y-0 p-4"
             aria-label="Table navigation"
           >
+            <ul class="inline-flex items-stretch -space-x-px">
+              <li
+                :class="{
+                  'pointer-events-none opacity-50': store.page[0] == 1,
+                }"
+                @click="
+                  store.pagination -= 1;
+                  getProduct(store.pagination);
+                "
+                href="#"
+                class="flex font-bold text-black border-2 bg-white hover:bg-gray-300 items-center justify-center text-sm py-2 sm:mt-0 -mt-2 px-6 rounded-lg leading-tight"
+              >
+                Oldingi
+              </li>
+            </ul>
             <span class="text-sm font-normal">
               Sahifa
-              <span class="font-semibold">1 - 10</span>
+              <span class="font-semibold"
+                ><span>{{ store.page[0] * 10 - 9 }}</span> -
+                <span v-if="store.page[0] * 10 < store.page[1]">{{
+                  store.page[0] * 10
+                }}</span
+                ><span v-else>{{ store.page[1] }}</span></span
+              >
               dan
-              <span class="font-semibold">10</span>
+              <span class="font-semibold">{{ store.page[1] }}</span>
             </span>
             <ul class="inline-flex items-stretch -space-x-px">
-              <li>
-                <a
-                  href="#"
-                  class="flex font-bold text-black border-2 bg-white hover:bg-gray-300 items-center justify-center text-sm py-2 sm:mt-0 -mt-2 px-6 rounded-lg leading-tight"
-                  >Next</a
-                >
+              <li
+                :class="{
+                  'pointer-events-none opacity-50':
+                    store.page[0] * 10 >= store.page[1],
+                }"
+                @click="
+                  store.pagination += 1;
+                  getProduct(store.pagination);
+                "
+                href="#"
+                class="flex font-bold text-black border-2 bg-white hover:bg-gray-300 items-center justify-center text-sm py-2 sm:mt-0 -mt-2 px-6 rounded-lg leading-tight"
+              >
+                Keyingi
               </li>
             </ul>
           </nav>
@@ -502,6 +531,9 @@ const toggleModal = () => {
 };
 
 const store = reactive({
+  PageProduct: "",
+  page: [],
+  pagination: 1,
   allProducts: false,
   groups: false,
   error: false,
@@ -563,7 +595,7 @@ const remove = reactive({
 });
 
 // ----------------------------------- axios --------------------------------
-const getProduct = () => {
+const getAllProduct = () => {
   axios
     .get("/subject", {
       headers: {
@@ -571,7 +603,6 @@ const getProduct = () => {
       },
     })
     .then((res) => {
-      console.log(res.data);
       store.allProducts = res.data;
       store.error = false;
     })
@@ -579,6 +610,27 @@ const getProduct = () => {
       store.allProducts = error.response.data.message;
       store.error = true;
       console.log(error);
+    });
+};
+
+const getProduct = (page) => {
+  axios
+    .get(`/subject/page?page=${page}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      store.PageProduct = res.data?.data?.records;
+      const pagination = res.data?.data?.pagination;
+      store.page = [];
+      store.page.push(pagination.currentPage, pagination.total_count);
+      store.error = false;
+    })
+    .catch((error) => {
+      store.PageProduct = error.response.data.message;
+      store.error = true;
     });
 };
 
@@ -591,7 +643,6 @@ const getOneProduct = (id) => {
       },
     })
     .then((res) => {
-      console.log(res);
       edit.title = res.data.title;
       edit.id = id;
       edit.toggle = true;
@@ -613,7 +664,7 @@ const createProduct = () => {
     })
     .then((res) => {
       notification.success("Guruh qo'shildi");
-      getProduct();
+      getProduct(store.pagination);
       info.getSubjects();
       cancelFunc();
     })
@@ -635,7 +686,7 @@ const editProduct = () => {
     })
     .then((res) => {
       notification.success(res.data.message);
-      getProduct();
+      getProduct(store.pagination);
       edit.title = "";
       edit.toggle = false;
     })
@@ -654,7 +705,7 @@ const deleteProduct = () => {
     })
     .then((res) => {
       notification.success(res.data.message);
-      getProduct();
+      getProduct(store.pagination);
       info.getSubjects();
       remove.toggle = false;
     })
@@ -680,7 +731,8 @@ const getGuard = () => {
 };
 
 onMounted(() => {
-  getProduct();
+  getProduct(1);
+  getAllProduct();
   getGuard();
 });
 </script>
