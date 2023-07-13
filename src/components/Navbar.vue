@@ -74,19 +74,17 @@
               "
             >
               <div class="px-4 py-3 text-center">
-                <p class="text-sm">Neil Sims</p>
-                <p class="text-sm font-medium truncate">
-                  neil.sims@flowbite.com
-                </p>
+                <p class="text-lg font-bold">{{ store.guard }}</p>
               </div>
-              <ul class="py-1">
+              <ul class="py-1 font-medium">
                 <li class="block px-4 py-2 text-sm">
-                  <router-link to="/">Profil</router-link>
+                  <router-link to="/settings"
+                    ><i class="bx bxs-user-circle"></i> Profil</router-link
+                  >
                 </li>
-                <li class="block px-4 py-2 text-sm">
-                  <router-link to="/settings">Sozlamalar</router-link>
+                <li @click="Logout" class="block px-4 py-2 text-sm">
+                  <i class="bx bx-log-out"></i> Log out
                 </li>
-                <li class="block px-4 py-2 text-sm">Log out</li>
               </ul>
             </div>
           </div>
@@ -99,8 +97,45 @@
 <script setup>
 import { useNavStore } from "../stores/toggle.js";
 import { useSidebarStore } from "../stores/sidebar.js";
+import { useRouter } from "vue-router";
+import { onBeforeMount, reactive } from "vue";
+import axios from "../services/axios";
+const router = useRouter();
 const sidebar = useSidebarStore();
 const navbar = useNavStore();
+
+const store = reactive({
+  guard: "Admin",
+});
+
+const Logout = () => {
+  sessionStorage.removeItem("userId");
+  localStorage.removeItem("token");
+  router.push("/login");
+};
+
+const getGuard = () => {
+  const id = sessionStorage.getItem("userId");
+  axios
+    .get(`/staff/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      store.guard = res.data.role[0].toUpperCase() + res.data.role.slice(1);
+    })
+    .catch((error) => {
+      console.log(error);
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+        store.guard = "o'qituvchi"; 
+      }
+    });
+};
+
+onBeforeMount(() => {
+  getGuard();
+});
 </script>
 
 <style lang="scss" scoped>
