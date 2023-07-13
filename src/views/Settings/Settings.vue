@@ -21,7 +21,7 @@
               class="text-lg"
               :class="navbar.userNav ? 'text-white' : 'text-black'"
             >
-              Yangi xodim qo'shish
+              Ma'lumotlarni tahrirlash
             </h3>
             <button
               @click="store.toggle = false"
@@ -51,7 +51,7 @@
           >
             <div class="w-full">
               <label for="name" class="block mb-2 text-sm"
-                >To'liq ismi (F . I . O)</label
+                >F . I . O</label
               >
               <input
                 v-model="form.full_name"
@@ -66,7 +66,7 @@
             <div class="grid font-medium gap-4 mb-4 sm:grid-cols-2">
               <div>
                 <label for="phone" class="block mb-2 text-sm"
-                  >Telefon raqami</label
+                  >Telefon raqam</label
                 >
                 <input
                   v-model="form.phone_number"
@@ -132,7 +132,7 @@
                 type="submit"
                 class="btnAdd cursor-pointer text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               >
-                Qo'shish
+                Tahrirlash
               </button>
             </div>
           </form>
@@ -289,7 +289,7 @@
                 @click="store.toggle = true"
                 class="btn shadow-lg w-full rounded-lg border px-5 py-2.5 text-white focus:ring-2 text-center mt-5 font-medium"
               >
-                Ma'lumotlarni o'zgartirish
+                Ma'lumotlarni tahrirlash
               </button>
             </div>
           </div>
@@ -323,7 +323,7 @@ const form = reactive({
 });
 
 const getProduct = () => {
-  const id = sessionStorage.getItem("userId");
+  const id = localStorage.getItem("userId");
   axios
     .get(`/staff/${id}`, {
       headers: {
@@ -361,7 +361,7 @@ const getProduct = () => {
 };
 
 const editProduct = async () => {
-  const id = sessionStorage.getItem("userId");
+  const id = localStorage.getItem("userId");
   const data = {
     full_name: form.full_name,
     phone_number: form.phone_number,
@@ -406,7 +406,7 @@ const editProduct = async () => {
 
 const uploadFile = (e) => {
   let image = e.target.files[0];
-  const id = sessionStorage.getItem("userId");
+  const id = localStorage.getItem("userId");
   const data = {
     full_name: form.full_name,
     phone_number: form.phone_number,

@@ -210,7 +210,7 @@ const getProduct = () => {
 };
 
 const getFinishTime = () => {
-  let student_id = sessionStorage.getItem("userId");
+  let student_id = localStorage.getItem("userId");
   axios
     .get(`/test-time/student/${student_id}`, {
       headers: {

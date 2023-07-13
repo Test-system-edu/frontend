@@ -82,7 +82,7 @@
                     ><i class="bx bxs-user-circle"></i> Profil</router-link
                   >
                 </li>
-                <li @click="Logout" class="block px-4 py-2 text-sm">
+                <li @click="Logout" class="block px-4 py-2 text-sm hover:cursor-pointer">
                   <i class="bx bx-log-out"></i> Log out
                 </li>
               </ul>
@@ -109,13 +109,13 @@ const store = reactive({
 });
 
 const Logout = () => {
-  sessionStorage.removeItem("userId");
+  localStorage.removeItem("userId");
   localStorage.removeItem("token");
   router.push("/login");
 };
 
 const getGuard = () => {
-  const id = sessionStorage.getItem("userId");
+  const id = localStorage.getItem("userId");
   axios
     .get(`/staff/${id}`, {
       headers: {
