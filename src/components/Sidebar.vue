@@ -42,22 +42,6 @@ onMounted(() => {
         },
       })
       .then((res) => {
-        axios
-          .delete("/staff/1", {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-          .then((res) => {
-            console.log(res.data);
-            store.guard = "";
-          })
-          .catch((err) => {
-            if (err.response.data.message == "Admin huquqi sizda yo'q!") {
-              store.guard = "teacher";
-            }
-          });
-        store.guard = ['admin', 'teacher'];
         store.guard = 'staff';
       })
       .catch((err) => {
