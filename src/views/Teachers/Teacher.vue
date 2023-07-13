@@ -653,7 +653,6 @@ function searchFunc() {
   }
 }
 // ---------------------------- search end ------------------------------------
-
 const checkRole = () => {
   axios.get(`staff/${store.userId}`, {
     headers: {
