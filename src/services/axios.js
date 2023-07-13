@@ -1,3 +1,3 @@
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:3000/api/'
+axios.defaults.baseURL = 'https://tatu-test-system-7765.onrender.com/api'
 export default axios
