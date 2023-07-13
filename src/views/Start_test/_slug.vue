@@ -541,7 +541,7 @@ const getOneProduct = () => {
 const getAllResults = () => {
   const id = router.currentRoute?.value?.params?.id;
   axios
-    .get(`/test-result/studentId/${sessionStorage.getItem("userId")}`, {
+    .get(`/test-result/studentId/${localStorage.getItem("userId")}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -587,7 +587,7 @@ const sendResult = (is_true) => {
   const data = {
     is_submit: is_true,
     correct_answers: answer,
-    student_id: sessionStorage.getItem("userId"),
+    student_id: localStorage.getItem("userId"),
     test_group_id: +router.currentRoute?.value?.params?.id,
   };
   axios
@@ -607,7 +607,7 @@ const sendResult = (is_true) => {
 };
 
 const getFinishTime = () => {
-  let student_id = sessionStorage.getItem("userId");
+  let student_id = localStorage.getItem("userId");
   let test_group_id = +router.currentRoute?.value?.params?.id;
   axios
     .get(`/test-submit/find/${student_id}/${test_group_id}`, {
@@ -657,7 +657,7 @@ const createTime = () => {
   const data = {
     start_time: new Date(),
     end_time: date,
-    student_id: sessionStorage.getItem("userId"),
+    student_id: localStorage.getItem("userId"),
     test_group_id: +router.currentRoute?.value?.params?.id,
   };
 
@@ -732,8 +732,8 @@ const createAnswer = () => {
     test_group_id: +router.currentRoute?.value?.params?.id,
     question_id: store.question_id,
     test_time_id: store.test_time_id,
-    student_id: sessionStorage.getItem("userId"),
-    student_id: sessionStorage.getItem("userId"),
+    student_id: localStorage.getItem("userId"),
+    student_id: localStorage.getItem("userId"),
   };
   axios
     .post(`/test-result`, data, {
@@ -767,7 +767,7 @@ const setTime = () => {
   if (!store.time) {
     return;
   }
-  let student_id = sessionStorage.getItem("userId");
+  let student_id = localStorage.getItem("userId");
   let test_group_id = +router.currentRoute?.value?.params?.id;
   axios
     .get(`/test-time/find/${student_id}/${test_group_id}`, {
