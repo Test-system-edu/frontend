@@ -32,6 +32,10 @@
           </div>
         </form>
       </div>
+
+      <button @click="router.back(-1)" class="btn w-60 shadow-lg rounded-lg px-5 py-2.5 text-white focus:ring-2">
+        Orqaga qaytish
+      </button>
     </div>
     <!------------------------------------------- Search ------------------------------------------->
 
@@ -41,9 +45,9 @@
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="text-xs rounded-lg uppercase" :class="navbar.userNav ? 'bg-gray-700' : 'bg-gray-50'">
             <tr>
-              <th class="py-3 px-8 text-left">F. I. O.</th>
-              <th class="py-3 px-8 text-left">To'g'ri javoblar</th>
-              <th class="py-3 px-6 text-left">Noto'g'ri javoblar</th>
+              <th class="py-3 px-8 text-center">F. I. O.</th>
+              <th class="py-3 px-8 text-center">To'g'ri javoblar</th>
+              <th class="py-3 px-6 text-center">Noto'g'ri javoblar</th>
             </tr>
           </thead>
           <tbody v-show="!store.error">
@@ -52,10 +56,10 @@
               <td class="py-3 px-6 whitespace-nowrap text-center">
                 {{ i.student.full_name }}
               </td>
-              <td class="py-3 px-6 font-bold text-[green]">
+              <td class="py-3 px-6 font-bold text-[green] text-center">
                 {{ i.correct_answers }}
               </td>
-              <td class="py-3 px-6 font-bold text-[red]">
+              <td class="py-3 px-6 font-bold text-[red] text-center">
                 {{ store.product?.test_count - i.correct_answers }}
               </td>
             </tr>
@@ -130,5 +134,13 @@ onMounted(() => {
   background-image: linear-gradient(to right,
       rgb(139, 255, 232) -250%,
       #046f80);
+}
+
+.btn {
+  background-image: linear-gradient(
+    to right,
+    rgb(139, 255, 232) -250%,
+    #046f80
+  );
 }
 </style>

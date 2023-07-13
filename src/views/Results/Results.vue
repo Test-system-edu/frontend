@@ -41,19 +41,19 @@
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="text-xs rounded-lg uppercase" :class="navbar.userNav ? 'bg-gray-700' : 'bg-gray-50'">
             <tr>
-              <th class="py-3 px-8 text-left">Fan</th>
-              <th class="py-3 px-8 text-left">Savollar soni</th>
-              <th class="py-3 px-6 text-left">Testga berilgan vaqt</th>
+              <th class="py-3 px-8 text-center">Fan</th>
+              <th class="py-3 px-8  text-center">Savollar soni</th>
+              <th class="py-3 px-6  text-center">Testga berilgan vaqt</th>
               <th scope="col" class="text-center py-3">O'quvchilarning natijalari</th>
             </tr>
           </thead>
           <tbody v-show="!store.error">
             <tr class="border-b cursor-pointer" :class="navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'"
               v-for="i in store.allProducts" :key="i.id">
-              <td class="py-3 px-6 font-bold text-[green]">
+              <td class="py-3 px-6 text-center">
                 {{ i.subject.title }}
               </td>
-              <td class="py-3 px-6 font-bold text-[red]">
+              <td class="py-3 px-6 text-center">
                 {{ i.test_count }}
               </td>
               <td class="py-3 px-6 whitespace-nowrap text-center">
