@@ -49,6 +49,7 @@ onMounted(() => {
       })
       .then((res) => {
         store.guard = "staff";
+        store.guard = 'staff';
       })
       .catch((err) => {
         store.guard = "student";

@@ -67,7 +67,6 @@ const formInfo = () => {
       password: form.password,
     })
     .then((res) => {
-      console.log(res.data);
       if (res.status == 201) {
         sessionStorage.setItem("userId", res.data.id);
         localStorage.setItem("token", res.data.access_token);
@@ -84,9 +83,7 @@ const formInfo = () => {
           password: form.password,
         })
         .then((res) => {
-          console.log(res.data);
           if (res.status == 201) {
-            sessionStorage.setItem("userId", res.data.id);
             sessionStorage.setItem("userId", res.data.id);
             localStorage.setItem("token", res.data.access_token);
             notification.success(res.data.message);
@@ -96,7 +93,6 @@ const formInfo = () => {
           }
         })
         .catch((error) => {
-          console.log(error);
           notification.warning("Foydalanuvchi topilmadi!");
         });
     });
