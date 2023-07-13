@@ -364,7 +364,7 @@
               class="lg:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3"
             >
               <button
-                v-show="!store.guard"
+                v-show="!(store.guard == 'o\'quvchi' || store.guard == 'o\'qituvchi')"
                 @click="modal = true"
                 id=""
                 type="button"
@@ -398,7 +398,7 @@
                   </svg>
                 </div>
                 <input
-                  v-show="!store.guard"
+                  v-show="!(store.guard == 'o\'quvchi')"
                   type="text"
                   id="simple-search"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
@@ -428,7 +428,7 @@
                   <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody v-if="!store.guard" v-show="!store.error">
+              <tbody v-if="!(store.guard == 'o\'quvchi')" v-show="!store.error">
                 <tr
                   class="border-b"
                   :class="
@@ -457,7 +457,7 @@
                       Qo'shish
                     </button>
                   </td>
-                  <td class="text-center whitespace-nowrap font-medium pr-5">
+                  <td v-show="!(store.guard == 'o\'qituvchi')" class="text-center whitespace-nowrap font-medium pr-5">
                     <i
                       @click="getOneProduct(i.id, 'edit')"
                       class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
@@ -473,14 +473,14 @@
               </tbody>
             </table>
             <div
-              v-if="!store.guard"
+              v-if="!(store.guard == 'o\'quvchi')"
               v-show="store.allProducts && store.error"
               class="w-full max-w-screen text-center p-20 text-2xl font-medium"
             >
               <h1>{{ store.allProducts }}</h1>
             </div>
             <div
-              v-show="store.guard"
+              v-show="store.guard == 'o\'quvchi'"
               class="w-full max-w-screen text-center p-20 text-2xl font-medium"
             >
               <h1>Siz testlarni ko'rish huququga ega emassiz!</h1>
@@ -578,23 +578,6 @@ const remove = reactive({
 });
 
 // ----------------------------------- axios --------------------------------
-const guard = () => {
-  axios
-    .post("/test-group", "data", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-    .then((res) => {
-      store.guard = false;
-    })
-    .catch((error) => {
-      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
-        store.guard = true;
-      }
-    });
-};
-
 const getProduct = () => {
   axios
     .get("/test-group", {
@@ -608,9 +591,6 @@ const getProduct = () => {
       store.error = false;
     })
     .catch((error) => {
-      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
-        store.guard = true;
-      }
       store.error = true;
       store.allProducts = error.response.data.message;
     });
@@ -717,10 +697,40 @@ const deleteProduct = () => {
     });
 };
 
+const getGuard = () => {
+  axios
+    .get("/staff", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      axios
+        .delete("/staff/1", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {})
+        .catch((error) => {
+          if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+            store.guard = "o'qituvchi";
+          }
+        });
+    })
+    .catch((error) => {
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+        store.guard = "o'quvchi";
+      }
+      store.error = true;
+      store.allProducts = error.response.data.message;
+    });
+};
+
 onMounted(() => {
-  guard();
   getProduct();
   getSubject();
+  getGuard();
 });
 </script>
 

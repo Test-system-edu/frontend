@@ -187,8 +187,8 @@
               <div class="flex flex-col lg:flex-row overflow-hidden gap-10">
                 <img
                   :src="
-                    store.image
-                      ? store.image
+                    form.image
+                      ? `http://localhost:3000/${form.image}`
                       : 'https://cdn-icons-png.flaticon.com/512/149/149071.png'
                   "
                   alt=""
@@ -305,13 +305,13 @@ import { onMounted, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useNavStore } from "../../stores/toggle";
 import axios from "@/services/axios";
-
 const navbar = useNavStore();
 const router = useRouter();
 
 const store = reactive({
   data: "",
   toggle: false,
+  image: "",
 });
 
 const form = reactive({
@@ -331,26 +331,42 @@ const getProduct = () => {
       },
     })
     .then((res) => {
+      console.log(res.data);
       store.data = res.data;
       form.full_name = res.data.full_name;
       form.email = res.data.email;
       form.phone_number = res.data.phone_number;
       form.telegram_username = res.data.telegram_username;
-      console.log(res.data);
+      form.image = res.data.image;
     })
     .catch((error) => {
-      // notification.warning(error.response.data.meossage);
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+        axios
+          .get(`/student/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
+          .then((res) => {
+            store.data = res.data;
+            form.full_name = res.data.full_name;
+            form.email = res.data.email;
+            form.phone_number = res.data.phone_number;
+            form.telegram_username = res.data.telegram_username;
+            form.image = res.data.image;
+          })
+          .catch((error) => {});
+      }
     });
 };
 
-const editProduct = () => {
+const editProduct = async () => {
   const id = sessionStorage.getItem("userId");
   const data = {
     full_name: form.full_name,
     phone_number: form.phone_number,
     email: form.email,
     telegram_username: form.telegram_username,
-    image: form.image,
   };
   axios
     .patch(`/staff/edit/${id}`, data, {
@@ -367,16 +383,63 @@ const editProduct = () => {
       form.image = res.data.image;
       store.toggle = false;
       getProduct();
-      console.log(res.data);
     })
     .catch((error) => {
-      // notification.warning(error.response.data.message);
+      axios
+        .patch(`/student/edit/${id}`, data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          form.full_name = res.data.full_name;
+          form.email = res.data.email;
+          form.phone_number = res.data.phone_number;
+          form.telegram_username = res.data.telegram_username;
+          form.image = res.data.image;
+          store.toggle = false;
+          getProduct();
+        })
+        .catch((error) => {});
     });
 };
 
 const uploadFile = (e) => {
-  form.image = new FormData();
-  form.image.append("file", e.target.files[0]);
+  let image = e.target.files[0];
+  const id = sessionStorage.getItem("userId");
+  const data = {
+    full_name: form.full_name,
+    phone_number: form.phone_number,
+    image: image,
+  };
+  axios
+    .patch(`/staff/edit/${id}`, data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((res) => {
+      form.full_name = res.data.full_name;
+      form.phone_number = res.data.phone_number;
+      form.image = res.data.image;
+      getProduct();
+    })
+    .catch((error) => {
+      axios
+        .patch(`/student/edit/${id}`, data, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          form.full_name = res.data.full_name;
+          form.phone_number = res.data.phone_number;
+          form.image = res.data.image;
+          getProduct();
+        });
+    });
 };
 
 onMounted(() => {

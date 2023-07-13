@@ -87,7 +87,7 @@ const formInfo = () => {
             sessionStorage.setItem("userId", res.data.id);
             localStorage.setItem("token", res.data.access_token);
             notification.success(res.data.message);
-            router.push("/");
+            router.push("/start_test");
           } else {
             error("Error");
           }

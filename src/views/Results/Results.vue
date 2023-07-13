@@ -48,6 +48,51 @@
             </tr>
           </thead>
           <tbody v-show="!store.error">
+            <div v-for="i in store.allProducts" :key="i.id">
+              <tr
+                class="border-b cursor-pointer"
+                :class="
+                  navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
+                "
+                v-for="t in i.test_submits"
+                :key="t"
+              >
+                <td class="py-3 pr-6 pl-8 flex items-center gap-3">
+                  <img
+                    v-if="i.image"
+                    :src="`http://localhost:3000/${i.image}`"
+                    alt="img"
+                    class="min-h-10 min-w-10 max-h-10 max-w-10 my-auto object-cover object-center rounded-full"
+                  />
+                  <img
+                    v-if="!t.imageUrl"
+                    src="https://img.freepik.com/free-icon/user_318-563642.jpg?w=360"
+                    alt="img"
+                    class="min-h-10 min-w-10 max-h-10 max-w-10 my-auto object-cover object-center rounded-full"
+                  />
+                  <p class="whitespace-nowrap mr-3">{{ i.full_name }}</p>
+                </td>
+                <td class="py-3 px-6 font-bold text-[green]">
+                  {{ i.test_submits.correct_answers }}
+                </td>
+                <td class="py-3 px-6 font-bold text-[red]">
+                  {{ 28 }}
+                </td>
+                <td class="py-3 px-6 font-bold">{{i.group.name}}</td>
+                <td class="py-3 px-6 font-bold">13.23.23</td>
+                <td class="py-3 px-6 whitespace-nowrap text-center">
+                  {{ i.test_group?.test_time }} / 27
+                </td>
+                <td class="text-center font-medium px-8 py-3">
+                  <button
+                    @click="enterSlug(i.id, i.student.full_name)"
+                    class="btnKirish bg-blue-600 rounded-lg px-5 py-2.5 text-white focus:ring-2"
+                  >
+                    Kirish
+                  </button>
+                </td>
+              </tr>
+            </div>
             <tr class="border-b cursor-pointer" :class="navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'"
               v-for="i in store.allProducts" :key="i.id">
               <td class="py-3 px-6 text-center">
@@ -106,6 +151,7 @@ const router = useRouter();
 const store = reactive({
   allProducts: false,
   error: false,
+  results: false,
 });
 
 // ----------------------------------- axios --------------------------------
@@ -120,6 +166,9 @@ const getProduct = () => {
       console.log(res.data);
       store.allProducts = res.data;
       store.error = false;
+      let results = [];
+      for (let i of store.allProducts.test_results) {
+      }
     })
     .catch((error) => {
       store.allProducts = error.response.data.message;

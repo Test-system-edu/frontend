@@ -558,7 +558,7 @@
             v-for="(i, index) in store.allProducts.questions"
             :key="i.id"
           >
-            <div v-show="!store.error && !store.guard">
+            <div v-show="!store.error && !(store.guard == 'o\'quvchi')">
               <div class="flex w-full">
                 <div
                   @click="accordion(i.id)"
@@ -590,7 +590,7 @@
                     </div>
                   </button>
                 </div>
-                <div class="mx-5 my-auto">
+                <div v-show="!store.guard" class="mx-5 my-auto">
                   <i
                     @click="getOneProduct(i.id, 'edit')"
                     class="bx bxs-pencil bg-blue-300 mb-5 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
@@ -613,31 +613,47 @@
                 >
                   <p
                     class="w-full text-justify text-black flex gap-3 p-5 rounded-lg"
-                    :class="store.trueAnswers[index] == 'a' ? 'bg-green-400' : 'bg-red-400'"
+                    :class="
+                      store.trueAnswers[index] == 'a'
+                        ? 'bg-green-400'
+                        : 'bg-red-400'
+                    "
                   >
                     <strong>A:</strong>
                     <span>{{ i.answers[0]?.a }}</span>
                   </p>
                   <p
-                  :class="store.trueAnswers[index] == 'b' ? 'bg-green-400' : 'bg-red-400'"
+                    :class="
+                      store.trueAnswers[index] == 'b'
+                        ? 'bg-green-400'
+                        : 'bg-red-400'
+                    "
                     class="w-full text-justify text-black flex gap-3 p-5 rounded-lg"
                   >
                     <strong>B:</strong>
                     <span>{{ i.answers[0]?.b }}</span>
                   </p>
                   <p
-                  :class="store.trueAnswers[index] == 'c' ? 'bg-green-400' : 'bg-red-400'"
+                    :class="
+                      store.trueAnswers[index] == 'c'
+                        ? 'bg-green-400'
+                        : 'bg-red-400'
+                    "
                     class="w-full text-justify text-black flex gap-3 p-5 rounded-lg"
                   >
                     <strong>C:</strong>
                     <span>{{ i.answers[0]?.c }}</span>
                   </p>
                   <p
-                  :class="store.trueAnswers[index] == 'd' ? 'bg-green-400' : 'bg-red-400'"
+                    :class="
+                      store.trueAnswers[index] == 'd'
+                        ? 'bg-green-400'
+                        : 'bg-red-400'
+                    "
                     class="w-full text-justify text-black flex gap-3 p-5 rounded-lg"
                   >
                     <strong>D:</strong>
-                    <span>{{ i.answers[0]?.d }}</span>  
+                    <span>{{ i.answers[0]?.d }}</span>
                   </p>
                 </div>
               </div>
@@ -650,7 +666,7 @@
             <h1>{{ store.allProducts }}</h1>
           </div>
           <div
-            v-show="store.guard"
+          v-show="store.guard == 'o\'quvchi'"
             class="w-full max-w-screen text-center p-20 text-2xl font-medium"
           >
             <h1>Siz savollarni ko'rish huququga ega emassiz!</h1>
@@ -703,7 +719,7 @@ const store = reactive({
   subjects: [{ title: "Fan yaratilmagan" }],
   accordion: [],
   plus: "",
-  guard: false,
+  guard: "",
   trueAnswers: [],
 });
 
@@ -763,24 +779,6 @@ const remove = reactive({
 });
 
 // ----------------------------------- axios --------------------------------
-const guard = () => {
-  axios
-    .post("/test-group", "data", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-    .then((res) => {
-      store.guard = false;
-    })
-    .catch((error) => {
-      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
-        store.guard = true;
-      }
-      // console.log("error", error);
-    });
-};
-
 const getProduct = () => {
   axios
     .get(`/test-group/${+router.currentRoute?.value?.params?.name}`, {
@@ -790,9 +788,9 @@ const getProduct = () => {
     })
     .then((res) => {
       console.log(res.data);
-      store.trueAnswers = []
-      for(let i of res.data.questions){
-        store.trueAnswers.push(i.answers[0].true_answer)
+      store.trueAnswers = [];
+      for (let i of res.data.questions) {
+        store.trueAnswers.push(i.answers[0].true_answer);
       }
       store.allProducts = res.data;
       if (store.allProducts.questions.length != 0) {
@@ -968,8 +966,38 @@ const deleteProduct = () => {
     });
 };
 
+const getGuard = () => {
+  axios
+    .get("/staff", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {
+      axios
+        .delete("/staff/1", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {})
+        .catch((error) => {
+          if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+            store.guard = "o'qituvchi";
+          }
+        });
+    })
+    .catch((error) => {
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+        store.guard = "o'quvchi";
+      }
+      store.error = true;
+      store.allProducts = error.response.data.message;
+    });
+};
+
 onMounted(() => {
-  guard();
+  getGuard();
   getProduct();
   getSubject();
 });

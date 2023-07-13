@@ -718,6 +718,7 @@
                         </span>
                       </p>
                       <i
+                        v-show="!store.guard"
                         @click="getOneProduct(i.id, 'subject')"
                         class="bx bx-plus cursor-pointer bg-blue-800 ml-2 font-extrabold text-white p-1 rounded-md"
                       ></i>
@@ -731,8 +732,9 @@
                         <span v-for="id in i.groups" :key="id.id"
                           >{{ id.name }},
                         </span>
-                      </p>
+                      </p>  
                       <i
+                        v-show="!store.guard"
                         @click="getOneProduct(i.id, 'group')"
                         class="bx bx-plus cursor-pointer bg-blue-800 ml-2 font-extrabold text-white p-1 rounded-md"
                       ></i>
@@ -747,6 +749,7 @@
                     </button>
                   </td>
                   <td
+                    v-show="!store.guard"
                     v-if="i.role != 'superadmin'"
                     class="text-center whitespace-nowrap font-medium pr-5"
                   >
@@ -806,7 +809,7 @@ import { useNavStore } from "../../stores/toggle";
 import { Placeholder2 } from "../../components";
 import { useNotificationStore } from "../../stores/notification";
 import axios from "@/services/axios";
-import {useInfoStore } from '../../stores/dashboard'
+import { useInfoStore } from "../../stores/dashboard";
 
 const info = useInfoStore();
 const notification = useNotificationStore();
@@ -962,9 +965,6 @@ const getProduct = () => {
       store.error = false;
     })
     .catch((error) => {
-      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
-        store.guard = true;
-      }
       notification.warning(error.response.data.message);
       store.error = true;
       store.allProducts = error.response.data.message;
@@ -1212,9 +1212,25 @@ const deleteProduct = () => {
     });
 };
 
+const getGuard = () => {
+  axios
+    .delete("/staff/1", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {})
+    .catch((error) => {
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+        store.guard = true;
+      }
+    });
+};
+
 onMounted(() => {
   getProduct();
   getSubject();
+  getGuard();
   getGroup();
 });
 </script>

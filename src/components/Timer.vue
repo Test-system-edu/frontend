@@ -46,6 +46,7 @@ let ap = h >= 12 ? "" : "";
 
 const store = reactive({
   is_time: true,
+  interval1: "",
 });
 
 function playSound() {
@@ -61,7 +62,7 @@ function playAlarm() {
 }
 
 const interval = () => {
-  setInterval(() => {
+  store.interval1 = setInterval(() => {
     console.log();
     // get time indicator elements
     let hours = document.getElementById("hours");
@@ -139,6 +140,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   timer.changeTime("00", "00", "00");
+  clearInterval(store.interval1);
 });
 </script>
 

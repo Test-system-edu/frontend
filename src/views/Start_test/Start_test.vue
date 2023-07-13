@@ -4,14 +4,17 @@
 
     <section class="md:py-4" :class="{ 'text-white': navbar.userNav }">
       <!------------------------------------------- Placeholder ------------------------------------------->
-      <div v-show="!store.allProducts">
+      <div v-show="!store.allProducts && !store.is_show.length">
         <Placeholder2 />
       </div>
       <!------------------------------------------- Placeholder ------------------------------------------->
 
       <!------------------------------------------- Search ------------------------------------------->
 
-      <div v-show="store.allProducts" class="w-full max-w-screen">
+      <div
+        v-show="store.allProducts && store.is_show.length"
+        class="w-full max-w-screen"
+      >
         <!-- Start coding here -->
         <div
           class="shadow rounded-xl flex flex-col lg:flex-row items-center justify-between lg:space-x-4 p-4 mb-4"
@@ -96,9 +99,6 @@
                   </td>
                   <td
                     v-if="i.questions"
-                    v-show="
-                      i.questions[0]?.test_group_id != store.test_group_id
-                    "
                     class="text-center font-medium px-8 py-3"
                   >
                     <button
@@ -181,6 +181,7 @@ const store = reactive({
   error: false,
   test_group_id: "id",
   is_show: "",
+  is_hide: "",
   subjects: [{ title: "Fan yaratilmagan" }],
 });
 
@@ -197,6 +198,7 @@ const getProduct = () => {
       },
     })
     .then((res) => {
+      console.log(res);
       store.allProducts = res.data;
       store.error = false;
     })
@@ -231,7 +233,7 @@ const getFinishTime = () => {
           if (hour >= h) {
             if (minute >= m) {
               if (second >= s) {
-                // topilmadi
+                store.test_group_id == "id";
               } else {
                 store.test_group_id = i.test_group_id;
               }
@@ -257,8 +259,10 @@ const getFinishTime = () => {
             if (i.is_submit) {
               store.is_show += `,${i.test_group_id},`;
             }
+            if (store.test_group_id == "id" && i.is_submit) {
+              store.is_hide = store.test_group_id;
+            }
           }
-          store.test_group_id = "id";
         })
         .catch((error) => {
           console.log("error1", error);

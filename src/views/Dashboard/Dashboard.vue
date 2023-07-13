@@ -44,10 +44,18 @@
                     >
                       Guruhlar
                     </p>
-                    <h5 class="mb-0 font-bold" v-show="index == 0">{{ info.Students.length || 0 }}</h5>
-                    <h5 class="mb-0 font-bold" v-show="index == 1">{{ info.Staff }}</h5>
-                    <h5 class="mb-0 font-bold" v-show="index == 2">{{ info.Subjects }}</h5>
-                    <h5 class="mb-0 font-bold" v-show="index == 3">{{ info.Groups }}</h5>
+                    <h5 class="mb-0 font-bold" v-show="index == 0">
+                      {{ info.Students.length || 0 }}
+                    </h5>
+                    <h5 class="mb-0 font-bold" v-show="index == 1">
+                      {{ info.Staff }}
+                    </h5>
+                    <h5 class="mb-0 font-bold" v-show="index == 2">
+                      {{ info.Subjects }}
+                    </h5>
+                    <h5 class="mb-0 font-bold" v-show="index == 3">
+                      {{ info.Groups }}
+                    </h5>
                   </div>
                 </div>
                 <div class="basis-1/3">
@@ -55,26 +63,26 @@
                     class="w-14 h-12 float-right pr-2 flex justify-center items-center rounded-lg bg-gray-1000"
                   >
                     <img
-                      class="bg-gray-200 h-14 object-cover rounded-lg px-2 py-1"
+                      class="bg-gray-200 h-14 object-cover rounded-lg px-1 py-1"
                       src="https://cdn.pixabay.com/photo/2021/01/30/12/06/icon-5963629_960_720.png"
                       alt="img"
                       v-show="index == 0"
                     />
                     <img
-                      class="bg-gray-200 h-14 object-cover rounded-lg px-2 py-1"
-                      src="https://img.uxwing.com/wp-content/themes/uxwing/download/sport-awards/achievement-award-medal-icon.svg"
+                      class="bg-gray-200 h-14 object-cover rounded-lg"
+                      src="https://cdn.pixabay.com/photo/2018/09/15/16/56/teacher-3679814_960_720.jpg"
                       alt="img"
                       v-show="index == 1"
                     />
                     <img
-                      class="bg-gray-200 h-14 object-cover rounded-lg px-2 py-1"
-                      src="https://journyx.com/wp-content/uploads/2019/09/Office-Building-Dodger-Blue-300x300.png"
+                      class="bg-gray-200 h-14 object-cover rounded-lg"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuraLLKEykFDvI5Nc3Qo4RiqZqhzHLVU2vKQ&usqp=CAU"
                       alt="img"
                       v-show="index == 2"
                     />
                     <img
-                      class="bg-gray-200 h-14 object-cover rounded-lg px-2 py-1"
-                      src="https://cdn-icons-png.flaticon.com/512/2311/2311838.png"
+                      class="bg-gray-200 h-14 object-cover rounded-lg"
+                      src="https://www.pngfind.com/pngs/m/170-1708222_png-file-svg-group-people-icon-png-transparent.png"
                       alt="img"
                       v-show="index == 3"
                     />
@@ -330,10 +338,13 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { onBeforeMount, reactive } from "vue";
 import { ChartLine, UserChart, Placeholder1 } from "../../components";
 import { useNavStore } from "../../stores/toggle";
 import { useInfoStore } from "../../stores/dashboard";
+import axios from "../../services/axios";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const navbar = useNavStore();
 const info = useInfoStore();
 
@@ -345,6 +356,25 @@ const store = reactive({
 setTimeout(() => {
   store.data = true;
 }, 1000);
+
+const getGuard = () => {
+  axios
+    .get("/staff", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+    .then((res) => {})
+    .catch((error) => {
+      if (error.response.data.message == "Admin huquqi sizda yo'q!") {
+        router.push("/start_test");
+      }
+    });
+};
+
+onBeforeMount(() => {
+  getGuard();
+});
 </script>
 
 <style lang="scss" scoped>
