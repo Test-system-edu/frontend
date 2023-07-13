@@ -430,19 +430,6 @@
                 </tr>
               </thead>
               <tbody v-show="!store.error">
-                <tr
-                  class="border-b"
-                  :class="
-                    navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
-                  "
-                  v-show="!store.searchList.length"
-                  v-for="i in store.allProducts"
-                  :key="i.id"
-                >
-                  <th
-                    scope="row"
-                    class="text-center px-5 py-3 font-medium whitespace-nowrap"
-                  >
                 <tr class="border-b" :class="navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
                   " v-for="i in store.allProducts" :key="i.id">
                   <th scope="row" class="text-center px-5 py-3 font-medium whitespace-nowrap">
@@ -648,6 +635,8 @@ const store = reactive({
   filter: "",
   filter_show: false,
   searchList: [],
+  userId: "",
+  role: "",
 });
 
 // ---------------------------- search ------------------------------------
@@ -664,10 +653,6 @@ function searchFunc() {
   }
 }
 // ---------------------------- search end ------------------------------------
-=======
-  userId: "",
-  role: "",
-});
 
 const checkRole = () => {
   axios.get(`staff/${store.userId}`, {
