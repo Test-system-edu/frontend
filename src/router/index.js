@@ -97,7 +97,7 @@ const router = createRouter({
           component: Results,
         },
         {
-          path: '/results/:id/:name',
+          path: '/results/:id',
           name: 'slug_results',
           component: SlugResults,
         },
