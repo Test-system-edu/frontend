@@ -313,31 +313,34 @@
                     />
                   </svg>
                 </div>
-                <input
-                  v-model="store.filter"
-                  @input="
-                    store.filter_show = true;
-                    searchFunc();
-                  "
-                  type="search"
-                  id="simple-search"
-                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
-                  placeholder="Izlash uchun yozing .."
-                />
-                <ul
-                  v-show="store.filter_show"
-                  class="absolute z-10 max-h-80 overflow-y-auto overflow-hidden py-1 text-gray-600 rounded bg-white w-full"
-                  :class="{ hidden: !store.searchList.length }"
-                >
-                  <li
-                    class="hover:bg-gray-100 cursor-pointer pl-2"
-                    v-for="(i, index) in store.searchList"
-                    :key="index"
-                    @click="store.filter = i.title; searchFunc();"
+                  <input
+                    v-model="store.filter"
+                    @input="
+                      store.filter_show = true;
+                      searchFunc();
+                    "
+                    type="search"
+                    id="simple-search"
+                    class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
+                    placeholder="Qidirish..."
+                  />
+                  <ul
+                    v-show="store.filter_show"
+                    class="absolute z-10 max-h-80 overflow-y-auto overflow-hidden py-1 text-gray-600 rounded bg-white w-full"
+                    :class="{ hidden: !store.searchList.length }"
                   >
-                    {{ i.title }}
-                  </li>
-                </ul>
+                    <li
+                      class="hover:bg-gray-100 cursor-pointer pl-2"
+                      v-for="(i, index) in store.searchList"
+                      :key="index"
+                      @click="
+                        store.filter = i.title;
+                        searchFunc();
+                      "
+                    >
+                      {{ i.title }}
+                    </li>
+                  </ul>
               </div>
             </form>
           </div>
@@ -516,8 +519,12 @@ function searchFunc() {
       store.searchList.push(i);
     }
   }
+
+  if (!store.filter.length) {
+    store.searchList = [];
+  }
 }
-// ---------------------------- search end ------------------------------------
+// ---------------------------- search ------------------------------------
 
 function enterSlug(id, name) {
   router.push(`./subjects/${id}/${name}`);

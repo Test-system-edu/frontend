@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-2">
+  <div @click="store.filter_show = false" class="container mx-auto px-2">
     <!-- ----------------------------------------- MODAL -------------------------------------------------------- -->
 
     <!-- Main modal -->
@@ -356,7 +356,7 @@
                   type="search"
                   id="simple-search"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
-                  placeholder="Izlash uchun yozing .."
+                  placeholder="Qidirish..."
                 />
                 <ul
                   v-show="store.filter_show"
@@ -571,6 +571,10 @@ function searchFunc() {
     if (i.name.toLowerCase().includes(store.filter.toLowerCase())) {
       store.searchList.push(i);
     }
+  }
+
+  if (!store.filter.length) {
+    store.searchList = [];
   }
 }
 // ---------------------------- search end ------------------------------------

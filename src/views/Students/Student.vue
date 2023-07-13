@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-2">
+  <div @click="store.filter_show = false" class="container mx-auto px-2">
     <!-- ----------------------------------------- MODAL -------------------------------------------------------- -->
 
     <!-- Main modal -->
@@ -424,11 +424,33 @@
                   </svg>
                 </div>
                 <input
-                  type="text"
+                  v-model="store.filter"
+                  @input="
+                    store.filter_show = true;
+                    searchFunc();
+                  "
+                  type="search"
                   id="simple-search"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
-                  placeholder="Izlash uchun yozing .."
+                  placeholder="Qidirish .."
                 />
+                <ul
+                  v-show="store.filter_show"
+                  class="absolute z-10 max-h-80 overflow-y-auto overflow-hidden py-1 text-gray-600 rounded bg-white w-full"
+                  :class="{ hidden: !store.searchList.length }"
+                >
+                  <li
+                    class="hover:bg-gray-100 cursor-pointer pl-2"
+                    v-for="(i, index) in store.searchList"
+                    :key="index"
+                    @click="
+                      store.filter = i.full_name;
+                      searchFunc();
+                    "
+                  >
+                    {{ i.full_name }}
+                  </li>
+                </ul>
               </div>
             </form>
           </div>
@@ -462,7 +484,67 @@
                   :class="
                     navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
                   "
+                  v-show="!store.searchList.length"
                   v-for="i in store.allProducts"
+                  :key="i"
+                >
+                  <th
+                    scope="row"
+                    class="text-center px-8 py-3 font-medium whitespace-nowrap"
+                  >
+                    <span>{{ i.full_name }}</span>
+                  </th>
+                  <td class="text-center font-medium text-blue-800 px-8 py-2">
+                    <p class="bg-blue-100 rounded-[5px] p-1 whitespace-nowrap">
+                      {{ i.group?.name }}
+                    </p>
+                  </td>
+                  <td class="text-center font-medium text-red-800 px-8 py-2">
+                    <p class="bg-red-100 rounded-[5px] p-1">
+                      {{ i.phone_number }}
+                    </p>
+                  </td>
+                  <td class="text-center font-medium text-green-800 px-8 py-2">
+                    <p class="bg-green-100 rounded-[5px] p-1">
+                      {{ i.is_active }}
+                    </p>
+                  </td>
+                  <td class="text-center font-medium px-8 py-3">
+                    <button
+                      @click="
+                        enterSlug(
+                          i.id,
+                          i.full_name.split(' ').join('_').toLowerCase()
+                        )
+                      "
+                      class="btnKirish bg-blue-600 rounded-lg px-5 py-2.5 text-white focus:ring-2"
+                    >
+                      Kirish
+                    </button>
+                  </td>
+                  <td
+                    v-show="!store.guard"
+                    class="text-center whitespace-nowrap font-medium pr-5"
+                  >
+                    <i
+                      @click="getOneProduct(i.id)"
+                      class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
+                    >
+                    </i>
+                    <i
+                      @click="deleteFunc(i.id)"
+                      class="bx bxs-trash bg-red-300 cursor-pointer text-red-600 rounded-lg p-2 focus:ring-2"
+                    >
+                    </i>
+                  </td>
+                </tr>
+                <tr
+                  class="border-b"
+                  :class="
+                    navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
+                  "
+                  v-show="store.searchList.length"
+                  v-for="i in store.searchList"
                   :key="i"
                 >
                   <th
@@ -582,7 +664,25 @@ const store = reactive({
   error: false,
   groups: [{ name: "Guruh yaratilmagan" }],
   guard: "",
+  filter: "",
+  filter_show: false,
+  searchList: [],
 });
+
+// ---------------------------- search ------------------------------------
+function searchFunc() {
+  store.searchList = [];
+  for (let i of store.allProducts) {
+    if (i.full_name.toLowerCase().includes(store.filter.toLowerCase())) {
+      store.searchList.push(i);
+    }
+  }
+
+  if (!store.filter.length) {
+    store.searchList = [];
+  }
+}
+// ---------------------------- search end ------------------------------------
 
 function enterSlug(id, name) {
   router.push(`./students/${id}/${name}`);

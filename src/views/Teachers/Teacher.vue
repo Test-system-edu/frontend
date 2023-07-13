@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto px-2">
+  <div @click="store.filter_show = false" class="container mx-auto px-2">
     <!-- ----------------------------------------- MODAL -------------------------------------------------------- -->
 
     <!-- Main modal -->
@@ -378,6 +378,34 @@
                       clip-rule="evenodd" />
                   </svg>
                 </div>
+                <input
+                  v-model="store.filter"
+                  @input="
+                    store.filter_show = true;
+                    searchFunc();
+                  "
+                  type="search"
+                  id="simple-search"
+                  class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
+                  placeholder="Qidirish .."
+                />
+                <ul
+                  v-show="store.filter_show"
+                  class="absolute z-10 max-h-80 overflow-y-auto overflow-hidden py-1 text-gray-600 rounded bg-white w-full"
+                  :class="{ hidden: !store.searchList.length }"
+                >
+                  <li
+                    class="hover:bg-gray-100 cursor-pointer pl-2"
+                    v-for="(i, index) in store.searchList"
+                    :key="index"
+                    @click="
+                      store.filter = i.full_name;
+                      searchFunc();
+                    "
+                  >
+                    {{ i.full_name }}
+                  </li>
+                </ul>
                 <input type="text" id="simple-search"
                   class="bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2"
                   placeholder="Izlash uchun yozing ..." />
@@ -402,6 +430,19 @@
                 </tr>
               </thead>
               <tbody v-show="!store.error">
+                <tr
+                  class="border-b"
+                  :class="
+                    navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
+                  "
+                  v-show="!store.searchList.length"
+                  v-for="i in store.allProducts"
+                  :key="i.id"
+                >
+                  <th
+                    scope="row"
+                    class="text-center px-5 py-3 font-medium whitespace-nowrap"
+                  >
                 <tr class="border-b" :class="navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
                   " v-for="i in store.allProducts" :key="i.id">
                   <th scope="row" class="text-center px-5 py-3 font-medium whitespace-nowrap">
@@ -435,6 +476,96 @@
                         <span v-for="id in i.groups" :key="id.id">{{ id.name }},
                         </span>
                       </p>
+                      <i
+                        v-show="!store.guard"
+                        @click="getOneProduct(i.id, 'group')"
+                        class="bx bx-plus cursor-pointer bg-blue-800 ml-2 font-extrabold text-white p-1 rounded-md"
+                      ></i>
+                    </div>
+                  </td>
+                  <td class="text-center font-medium px-5 py-3">
+                    <button
+                      @click="enterSlug(i.id, i.full_name)"
+                      class="btnKirish bg-blue-600 rounded-lg px-5 py-2.5 text-white focus:ring-2"
+                    >
+                      Batafsil
+                    </button>
+                  </td>
+                  <td
+                    v-show="!store.guard"
+                    v-if="i.role != 'superadmin'"
+                    class="text-center whitespace-nowrap font-medium pr-5"
+                  >
+                    <i
+                      @click="getOneProduct(i.id, 'edit')"
+                      class="bx bxs-pencil bg-blue-300 text-blue-600 rounded-lg p-2 mr-3 cursor-pointer focus:ring-2"
+                    >
+                    </i>
+                    <i
+                      @click="deleteFunc(i.id)"
+                      class="bx bxs-trash bg-red-300 cursor-pointer text-red-600 rounded-lg p-2 focus:ring-2"
+                    >
+                    </i>
+                  </td>
+                </tr>
+                <tr
+                  class="border-b"
+                  :class="
+                    navbar.userNav ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
+                  "
+                  v-show="store.searchList.length"
+                  v-for="i in store.searchList"
+                  :key="i.id"
+                >
+                  <th
+                    scope="row"
+                    class="text-center px-5 py-3 font-medium whitespace-nowrap"
+                  >
+                    {{ i.full_name }}
+                  </th>
+                  <td class="text-center font-medium text-blue-800 px-5 py-2">
+                    <p
+                      v-if="i.role"
+                      class="bg-blue-100 min-w-fit rounded-[5px] px-2 py-1 whitespace-nowrap"
+                    >
+                      {{ i.role }}
+                    </p>
+                  </td>
+                  <td class="text-center font-medium text-red-800 px-5 py-2">
+                    <p class="bg-red-100 rounded-[5px] p-1 whitespace-nowrap">
+                      {{ i.phone_number }}
+                    </p>
+                  </td>
+                  <td class="text-center font-medium text-blue-800 px-5 py-2">
+                    <div
+                      class="flex gap-1 justify-between text-center bg-blue-100 min-w-fit rounded-[5px] px-2 py-1 whitespace-nowrap"
+                    >
+                      <p>
+                        <span v-for="fan in i.subjects" :key="fan.id"
+                          >{{ fan.title }},
+                        </span>
+                      </p>
+                      <i
+                        v-show="!store.guard"
+                        @click="getOneProduct(i.id, 'subject')"
+                        class="bx bx-plus cursor-pointer bg-blue-800 ml-2 font-extrabold text-white p-1 rounded-md"
+                      ></i>
+                    </div>
+                  </td>
+                  <td class="text-center font-medium text-blue-800 px-5 py-2">
+                    <div
+                      class="flex gap-2 justify-between bg-blue-100 min-w-fit rounded-[5px] px-2 py-1 whitespace-nowrap"
+                    >
+                      <p>
+                        <span v-for="id in i.groups" :key="id.id"
+                          >{{ id.name }},
+                        </span>
+                      </p>
+                      <i
+                        v-show="!store.guard"
+                        @click="getOneProduct(i.id, 'group')"
+                        class="bx bx-plus cursor-pointer bg-blue-800 ml-2 font-extrabold text-white p-1 rounded-md"
+                      ></i>
                       <i v-show="!store.guard" @click="getOneProduct(i.id, 'group')"
                         class="bx bx-plus cursor-pointer bg-blue-800 ml-2 font-extrabold text-white p-1 rounded-md"></i>
                     </div>
@@ -514,6 +645,26 @@ const store = reactive({
   addSubject: "",
   hashed_password: "",
   guard: false,
+  filter: "",
+  filter_show: false,
+  searchList: [],
+});
+
+// ---------------------------- search ------------------------------------
+function searchFunc() {
+  store.searchList = [];
+  for (let i of store.allProducts) {
+    if (i.full_name.toLowerCase().includes(store.filter.toLowerCase())) {
+      store.searchList.push(i);
+    }
+  }
+
+  if (!store.filter.length) {
+    store.searchList = [];
+  }
+}
+// ---------------------------- search end ------------------------------------
+=======
   userId: "",
   role: "",
 });
