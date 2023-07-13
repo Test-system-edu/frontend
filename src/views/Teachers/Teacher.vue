@@ -635,6 +635,8 @@ const store = reactive({
   filter: "",
   filter_show: false,
   searchList: [],
+  userId: "",
+  role: "",
 });
 
 // ---------------------------- search ------------------------------------
